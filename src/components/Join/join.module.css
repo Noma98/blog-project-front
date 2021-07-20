@@ -1,0 +1,22 @@
+.join{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 25rem;
+    border-radius: 1em;
+    padding: 3em;
+}
+.join small{
+    margin-top: 0.4em;
+    color: var(--color-red);
+}
+.joinBtn{
+    margin-top: 1em;
+    background-color: var(--color-blue);
+    color: whitesmoke;
+    font-size: 1rem;
+}
+.joinBtn:hover{
+    background-color: var(--color-dark-blue);
+}

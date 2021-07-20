@@ -1,21 +1,26 @@
-import { useEffect, useState } from 'react';
-import './app.css';
-import axios from 'axios';
+import './app.module.css';
+import {
+  BrowserRouter,
+  Switch,
+  Route
+} from 'react-router-dom';
+import Home from './pages/home/home';
+import Join from './components/Join/join';
 
-function App() {
-  const [result, setResult] = useState("");
-
-  useEffect(() => {
-    axios.get("/api/test").then(response => {
-      setResult(response.data.content);
-    })
-  }, []);
-
+function App({ api }) {
   return (
-    <>
-      <h1>Hello,world!</h1>
-      <h2>API 요청 : {result}</h2>
-    </>
+    <div className="app">
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/join" exact>
+            <Join api={api} />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 }
 
