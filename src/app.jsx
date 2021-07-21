@@ -15,7 +15,7 @@ function App({ api }) {
     <BrowserRouter>
       <div className={styles.app}>
         <nav className={styles.nav}>
-          <Header />
+          <Header api={api} />
           <Sidebar />
           <footer>
             ⓒ noma

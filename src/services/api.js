@@ -9,5 +9,9 @@ class Api {
         const response = await axios.post("/api/users/login", data);
         return response.data;
     }
+    async getLogout() {
+        const response = await axios.get("/api/users/logout");
+        return response.data;
+    }
 }
 export default Api;

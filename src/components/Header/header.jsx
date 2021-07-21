@@ -1,8 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styles from './header.module.css';
 
-function Header() {
+function Header({ api }) {
+    const history = useHistory();
+    const handleLogout = async () => {
+        const response = await api.getLogout();
+        if (response.success) {
+            history.push("/");
+        } else {
+            alert("⛔ 로그아웃 실패");
+        }
+    }
     return (
         <header className={styles.header}>
             <Link to="/"><h3>blog name</h3></Link>
@@ -13,8 +22,8 @@ function Header() {
                 <li>
                     <Link to="/join">Join</Link>
                 </li>
-                <li>
-                    <Link to="/logout">Logout</Link>
+                <li className={styles.logout} onClick={handleLogout}>
+                    Logout
                 </li>
                 <li>
                     <Link to="/profile">Profile</Link>

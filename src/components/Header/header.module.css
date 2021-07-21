@@ -5,15 +5,19 @@
     align-items: center;
     padding: 0.5em 0;
 }
-.header a,.header h3{
+.header a,.header h3,.logout{
     color:white;
     padding:0.3em;
 }
 .menu{
     display: flex;
+    align-items: center;
 }
-.menu li a{
+.menu li a,.logout{
     font-size: 0.8rem;
+}
+.logout{
+    cursor: pointer;
 }
 .search{
     border-radius: 3em !important;
