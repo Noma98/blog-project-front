@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+:root{
+    /* color */
+    --color-blue:#297fba;
+    --color-dark-blue:#236fa1;
+    --color-red:rgb(221, 35, 35);
+    --color-gray-1:#f1f1f1;
+    --color-gray-2:#c7c7c7;
+    --color-gray-3:#575653;
+    --color-gray-4:#333230;
+    --color-gray-trans:rgba(128, 128, 128, 0.479);
+    /* shadow*/
+    --shadow-1:0px 0px 20px 6px #ececec;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    margin: 0;
+    height: 100vh;
+    
+}
+h1,h2,h3{
+    margin: 0;
+}
+a{
+    color:black;
+    text-decoration: none;
+}
+ul{
+    list-style: none;
+    padding-left: 0;
+}
+form{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+}
+label{
+    margin-bottom: 0.3em;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+}
+input:not(input[type="submit"]){
+    border:none;
+    padding: 0.4em 0.7em;
+    outline-color:var(--color-blue);
+    font-size: 0.9rem;
+    background-color: var(--color-gray-1);
+    border-radius: 0.1em;
+    margin:0.4em 0;
+}
+button,input[type="submit"]{
+    cursor: pointer;
+    padding: 0.7em 2em;
+    border-radius: 0.5em;
+    border: none;
+}
+::-webkit-scrollbar{
+    width: 0.5em;
+}
+::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+::-webkit-scrollbar-button{
+    width:0;
+    height: 0.2em;
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--color-gray-2);
+    border-radius: 1em;
+}
+@media screen and (max-width:960px){
+    html{
+        font-size: 19px;
+    }
+}
+@media screen and (max-width:680px){
+    html{
+        font-size: 18px;
+    }
+}

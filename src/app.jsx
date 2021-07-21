@@ -1,4 +1,4 @@
-import './app.module.css';
+import styles from './app.module.css';
 import {
   BrowserRouter,
   Switch,
@@ -7,24 +7,35 @@ import {
 import Home from './pages/home/home';
 import Join from './components/Join/join';
 import Login from './components/Login/login';
+import Sidebar from './components/Sidebar/sidebar';
+import Header from './components/Header/header';
 
 function App({ api }) {
   return (
-    <div className="app">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/join" exact>
-            <Join api={api} />
-          </Route>
-          <Route path="/login" exact>
-            <Login api={api} />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <div className={styles.app}>
+        <nav className={styles.nav}>
+          <Header />
+          <Sidebar />
+          <footer>
+            ⓒ noma
+          </footer>
+        </nav>
+        <section className={styles.content}>
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/join" exact>
+              <Join api={api} />
+            </Route>
+            <Route path="/login" exact>
+              <Login api={api} />
+            </Route>
+          </Switch>
+        </section>
+      </div>
+    </BrowserRouter>
   );
 }
 

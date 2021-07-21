@@ -1,68 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
-
-:root{
-    /* color */
-    --color-blue:rgb(33, 118, 255);
-    --color-dark-blue:rgb(31, 107, 231);
-    --color-red:rgb(221, 35, 35);
-    --color-gray-1:rgb(235, 241, 246);
-    --color-gray-2:rgb(216, 215, 215);
-    --color-gray-3:rgb(172, 172, 172);
-    --color-gray-4:rgb(105, 105, 105);
-    --color-gray-trans:rgba(128, 128, 128, 0.479);
-    /* shadow*/
-    --shadow-1:0px 0px 20px 6px #7F7F7F;
+.app{
+    display: flex;
 }
-
-*{
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+.nav{
+    position: fixed;
+    width: 17rem;
+    height: 100vh;
+    overflow-y: scroll;
 }
-body{
-    margin: 0;
+.nav::-webkit-scrollbar{
+    display: none;
+}
+.content{
+    padding: 1em 3em;
+    margin-left: 17rem;
     height: 100vh;
 }
-h1,h2,h3{
-    margin: 0;
-}
-a{
-    color:var(--color-blue);
-    text-decoration: none;
-}
-form{
-    margin-top: 1em;
-    display: flex;
-    flex-direction: column;
-}
-label{
-    margin-bottom: 0.5em;
-    font-size: 0.9rem;
-    display: flex;
-    flex-direction: column;
-}
-input:not(input[type="submit"]){
-    border:none;
-    padding: 0.5em 0.8em;
-    outline-color:var(--color-blue);
-    font-size: 1rem;
-    background-color: var(--color-gray-1);
-    border-radius: 0.1em;
-    margin:0.4em 0;
-}
-button,input[type="submit"]{
-    cursor: pointer;
-    padding: 0.7em 2em;
-    border-radius: 0.5em;
-    border: none;
-}
-
-@media screen and (max-width:960px){
-    html{
-        font-size: 19px;
-    }
-}
-@media screen and (max-width:680px){
-    html{
-        font-size: 18px;
-    }
+footer{
+    background-color: var(--color-gray-3);
+    padding: 1em;
+    font-size: 0.8rem;
+    text-align: center;
+    color: var(--color-gray-2);
 }

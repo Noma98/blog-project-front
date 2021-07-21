@@ -1,16 +1,13 @@
 .login{
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
     width: 25rem;
     border-radius: 1em;
     padding: 3em;
 }
 .join{
     font-weight: 600;
+    color:var(--color-blue);
 }
 .err{
     margin-top: 0.4em;
