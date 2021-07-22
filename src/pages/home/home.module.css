@@ -1,0 +1,24 @@
+.home{
+    padding: 2em 0 0.5em 0;
+}
+.user{
+    display:flex;
+    padding:1em 0;
+    border-bottom: 1.5px solid whitesmoke;
+}
+.avatar{
+    width:7rem;
+    height:7rem;
+}
+.info{
+    margin-left: 2em;
+}
+.latestHeader{
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5em 0 1.2em 0;
+}
+.latestHeader button{
+    font-size: 1.5rem;
+    background-color: transparent;
+}
