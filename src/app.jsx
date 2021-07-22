@@ -5,8 +5,8 @@ import {
   Route
 } from 'react-router-dom';
 import Home from './pages/home/home';
-import Join from './components/Join/join';
-import Login from './components/Login/login';
+import Join from './pages/Join/join';
+import Login from './pages/Login/login';
 import Sidebar from './components/Sidebar/sidebar';
 import Header from './components/Header/header';
 import { useCallback, useEffect, useState } from 'react';
