@@ -13,5 +13,13 @@ class Api {
         const response = await axios.get("/api/users/logout");
         return response.data;
     }
+    async getUserData() {
+        const response = await axios.get("/api/users/auth");
+        const { isAuth, _id, name, email, avatar, blogInfo } = response.data;
+        if (!isAuth) {
+            return null;
+        }
+        return { _id, name, email, avatar, blogInfo };
+    }
 }
 export default Api;

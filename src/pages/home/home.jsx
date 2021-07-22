@@ -1,9 +1,9 @@
 import withAuth from '../../hoc/withAuth'
 
-function Home() {
+function Home({ user }) {
     return (
         <div>
-            This is Home..
+            {user ? `Hello, ${user.name}!` : "This is home..."}
         </div>
     )
 }

@@ -3,7 +3,7 @@ import styles from './login.module.css';
 import { Link, useHistory } from 'react-router-dom';
 import withAuth from '../../hoc/withAuth';
 
-function Login({ api }) {
+function Login({ api, onLogin }) {
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
     const [err, setErr] = useState(null);
@@ -18,6 +18,7 @@ function Login({ api }) {
             setErr(response.message);
             return;
         }
+        onLogin();
         history.push("/");
 
     }
