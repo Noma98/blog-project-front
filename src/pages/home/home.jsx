@@ -1,9 +1,11 @@
+import withAuth from '../../hoc/withAuth'
+
 function Home() {
     return (
         <div>
-            home 화면
+            This is Home..
         </div>
     )
 }
 
-export default Home
+export default withAuth(Home, null);

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import styles from './join.module.css';
 import { useHistory } from 'react-router-dom';
+import withAuth from '../../hoc/withAuth';
 
 function Join({ api }) {
     const [email, setEmail] = useState("");
@@ -61,4 +62,4 @@ function Join({ api }) {
     )
 }
 
-export default Join
+export default withAuth(Join, false);
