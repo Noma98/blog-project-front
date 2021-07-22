@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import styles from './sidebar.module.css';
 
 function Sidebar() {
@@ -6,8 +7,8 @@ function Sidebar() {
         <div className={styles.sidebar}>
             <nav className={styles.nav}>
                 <ul>
-                    <li className={styles.menu}>
-                        THE DOCUMENTAION
+                    <li className={styles.posts}>
+                        <Link to="/posts">ALL POSTS</Link>
                     </li>
                     <li>
                         Sample Menu 1

@@ -10,11 +10,13 @@
 .sidebar li{
     padding: 0.4em 1em;
     font-weight: 300;
+    color: whitesmoke;
+    cursor: pointer;
 }
 .sidebar li:hover{
     background-color: var(--color-gray-3);
 }
-.menu{
+.posts a{
     color: var(--color-blue);
-    font-weight: 500 !important;
+    font-weight: 500;
 }

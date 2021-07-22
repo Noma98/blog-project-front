@@ -10,20 +10,22 @@
     --color-gray-3:#575653;
     --color-gray-4:#333230;
     --color-gray-trans:rgba(128, 128, 128, 0.479);
+    --color-black:rgb(47, 47, 47);
     /* shadow*/
-    --shadow-1:0px 0px 20px 6px #ececec;
+    --shadow-1:20px 0px 20px 6px #ececec;
 }
 
 *{
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    color: var(--color-black);
 }
 body{
     margin: 0;
     height: 100vh;
     
 }
-h1,h2,h3{
+h1,h2,h3,p{
     margin: 0;
 }
 a{
@@ -56,8 +58,6 @@ input:not(input[type="submit"]){
 }
 button,input[type="submit"]{
     cursor: pointer;
-    padding: 0.7em 2em;
-    border-radius: 0.5em;
     border: none;
 }
 ::-webkit-scrollbar{

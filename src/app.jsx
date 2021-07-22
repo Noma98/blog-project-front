@@ -10,6 +10,7 @@ import Login from './pages/Login/login';
 import Sidebar from './components/Sidebar/sidebar';
 import Header from './components/Header/header';
 import { useCallback, useEffect, useState } from 'react';
+import Posts from './pages/Posts/posts';
 
 function App({ api }) {
   const [user, setUser] = useState(null);
@@ -48,6 +49,9 @@ function App({ api }) {
             </Route>
             <Route path="/login" exact>
               <Login api={api} onLogin={handleLogin} />
+            </Route>
+            <Route path="/posts">
+              <Posts />
             </Route>
           </Switch>
         </section>
