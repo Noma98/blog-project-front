@@ -1,9 +1,9 @@
 import React from 'react'
 import Post from '../../components/Post/post';
-import styles from './posts.module.css';
+import styles from './viewPosts.module.css';
 
 const tests = [1, 2, 3, 4, 5];
-function Posts() {
+function ViewPosts() {
     return (
         <div className={styles.posts}>
             <div className={styles.header}>
@@ -24,4 +24,4 @@ function Posts() {
     )
 }
 
-export default Posts;
+export default ViewPosts;
