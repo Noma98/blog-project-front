@@ -30,7 +30,7 @@ function Login({ api, onLogin }) {
     }
     return (
         <div className={styles.login}>
-            <h2>로그인</h2>
+            <h1>로그인</h1>
             <small>아직 계정이 없으십니까? <Link to="/join" className={styles.join}>가입하기</Link></small>
             {err && <small className={styles.err}><i className="fas fa-exclamation-circle"></i> {err}</small>}
             <form onSubmit={handleSubmit} ref={formRef} className={styles.loginForm}>

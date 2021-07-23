@@ -3,23 +3,32 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.5em 0;
+    justify-content: center;
+    padding: 2em 0;
+    height: 30%;
 }
-.header a,.header h3,.logout{
-    color:white;
-    padding:0.3em;
+.header *{
+    color: whitesmoke;
 }
-.menu{
+
+.nav{
     display: flex;
     align-items: center;
+    margin: 0.8em 0 0 0 ;
 }
-.menu li a,.logout{
+
+.nav i,.logout button,nav li a{
     font-size: 0.8rem;
+    padding: 0.3em;
 }
-.logout{
-    cursor: pointer;
+.logout button{
+    background-color: transparent;
+}
+.searchForm{
+    margin: 0;
 }
 .search{
+    color: var(--color-black);
     border-radius: 3em !important;
     outline-style: none;
     font-size: 0.8rem !important;

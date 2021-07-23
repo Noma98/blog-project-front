@@ -5,6 +5,7 @@
     --color-blue:#297fba;
     --color-dark-blue:#236fa1;
     --color-red:rgb(221, 35, 35);
+    --color-beige:rgb(231, 231, 231);
     --color-gray-1:#f1f1f1;
     --color-gray-2:#c7c7c7;
     --color-gray-3:#575653;
@@ -22,14 +23,18 @@
 }
 body{
     margin: 0;
-    height: 100vh;
-    
+    overflow-y: hidden;
 }
 h1,h2,h3,p{
     margin: 0;
 }
+h1{
+    font-size: 2rem;
+}
+h3{
+    font-size: 1.2rem;
+}
 a{
-    color:black;
     text-decoration: none;
 }
 ul{
@@ -52,27 +57,13 @@ input:not(input[type="submit"]){
     padding: 0.4em 0.7em;
     outline-color:var(--color-blue);
     font-size: 0.9rem;
-    background-color: var(--color-gray-1);
-    border-radius: 0.1em;
+    background-color: white;
+    border-radius: 0.2em;
     margin:0.4em 0;
 }
 button,input[type="submit"]{
     cursor: pointer;
     border: none;
-}
-::-webkit-scrollbar{
-    width: 0.5em;
-}
-::-webkit-scrollbar-track{
-    background-color: transparent;
-}
-::-webkit-scrollbar-button{
-    width:0;
-    height: 0.2em;
-}
-::-webkit-scrollbar-thumb{
-    background-color: var(--color-gray-2);
-    border-radius: 1em;
 }
 @media screen and (max-width:960px){
     html{

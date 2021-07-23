@@ -15,15 +15,22 @@ function Header({ api, onLogout, user }) {
     }
     return (
         <header className={styles.header}>
-            <Link to="/"><h3>{user ? user.blogInfo.blogName : "blog"}</h3></Link>
-            <ul className={styles.menu}>
+            <Link to="/">
+                <h3>nomab.log</h3>
+            </Link>
+            <ul className={styles.nav}>
                 {user ? (
                     <>
                         <li className={styles.logout} onClick={handleLogout}>
-                            Logout
+                            <button>
+                                Logout
+                            </button>
                         </li>
                         <li>
-                            <Link to="/profile">Profile</Link>
+                            <Link to="/user/edit"><i className="fas fa-user-edit"></i></Link>
+                        </li>
+                        <li>
+                            <Link to="/blog/edit"><i className="fas fa-cog"></i></Link>
                         </li>
                     </>
                 ) : (
@@ -38,7 +45,7 @@ function Header({ api, onLogout, user }) {
                 )}
 
             </ul>
-            <form>
+            <form className={styles.searchForm}>
                 <input className={styles.search} type="text" placeholder="Search Docs..." />
             </form>
         </header>

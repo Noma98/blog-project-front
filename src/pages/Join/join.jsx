@@ -40,7 +40,7 @@ function Join({ api }) {
     }
     return (
         <div className={styles.join}>
-            <h2>회원가입</h2>
+            <h1>회원가입</h1>
             {err && <small>
                 <i class="fas fa-exclamation-circle"></i> {err}</small>}
             <form onSubmit={handleSubmit} ref={formRef} className={styles.joinForm}>
