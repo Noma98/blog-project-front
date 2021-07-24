@@ -8,7 +8,7 @@
     height: 60%;
     font-weight: 400;
 }
-.sidebar li,.sidebar button{
+.sidebar li,.addBtn,.posts,.editForm{
     font-size: 1rem;
     padding: 0.4em 1.5em;
     width: 100%;
@@ -18,11 +18,35 @@
 .sidebar::-webkit-scrollbar{
     display: none;
 }
-.sidebar li{
+.folder{
     color: whitesmoke;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
 }
-.sidebar li:hover:not(.posts),.addBtn:hover{
+.editForm{
+    display: flex;
+    justify-content: space-between;
+}
+.editForm button{
+    background-color: transparent;
+    color: whitesmoke;
+}
+.editForm input{
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: transparent !important;
+    border:none;
+    outline:none;
+    color: whitesmoke;
+    line-height: 1rem;
+    font-size: 1rem !important;
+}
+.editForm input::placeholder{
+    color: var(--color-gray-2);
+    font-size: 1rem;
+}
+.addBtn:hover,.folder:hover{
     background-color: var(--color-gray-3);
 }
 .posts{
@@ -32,4 +56,6 @@
 .sidebar .addBtn{
     color: whitesmoke;
 }
-
+.green{
+    color: var(--color-green);
+}

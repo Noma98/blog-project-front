@@ -28,5 +28,14 @@ class Api {
         }
         alert("⛔ 폴더 생성에 실패하였습니다.")
     }
+    async editFolder(folderId, newName) {
+        const response = await axios.post("/api/folders/edit", {
+            folderId, newName
+        });
+        if (response.data.success) {
+            return;
+        }
+        alert("⛔ 변경에 실패하였습니다.")
+    }
 }
 export default Api;
