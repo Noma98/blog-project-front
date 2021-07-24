@@ -5,6 +5,7 @@ import styles from './sidebar.module.css';
 function Sidebar({ api, onFetchUser, user }) {
     const [edit, setEdit] = useState(null);
     const [newName, setNewName] = useState("");
+    const [hover, setHover] = useState(null);
 
     const handleAdd = async () => {
         await api.makeFolder();
@@ -31,6 +32,12 @@ function Sidebar({ api, onFetchUser, user }) {
         await api.deleteFolder(folderId);
         onFetchUser();
     }
+    const handleMouseOver = (e) => {
+        setHover(e.target.dataset.id);
+    }
+    const handleMouseOut = () => {
+        setHover(null);
+    }
     return (
         <div className={styles.sidebar}>
             <button className={styles.posts}>
@@ -40,14 +47,18 @@ function Sidebar({ api, onFetchUser, user }) {
                 <ul>
                     {user ? (//로그인한 유저는 자신의 폴더가 보여지도록
                         user.folders && user.folders.map(folder => {
-
                             if (edit !== folder._id) {
                                 //해당 폴더가 비편집모드일 때
-                                return <li key={folder._id} className={styles.folder} >
+                                return <li
+                                    key={folder._id}
+                                    className={styles.folder}
+                                    onMouseOver={handleMouseOver}
+                                    onMouseOut={handleMouseOut}
+                                    data-id={folder._id} >
                                     {folder.name}
-                                    <div>
-                                        <i className="fas fa-edit" onClick={handleEdit} data-id={folder._id}></i>
-                                        <i className="fas fa-times" onClick={handleDelete} data-id={folder._id}></i>
+                                    <div className={hover === folder._id ? styles.mouseOver : styles.mouseOut} data-id={folder._id}>
+                                        <i className="fas fa-pen" onClick={handleEdit} data-id={folder._id}></i>
+                                        <i className={`fas fa-times ${styles.delete}`} onClick={handleDelete} data-id={folder._id}></i>
                                     </div>
                                 </li>
                             } else {

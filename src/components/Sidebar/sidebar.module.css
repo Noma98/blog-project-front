@@ -26,6 +26,14 @@
 }
 .folder i{
     margin-left: 0.5em;
+    font-size: 0.8rem;
+}
+.folder div{
+    display: flex;
+    align-items: center;
+}
+.delete{
+    font-size: 1rem !important;
 }
 .editForm{
     display: flex;
@@ -61,4 +69,11 @@
 }
 .green{
     color: var(--color-green);
+}
+.mouseOut{
+    pointer-events: none;
+    opacity: 0;
+}
+.mouseOver{
+    transition: all 500ms ease-in;
 }
