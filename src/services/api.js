@@ -37,5 +37,14 @@ class Api {
         }
         alert("⛔ 변경에 실패하였습니다.")
     }
+    async deleteFolder(folderId, userId) {
+        const response = await axios.post("/api/folders/delete", {
+            folderId, userId
+        });
+        if (response.data.success) {
+            return;
+        }
+        alert("⛔ 삭제가 불가합니다.")
+    }
 }
 export default Api;

@@ -26,6 +26,11 @@ function Sidebar({ api, onFetchUser, user }) {
         }
         setEdit(null);
     }
+    const handleDelete = async (e) => {
+        const folderId = e.target.dataset.id;
+        await api.deleteFolder(folderId);
+        onFetchUser();
+    }
     return (
         <div className={styles.sidebar}>
             <button className={styles.posts}>
@@ -40,7 +45,10 @@ function Sidebar({ api, onFetchUser, user }) {
                                 //해당 폴더가 비편집모드일 때
                                 return <li key={folder._id} className={styles.folder} >
                                     {folder.name}
-                                    <i className="fas fa-edit" onClick={handleEdit} data-id={folder._id}></i>
+                                    <div>
+                                        <i className="fas fa-edit" onClick={handleEdit} data-id={folder._id}></i>
+                                        <i className="fas fa-times" onClick={handleDelete} data-id={folder._id}></i>
+                                    </div>
                                 </li>
                             } else {
                                 //해당 폴더가 편집모드일 때

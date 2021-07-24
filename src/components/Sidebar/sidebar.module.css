@@ -24,6 +24,9 @@
     display: flex;
     justify-content: space-between;
 }
+.folder i{
+    margin-left: 0.5em;
+}
 .editForm{
     display: flex;
     justify-content: space-between;
