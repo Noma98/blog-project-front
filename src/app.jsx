@@ -17,24 +17,26 @@ function App({ api }) {
   const [login, setLogin] = useState(false);
   const handleLogin = useCallback(() => {
     setLogin(true);
-  });
+  }, []);
   const handleLogout = useCallback(() => {
     setLogin(false);
-  });
+  }, []);
+  const fetchUserData = useCallback(async () => {
+    const userData = await api.getUserData();
+    setUser(userData);
+    console.log("Refresh!");
+  }, [api]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const userData = await api.getUserData();
-      setUser(userData);
-    };
-    fetchData();
-  }, [login, api]);
+    fetchUserData();
+  }, [login, fetchUserData]);
+
   return (
     <BrowserRouter>
       <div className={styles.app}>
         <nav className={styles.nav}>
           <Header api={api} onLogout={handleLogout} user={user} />
-          <Sidebar />
+          <Sidebar api={api} onFetchUser={fetchUserData} user={user} />
           <footer>
             ⓒ noma
           </footer>

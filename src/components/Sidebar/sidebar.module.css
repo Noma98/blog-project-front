@@ -1,24 +1,35 @@
 .sidebar{
+    padding: 1em 0;
     background-color: var(--color-gray-4);
     color: white;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
     height: 60%;
+    font-weight: 400;
+}
+.sidebar li,.sidebar button{
+    font-size: 1rem;
+    padding: 0.4em 1.5em;
+    width: 100%;
+    text-align: start;
+    background-color: transparent;
 }
 .sidebar::-webkit-scrollbar{
     display: none;
 }
 .sidebar li{
-    padding: 0.4em 1em;
-    font-weight: 300;
     color: whitesmoke;
     cursor: pointer;
 }
-.sidebar li:hover:not(.posts){
+.sidebar li:hover:not(.posts),.addBtn:hover{
     background-color: var(--color-gray-3);
 }
-.posts a{
+.posts{
     color: var(--color-blue);
-    font-weight: 500;
+    font-weight: 600;
 }
+.sidebar .addBtn{
+    color: whitesmoke;
+}
+

@@ -20,6 +20,7 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     color: var(--color-black);
+    font-weight: inherit;
 }
 body{
     margin: 0;
@@ -28,18 +29,27 @@ body{
 h1,h2,h3,p{
     margin: 0;
 }
+
 h1{
     font-size: 2rem;
+    font-weight: 700;
+}
+h2{
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 h3{
     font-size: 1.2rem;
+    font-weight: 600;
 }
 a{
     text-decoration: none;
+    color:inherit;
 }
 ul{
     list-style: none;
     padding-left: 0;
+    margin:0;
 }
 form{
     margin-top: 1em;

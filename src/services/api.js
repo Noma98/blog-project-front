@@ -15,11 +15,18 @@ class Api {
     }
     async getUserData() {
         const response = await axios.get("/api/users/auth");
-        const { isAuth, _id, name, email, avatar, blogInfo } = response.data;
+        const { isAuth, _id, name, email, avatar, blogInfo, folders } = response.data;
         if (!isAuth) {
             return null;
         }
-        return { _id, name, email, avatar, blogInfo };
+        return { _id, name, email, avatar, blogInfo, folders };
+    }
+    async makeFolder() {
+        const response = await axios.get("/api/folders/create");
+        if (response.data.success) {
+            return;
+        }
+        alert("⛔ 폴더 생성에 실패하였습니다.")
     }
 }
 export default Api;
