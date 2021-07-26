@@ -6,13 +6,13 @@ import styles from './home.module.css';
 function Home({ user }) {
     const history = useHistory();
     const handleCreate = () => {
-        history.push("/post/create");
+        history.push("/posts/create");
     };
     return (
         <div className={styles.home}>
             {user ? (
                 <>
-                    <h2>{user.blogInfo.blogName}</h2>
+                    <h2>{user.blogInfo.name}</h2>
                     <div className={styles.user}>
                         <img className={styles.avatar} src={user.avatar || "/images/default.PNG"} alt="user avatar" />
                         <div className={styles.info}>

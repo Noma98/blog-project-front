@@ -11,6 +11,7 @@ import Sidebar from './components/Sidebar/sidebar';
 import Header from './components/Header/header';
 import { useCallback, useEffect, useState } from 'react';
 import ViewPosts from './pages/ViewPosts/viewPosts';
+import CreatePost from './pages/CreatePost/createPost';
 
 function App({ api }) {
   const [user, setUser] = useState(null);
@@ -29,7 +30,10 @@ function App({ api }) {
 
   useEffect(() => {
     fetchUserData();
-  }, [login, fetchUserData]);
+    if (user && user.folders.length === 0) {
+      api.makeFolder();
+    };
+  }, [login, fetchUserData, api]);
 
   return (
     <BrowserRouter>
@@ -54,6 +58,9 @@ function App({ api }) {
             </Route>
             <Route path="/posts" exact>
               <ViewPosts />
+            </Route>
+            <Route path="/posts/create" exact>
+              <CreatePost api={api} user={user} />
             </Route>
           </Switch>
         </section>

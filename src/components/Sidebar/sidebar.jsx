@@ -28,6 +28,10 @@ function Sidebar({ api, onFetchUser, user }) {
         setEdit(null);
     }
     const handleDelete = async (e) => {
+        if (user.folders.length === 1) {
+            alert("최소 한 개 이상의 폴더를 가져야합니다.");
+            return;
+        }
         const folderId = e.target.dataset.id;
         await api.deleteFolder(folderId);
         onFetchUser();

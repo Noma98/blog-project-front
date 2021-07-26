@@ -46,5 +46,12 @@ class Api {
         }
         alert("⛔ 삭제가 불가합니다.")
     }
+    async postNewPost(data) {
+        const response = await axios.post("/api/posts/create", data);
+        if (response.data.success) {
+            return;
+        }
+        alert("⛔ 게시글 생성 실패")
+    }
 }
 export default Api;
