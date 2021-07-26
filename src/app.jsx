@@ -62,6 +62,9 @@ function App({ api }) {
             <Route path="/posts/create" exact>
               <CreatePost api={api} user={user} />
             </Route>
+            <Route path="/:id" exact>
+              <ViewPosts api={api} />
+            </Route>
           </Switch>
         </section>
       </div>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styles from './sidebar.module.css';
 
 function Sidebar({ api, onFetchUser, user }) {
     const [edit, setEdit] = useState(null);
     const [newName, setNewName] = useState("");
     const [hover, setHover] = useState(null);
+    const history = useHistory();
 
     const handleAdd = async () => {
         await api.makeFolder();
@@ -42,6 +43,10 @@ function Sidebar({ api, onFetchUser, user }) {
     const handleMouseOut = () => {
         setHover(null);
     }
+    const handleClickFolder = (e) => {
+        const folderId = e.target.dataset.id;
+        history.push(`/${folderId}`);
+    }
     return (
         <div className={styles.sidebar}>
             <button className={styles.posts}>
@@ -58,6 +63,7 @@ function Sidebar({ api, onFetchUser, user }) {
                                     className={styles.folder}
                                     onMouseOver={handleMouseOver}
                                     onMouseOut={handleMouseOut}
+                                    onClick={handleClickFolder}
                                     data-id={folder._id} >
                                     {folder.name}
                                     <div className={hover === folder._id ? styles.mouseOver : styles.mouseOut} data-id={folder._id}>

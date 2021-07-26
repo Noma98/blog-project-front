@@ -1,17 +1,15 @@
 import React from 'react'
 import styles from './post.module.css';
 
-function Post() {
+function Post({ post }) {
     return (
         <div className={styles.post}>
-            <h3>포스팅 제목</h3>
-            <small>생성 날짜</small>
-            <div className={styles.tags}>
-                <span>태그1</span>
-                <span>태그2</span>
-                <span>태그3</span>
-            </div>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique natus sapiente, ab magnam cum, mollitia soluta itaque odit omnis amet debitis ex inventore. Recusandae dolorum excepturi distinctio aliquid nihil fuga.</p>
+            <h3>{post.title}</h3>
+            <small>{post.createdAt.substr(0, 10)}</small>
+            {post.tags[0] !== "" && <div className={styles.tags}>
+                {post.tags.map(tag => <span key={Math.random().toString(36).substr(2, 8)}>{tag}</span>)}
+            </div>}
+            <p>{post.description}</p>
         </div>
     )
 }

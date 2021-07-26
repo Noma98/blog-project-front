@@ -25,7 +25,7 @@ function Home({ user }) {
                             <h2>Latest Posts</h2>
                             <button onClick={handleCreate}><i className="fas fa-edit"></i></button>
                         </div>
-                        <Post />
+                        {/* <Post /> */}
                     </div>
                 </>
             ) : (

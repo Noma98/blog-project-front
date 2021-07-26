@@ -6,7 +6,7 @@ function CreatePost({ api, user }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [tags, setTags] = useState("");
-    const [selectedFolder, setSelectedFolder] = useState(user.folders[0]._id);
+    const [selectedFolder, setSelectedFolder] = useState(user.folders.length !== 0 && user.folders[0]._id);
     const history = useHistory();
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -33,7 +33,7 @@ function CreatePost({ api, user }) {
                 <select value={selectedFolder} onChange={handleFolder} required >
                     {
                         user && user.folders.map(folder => {
-                            return <option value={folder._id}>{folder.name}</option>
+                            return <option key={Math.random().toString(36).substr(2, 8)} value={folder._id}>{folder.name}</option>
                         })
                     }
                 </select>
