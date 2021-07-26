@@ -1,4 +1,5 @@
 .post{
+    position: relative;
     padding: 1em;
     margin-bottom: 1em;
     border-radius: 1em;
@@ -21,4 +22,16 @@
     margin-right: 0.5em;
     border-radius: 0.5em;
     padding: 0.2em 0.5em;
+}
+.delete{
+    font-size: 1rem;
+    position: absolute;
+    top: 0.5em;
+    background-color: transparent;
+    right: 0.8em;
+    padding: 0.5em;
+    color:var(--color-gray-2);
+}
+.delete:hover{
+    color: var(--color-gray-3);
 }

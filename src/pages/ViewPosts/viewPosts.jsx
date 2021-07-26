@@ -11,6 +11,7 @@ function ViewPosts({ api }) {
         const data = await api.fetchPosts(folderId);
         setPostsData(data);
     }, [api, folderId]);
+
     useEffect(() => {
         fetchPosts();
     }, [fetchPosts]);
@@ -24,7 +25,7 @@ function ViewPosts({ api }) {
             {postsData &&
                 <div className={styles.posts}>
                     {postsData.length !== 0 ? postsData.map(post => {
-                        return <Post key={post._id} post={post} />
+                        return <Post key={post._id} post={post} api={api} onFetchPosts={fetchPosts} />
                     }) : <>게시글이 존재하지 않습니다.</>
                     }
                 </div>

@@ -60,5 +60,12 @@ class Api {
         }
         alert("⛔ 게시글 로드 실패")
     }
+    async deletePost(postId, folderId) {
+        const response = await axios.post("/api/posts/delete", { postId, folderId });
+        if (response.data.success) {
+            return;
+        }
+        alert("⛔ 게시글 삭제 실패");
+    }
 }
 export default Api;
