@@ -1,0 +1,53 @@
+.postDetail h2,.postDetail small, .tags{
+    margin-bottom: 0.5em ;
+}
+.postDetail{
+    background-color: whitesmoke;
+    padding: 1.5em;
+    border-radius: 1em;
+    height: 85vh;
+}
+.description{
+    background-color: white;
+    padding: 1em;
+    border-radius: 1em;
+    margin-top: 1em;
+    height: 55vh;
+}
+.metaAndBtns{
+    display: flex;
+    justify-content: space-between;
+}
+.btns{
+    display: flex;
+}
+.btns button{
+    background-color: transparent;
+    padding: 0;
+    margin-right: 0.5em;
+    border-radius: 50%;
+}
+.btns i{
+    font-size: 0.9rem;
+    padding: 0.5em;
+    color: var(--color-blue);
+    background-color: white;
+    border-radius: 50%;
+    transition: all 150ms ease-in;
+}
+.btns button i:hover{
+    transform: scale(1.05);
+    background-color: var(--color-blue);
+    color: white;
+}
+.tags{
+    margin: 0.5em 0;
+}
+.tags span{
+    color: whitesmoke;
+    font-size: 0.8rem;
+    background-color: var(--color-blue);
+    margin-right: 0.5em;
+    border-radius: 0.5em;
+    padding: 0.2em 0.5em;
+}

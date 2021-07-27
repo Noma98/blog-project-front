@@ -67,5 +67,12 @@ class Api {
         }
         alert("⛔ 게시글 삭제 실패");
     }
+    async fetchPostDetail(postId) {
+        const response = await axios.post("/api/posts/detail", { postId });
+        if (response.data.success) {
+            return response.data.payload;
+        }
+        alert("⛔ 게시글 로드 실패");
+    }
 }
 export default Api;

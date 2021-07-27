@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Post from '../../components/Post/post';
 import styles from './viewPosts.module.css';
 
-function ViewPosts({ api }) {
+function ViewPosts({ api, user }) {
     const [postsData, setPostsData] = useState();
     const { id: folderId } = useParams();
 
@@ -25,7 +25,7 @@ function ViewPosts({ api }) {
             {postsData &&
                 <div className={styles.posts}>
                     {postsData.length !== 0 ? postsData.map(post => {
-                        return <Post key={post._id} post={post} api={api} onFetchPosts={fetchPosts} />
+                        return <Post key={post._id} post={post} api={api} onFetchPosts={fetchPosts} user={user} />
                     }) : <>게시글이 존재하지 않습니다.</>
                     }
                 </div>
