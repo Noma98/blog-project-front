@@ -5,14 +5,17 @@
     background-color: whitesmoke;
     padding: 1.5em;
     border-radius: 1em;
-    height: 85vh;
+}
+.postDetail h2{
+    border-left: 0.4em solid var(--color-yellow-green);
+    padding-left: 0.8em;
 }
 .description{
     background-color: white;
     padding: 1em;
     border-radius: 1em;
     margin-top: 1em;
-    height: 55vh;
+    height: 100%;
 }
 .metaAndBtns{
     display: flex;
@@ -40,14 +43,16 @@
     background-color: var(--color-blue);
     color: white;
 }
-.tags{
-    margin: 0.5em 0;
+.tagContainer{
+    display: flex;
+    padding-top:0.3em;
+    flex-wrap: wrap;
 }
-.tags span{
-    color: whitesmoke;
-    font-size: 0.8rem;
-    background-color: var(--color-blue);
-    margin-right: 0.5em;
-    border-radius: 0.5em;
+.tag{
+    background-color: rgb(164, 179, 34);
+    color: white;
     padding: 0.2em 0.5em;
+    font-size: 0.8rem;
+    border-radius: 0.8em;
+    margin: 0 0.5em 0.5em 0;
 }

@@ -6,7 +6,8 @@ let prevFolderId;
 function EditPost({ api, user }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [tags, setTags] = useState("");
+    const [tag, setTag] = useState("");
+    const [tagArray, setTagArray] = useState([]);
 
     const [selectedFolder, setSelectedFolder] = useState("");
     const history = useHistory();
@@ -21,12 +22,39 @@ function EditPost({ api, user }) {
     const handleDescription = (e) => {
         setDescription(e.target.value);
     };
-    const handleTags = (e) => {
-        setTags(e.target.value);
+    const handleTag = (e) => {
+        setTag(e.target.value);
     };
+    const handleKeydown = (e) => {
+        if (e.key === "," || e.key === "Enter") {
+            e.preventDefault();
+            if (tagArray.length === 8) {
+                alert("더이상 추가할 수 없습니다.");
+                return;
+            }
+            if (tag === "") {
+                return;
+            }
+            setTagArray(tagArray => [...tagArray, { id: Math.random().toString(36).substr(2, 8), name: tag }]);
+            setTag("");
+        }
+        if (e.key === "Backspace" && tag === "") {
+            e.preventDefault();
+            if (tagArray.length === 0) {
+                return;
+            }
+            const updated = [...tagArray];
+            const newTag = updated.pop();
+            setTagArray(updated);
+            setTag(newTag.name);
+        }
+    }
+    const handleClickTag = (e) => {
+        setTagArray(tagArray => tagArray.filter(x => x.id !== e.target.id));
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await api.updatePost({ postId, title, description, selectedFolder, tags, prevFolderId });
+        await api.updatePost({ postId, title, description, selectedFolder, tagArray, prevFolderId });
         history.push(`/posts/${postId}`);
     }
     const fetchData = async () => {
@@ -34,7 +62,7 @@ function EditPost({ api, user }) {
         prevFolderId = folder;
         setTitle(prevTitle);
         setDescription(prevDescription);
-        setTags(prevTags.join(" "));
+        setTagArray(prevTags);
         setSelectedFolder(prevFolderId);
     }
     useEffect(() => {
@@ -42,9 +70,14 @@ function EditPost({ api, user }) {
     }, [])
     return (
         <div className={styles.editPost}>
+            <h2 className={styles.title}><input value={title} type="text" onChange={handleTitle} /></h2>
+            <div className={styles.tagContainer}>
+                {tagArray && tagArray.map(tag =>
+                    <div key={tag.id} id={tag.id} className={styles.tag} onClick={handleClickTag} >{tag.name}</div>
+                )}
+                <input type="text" value={tag} onKeyDown={handleKeydown} onChange={handleTag} placeholder="태그를 입력하세요." autoFocus />
+            </div>
             <form onSubmit={handleSubmit} className={styles.editForm}>
-                <h2 className={styles.title}><input autoFocus value={title} type="text" onChange={handleTitle} /></h2>
-                <input className={styles.tags} value={tags} placeholder="띄어쓰기로 구분해 태그를 입력하세요." text="text" onChange={handleTags} />
                 <select className={styles.folder} value={selectedFolder} onChange={handleFolder} required >
                     {
                         user && user.folders.map(folder => {
@@ -52,7 +85,7 @@ function EditPost({ api, user }) {
                         })
                     }
                 </select>
-                <textarea value={description} className={styles.description} onChange={handleDescription} required />
+                <textarea value={description} className={styles.description} onChange={handleDescription} required placeholder="내용을 입력하세요." />
                 <input className={styles.submit} type="submit" value="Edit Complete" />
             </form>
         </div>

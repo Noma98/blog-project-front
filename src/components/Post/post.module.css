@@ -12,17 +12,20 @@
     box-shadow: var(--shadow-1);
     transform: scale(1.003);
 }
-.tags{
-    margin: 0.3em 0;
+.tagContainer{
+    display: flex;
+    padding-top:0.3em;
+    flex-wrap: wrap;
 }
-.tags span{
-    color: whitesmoke;
-    font-size: 0.8rem;
-    background-color: var(--color-blue);
-    margin-right: 0.5em;
-    border-radius: 0.5em;
+.tag{
+    background-color: rgb(164, 179, 34);
+    color: white;
     padding: 0.2em 0.5em;
+    font-size: 0.8rem;
+    border-radius: 0.8em;
+    margin: 0 0.5em 0.5em 0;
 }
+
 .delete{
     font-size: 1rem;
     position: absolute;

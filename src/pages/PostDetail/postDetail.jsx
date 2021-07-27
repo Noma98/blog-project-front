@@ -34,8 +34,8 @@ function PostDetail({ api, user }) {
                         <button onClick={handleDelete}><i className="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
-                <div className={styles.tags}>
-                    {postInfo.tags[0] !== "" && postInfo.tags.map(tag => <span key={Math.random().toString(36).substr(2, 8)}>{tag}</span>)}
+                <div className={styles.tagContainer}>
+                    {postInfo.tags[0] !== "" && postInfo.tags.map(tag => <div className={styles.tag} key={tag.id}>{tag.name}</div>)}
                 </div>
                 <pre className={styles.description}>{postInfo.description}</pre>
             </>}

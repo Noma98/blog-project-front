@@ -10,7 +10,6 @@ function Post({ post, api, onFetchPosts, user }) {
         onFetchPosts();
     };
     const handleViewPost = (e) => {
-        console.log(e.target.nodeName);
         if (e.target.nodeName !== "I") {
             history.push(`/posts/${post._id}`);
         }
@@ -19,8 +18,8 @@ function Post({ post, api, onFetchPosts, user }) {
         <div className={styles.post} onClick={handleViewPost}>
             <h3>{post.title}</h3>
             <small>{`${user.name} · ${getFormattedDate(post.createdAt)}`}</small>
-            {post.tags[0] !== "" && <div className={styles.tags}>
-                {post.tags.map(tag => <span key={Math.random().toString(36).substr(2, 8)}>{tag}</span>)}
+            {post.tags[0] !== "" && <div className={styles.tagContainer}>
+                {post.tags.map(tag => <span className={styles.tag} key={tag.id}>{tag.name}</span>)}
             </div>}
             <p>{post.description}</p>
             <button className={styles.delete} onClick={handleDelete}><i className="fas fa-times"></i></button>
