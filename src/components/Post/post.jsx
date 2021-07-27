@@ -5,12 +5,15 @@ import { getFormattedDate } from '../../common';
 
 function Post({ post, api, onFetchPosts, user }) {
     const history = useHistory();
-    const handleDelete = async () => {
+    const handleDelete = async (e) => {
         await api.deletePost(post._id, post.folder);
         onFetchPosts();
     };
-    const handleViewPost = () => {
-        history.push(`/posts/${post._id}`);
+    const handleViewPost = (e) => {
+        console.log(e.target.nodeName);
+        if (e.target.nodeName !== "I") {
+            history.push(`/posts/${post._id}`);
+        }
     }
     return (
         <div className={styles.post} onClick={handleViewPost}>
