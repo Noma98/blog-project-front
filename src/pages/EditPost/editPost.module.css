@@ -1,0 +1,47 @@
+
+.editForm{
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 1.5em;
+    border-radius: 1em;
+}
+.editForm input:not(.submit){
+    background-color: transparent !important;
+    outline: none;
+    padding: 0 !important;
+}
+.title{
+    border-left: 0.4em solid var(--color-yellow-green);
+    padding-left: 0.8em;
+}
+.title input{
+    font-size: 1.5rem !important;
+    margin:0 !important;
+}
+.tags{
+    margin: 0.9em 0 !important;
+}
+.folder{
+    font-size: 0.7rem;
+    padding: 0.4em;
+    border:none;
+}
+.folder option{
+    font-size: 0.8rem;
+}
+.description{
+    outline: none;
+    padding: 1em;
+    border-radius: 1em;
+    margin-top: 1em;
+}
+.editForm .submit{
+    margin-top: 1em;
+    padding: 1em;
+    font-size: 0.9rem;
+    background-color: var(--color-blue) ;
+    border-radius: 0.2em;
+    font-weight: 500;
+    color: white;
+}

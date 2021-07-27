@@ -1,17 +1,25 @@
 import styles from './postDetail.module.css';
 
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { getFormattedDate } from '../../common';
 
 function PostDetail({ api, user }) {
     const [postInfo, setPostInfo] = useState(null);
     const { id } = useParams();
+    const history = useHistory();
 
     const getPostData = async () => {
         const data = await api.fetchPostDetail(id);
         setPostInfo(data);
     };
+    const handleEdit = () => {
+        history.push(`/posts/edit/${postInfo._id}`);
+    }
+    const handleDelete = async () => {
+        await api.deletePost(postInfo._id, postInfo.folder);
+        history.push(`/${postInfo.folder}`);
+    }
     useEffect(() => {
         getPostData();
     }, []);
@@ -22,14 +30,14 @@ function PostDetail({ api, user }) {
                 <div className={styles.metaAndBtns}>
                     <small>{`${user.name} · ${getFormattedDate(postInfo.createdAt)}`}</small>
                     <div className={styles.btns}>
-                        <button><i className="fas fa-pen"></i></button>
-                        <button><i className="fas fa-trash-alt"></i></button>
+                        <button onClick={handleEdit}><i className="fas fa-pen"></i></button>
+                        <button onClick={handleDelete}><i className="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
                 <div className={styles.tags}>
                     {postInfo.tags[0] !== "" && postInfo.tags.map(tag => <span key={Math.random().toString(36).substr(2, 8)}>{tag}</span>)}
                 </div>
-                <p className={styles.description}>{postInfo.description}</p>
+                <pre className={styles.description}>{postInfo.description}</pre>
             </>}
         </div>
     )

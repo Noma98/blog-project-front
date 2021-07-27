@@ -74,5 +74,12 @@ class Api {
         }
         alert("⛔ 게시글 로드 실패");
     }
+    async updatePost(data) {
+        const response = await axios.post("/api/posts/update", data);
+        if (response.data.success) {
+            return;
+        }
+        alert("⛔ 게시글 로드 실패");
+    }
 }
 export default Api;

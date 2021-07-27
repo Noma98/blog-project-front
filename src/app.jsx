@@ -13,6 +13,7 @@ import { useCallback, useEffect, useState } from 'react';
 import ViewPosts from './pages/ViewPosts/viewPosts';
 import CreatePost from './pages/CreatePost/createPost';
 import PostDetail from './pages/PostDetail/postDetail';
+import EditPost from './pages/EditPost/editPost';
 
 function App({ api }) {
   const [user, setUser] = useState(null);
@@ -65,6 +66,9 @@ function App({ api }) {
             </Route>
             <Route path="/posts/:id" exact>
               <PostDetail api={api} user={user} />
+            </Route>
+            <Route path="/posts/edit/:id" exact>
+              <EditPost api={api} user={user} />
             </Route>
             <Route path="/:id" exact>
               <ViewPosts api={api} user={user} />
