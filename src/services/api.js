@@ -88,5 +88,12 @@ class Api {
         }
         return alert("⛔ 모든 게시글 불러오기 실패");
     }
+    async fetchLatest(userId) {
+        const response = await axios.post("/api/posts/latest", { userId });
+        if (response.data.success) {
+            return response.data.payload;
+        }
+        return alert("⛔ 최신 게시글 불러오기 실패");
+    }
 }
 export default Api;

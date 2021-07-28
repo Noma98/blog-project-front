@@ -50,7 +50,7 @@ function App({ api }) {
         <section className={styles.content}>
           <Switch>
             <Route path="/" exact>
-              <Home user={user} />
+              <Home user={user} api={api} />
             </Route>
             <Route path="/join" exact>
               <Join api={api} />
