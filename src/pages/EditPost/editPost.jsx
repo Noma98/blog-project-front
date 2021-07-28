@@ -55,7 +55,7 @@ function EditPost({ api, user }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await api.updatePost({ postId, title, description, selectedFolder, tagArray, prevFolderId });
-        history.push(`/posts/${postId}`);
+        history.push(`/post/${postId}`);
     }
     const fetchData = useCallback(async () => {
         const { title: prevTitle, description: prevDescription, tags: prevTags, folder } = await api.fetchPostDetail(postId);

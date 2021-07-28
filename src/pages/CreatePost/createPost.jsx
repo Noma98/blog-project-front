@@ -51,7 +51,7 @@ function CreatePost({ api, user }) {
     const handleCreate = async (e) => {
         e.preventDefault();
         await api.postNewPost({ title, description, selectedFolder, tagArray });
-        history.push(`/${selectedFolder}`);
+        history.push(`/posts?folder=${selectedFolder}`);
     }
     return (
         <div className={styles.writePost}>
