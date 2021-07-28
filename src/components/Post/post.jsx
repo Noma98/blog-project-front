@@ -11,7 +11,7 @@ function Post({ post, api, onFetchPosts, user }) {
     };
     const handleViewPost = (e) => {
         if (e.target.nodeName !== "I") {
-            history.push(`/posts/${post._id}`);
+            history.push(`/post/${post._id}`);
         }
     }
     return (

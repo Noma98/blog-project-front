@@ -45,12 +45,12 @@ function Sidebar({ api, onFetchUser, user }) {
     }
     const handleClickFolder = (e) => {
         const folderId = e.target.dataset.id;
-        history.push(`/${folderId}`);
+        history.push(`/posts?folder=${folderId}`);
     }
     return (
         <div className={styles.sidebar}>
             <button className={styles.posts}>
-                <Link to="/posts">ALL POSTS</Link>
+                <Link to="/posts?folder=all">ALL POSTS</Link>
             </button>
             <nav>
                 <ul>

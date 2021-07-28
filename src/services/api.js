@@ -81,5 +81,12 @@ class Api {
         }
         alert("⛔ 게시글 로드 실패");
     }
+    async fetchAllPosts(userId) {
+        const response = await axios.post("/api/posts/all", { userId });
+        if (response.data.success) {
+            return response.data.payload;
+        }
+        return alert("⛔ 모든 게시글 불러오기 실패");
+    }
 }
 export default Api;

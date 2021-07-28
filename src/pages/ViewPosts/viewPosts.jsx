@@ -1,20 +1,28 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Post from '../../components/Post/post';
 import styles from './viewPosts.module.css';
 
 function ViewPosts({ api, user }) {
     const [postsData, setPostsData] = useState();
-    const { id: folderId } = useParams();
+    const params = new URLSearchParams(useLocation().search);
+    const folder = params.get("folder");
 
-    const fetchPosts = useCallback(async () => {
-        const data = await api.fetchPosts(folderId);
+    const fetchAllPosts = useCallback(async () => {
+        const data = await api.fetchAllPosts(user._id);
         setPostsData(data);
-    }, [api, folderId]);
-
+    }, [api]);
+    const fetchPosts = async () => {
+        const data = await api.fetchPosts(folder);
+        setPostsData(data);
+    }
     useEffect(() => {
-        fetchPosts();
-    }, [fetchPosts]);
+        if (folder === "all") {
+            fetchAllPosts();
+        } else {
+            fetchPosts();
+        }
+    }, [fetchAllPosts, fetchPosts]);
     return (
         <div className={styles.postsContainer}>
             <div className={styles.header}>
@@ -25,7 +33,7 @@ function ViewPosts({ api, user }) {
             {postsData &&
                 <div className={styles.posts}>
                     {postsData.length !== 0 ? postsData.map(post => {
-                        return <Post key={post._id} post={post} api={api} onFetchPosts={fetchPosts} user={user} />
+                        return <Post key={post._id} post={post} api={api} onFetchPosts={folder === "all" ? fetchAllPosts : fetchPosts} user={user} />
                     }) : <>게시글이 존재하지 않습니다.</>
                     }
                 </div>

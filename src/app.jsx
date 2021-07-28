@@ -58,17 +58,15 @@ function App({ api }) {
             <Route path="/login" exact>
               <Login api={api} onLogin={handleLogin} />
             </Route>
-            <Route path="/posts" exact>
-              <ViewPosts api={api} user={user} />
-            </Route>
+
             <Route path="/posts/create" exact>
               <CreatePost api={api} user={user} />
             </Route>
-            <Route path="/posts/:id" exact>
-              <PostDetail api={api} user={user} />
-            </Route>
             <Route path="/posts/edit/:id" exact>
               <EditPost api={api} user={user} />
+            </Route>
+            <Route path="/post/:id" exact>
+              <PostDetail api={api} user={user} />
             </Route>
             <Route path="/:id" exact>
               <ViewPosts api={api} user={user} />
