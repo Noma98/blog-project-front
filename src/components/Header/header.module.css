@@ -24,9 +24,6 @@
 .logout button{
     background-color: transparent;
 }
-.searchForm{
-    margin: 0;
-}
 .search{
     color: var(--color-black);
     border-radius: 3em !important;

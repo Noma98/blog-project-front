@@ -95,5 +95,12 @@ class Api {
         }
         return alert("⛔ 최신 게시글 불러오기 실패");
     }
+    async fetchResults(query, userId) {
+        const response = await axios.post("/api/posts/search", { query, userId });
+        if (response.data.success) {
+            return response.data.payload;
+        }
+        return alert("⛔ 검색 결과 불러오기 실패");
+    }
 }
 export default Api;

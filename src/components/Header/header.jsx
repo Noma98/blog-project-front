@@ -13,6 +13,14 @@ function Header({ api, onLogout, user }) {
             alert("⛔ 로그아웃 실패");
         }
     }
+    const handleQuery = (e) => {
+        const value = e.target.value;
+        if (value === "") {
+            history.push("/");
+        } else {
+            history.push(`/posts?folder=all&query=${value}`);
+        }
+    }
     return (
         <header className={styles.header}>
             <Link to="/">
@@ -45,9 +53,7 @@ function Header({ api, onLogout, user }) {
                 )}
 
             </ul>
-            <form className={styles.searchForm}>
-                <input className={styles.search} type="text" placeholder="Search Docs..." />
-            </form>
+            <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />
         </header>
     )
 }
