@@ -11,18 +11,19 @@ function ViewPosts({ api, user }) {
     const fetchAllPosts = useCallback(async () => {
         const data = await api.fetchAllPosts(user._id);
         setPostsData(data);
-    }, [api]);
-    const fetchPosts = async () => {
+    }, [api, user._id]);
+    const fetchPosts = useCallback(async () => {
         const data = await api.fetchPosts(folder);
         setPostsData(data);
-    }
+    }, [api, folder]);
+
     useEffect(() => {
         if (folder === "all") {
             fetchAllPosts();
         } else {
             fetchPosts();
         }
-    }, [fetchAllPosts, fetchPosts]);
+    }, [folder, fetchPosts, fetchAllPosts]);
     return (
         <div className={styles.postsContainer}>
             <div className={styles.header}>

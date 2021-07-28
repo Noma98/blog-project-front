@@ -1,6 +1,6 @@
 import styles from './postDetail.module.css';
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import { getFormattedDate } from '../../common';
 
@@ -9,10 +9,10 @@ function PostDetail({ api, user }) {
     const { id } = useParams();
     const history = useHistory();
 
-    const getPostData = async () => {
+    const getPostData = useCallback(async () => {
         const data = await api.fetchPostDetail(id);
         setPostInfo(data);
-    };
+    }, [api, id]);
     const handleEdit = () => {
         history.push(`/posts/edit/${postInfo._id}`);
     }
@@ -22,7 +22,7 @@ function PostDetail({ api, user }) {
     }
     useEffect(() => {
         getPostData();
-    }, []);
+    }, [getPostData]);
     return (
         <div className={styles.postDetail}>
             {postInfo && <>

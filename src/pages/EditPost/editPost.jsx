@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import styles from './editPost.module.css';
 
@@ -57,17 +57,17 @@ function EditPost({ api, user }) {
         await api.updatePost({ postId, title, description, selectedFolder, tagArray, prevFolderId });
         history.push(`/posts/${postId}`);
     }
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         const { title: prevTitle, description: prevDescription, tags: prevTags, folder } = await api.fetchPostDetail(postId);
         prevFolderId = folder;
         setTitle(prevTitle);
         setDescription(prevDescription);
         setTagArray(prevTags);
         setSelectedFolder(prevFolderId);
-    }
+    }, [api, postId]);
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [fetchData])
     return (
         <div className={styles.editPost}>
             <h2 className={styles.title}><input value={title} type="text" onChange={handleTitle} /></h2>
