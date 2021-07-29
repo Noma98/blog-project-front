@@ -20,7 +20,6 @@ function Login({ api, onLogin }) {
         }
         onLogin();
         history.push("/");
-
     }
     const handleEmail = (e) => {
         setEmail(e.target.value);
@@ -42,6 +41,7 @@ function Login({ api, onLogin }) {
                 </label>
                 <input className={styles.loginBtn} type="submit" value="Login" />
             </form>
+            <a href="https://github.com/login/oauth/authorize?client_id=ff111c80f553335015a2&scope=read%3Auser+user%3Aemail" className={styles.social}><i className="fab fa-github"></i>Login with Github</a>
         </div>
     )
 }

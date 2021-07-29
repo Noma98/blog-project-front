@@ -1,0 +1,22 @@
+.container{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 7px solid var(--color-gray-2);
+    border-top: 7px solid var(--color-blue);
+    animation:spin 1s linear infinite;
+}
+@keyframes spin{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}

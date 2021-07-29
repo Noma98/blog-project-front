@@ -102,5 +102,9 @@ class Api {
         }
         return alert("⛔ 검색 결과 불러오기 실패");
     }
+    async loginGithub(code) {
+        const response = await axios.post("/api/users/github", { code });
+        return response.data;
+    }
 }
 export default Api;
