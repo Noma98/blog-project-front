@@ -46,7 +46,7 @@ function Login({ api, onLogin }) {
             <div className={styles.socialLogin}>
                 <a href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_DEV_CLIENT}&scope=read%3Auser+user%3Aemail`} className={`${styles.social} ${styles.github}`}><i className="fab fa-github"></i>Login with Github</a>
 
-                <a className={`${styles.social} ${styles.kakao}`} href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${config.KAKAO_API_KEY}&redirect_uri=http://localhost:3000/oauth/callback/kakao&prompt=login&state=${config.KAKAO_STATE}`}><img src="/images/kakao.png"></img>Login with Kakao</a>
+                <a className={`${styles.social} ${styles.kakao}`} href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${config.KAKAO_API_KEY}&redirect_uri=http://localhost:3000/oauth/callback/kakao&state=${config.KAKAO_STATE}`}><img src="/images/kakao.png"></img>Login with Kakao</a>
             </div>
 
         </div>

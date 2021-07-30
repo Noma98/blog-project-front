@@ -4,7 +4,41 @@
     justify-content: center;
     align-items: center;
 }
-.loading{
+.notice{
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 2em 3em;
+    text-align: center;
+    border-radius: 1em;
+}
+.notice h1 i{
+    color:var(--color-orange);
+}
+.notice pre{
+    text-align: center;
+}
+.btns{
+    background-color: white;
+    padding: 1em;
+    text-align: start;
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.btns button{
+    background-color: transparent;
+    margin-bottom: 0.5em;
+    font-size: 0.8rem;
+    color: var(--color-gray-3);
+    text-decoration: underline;
+}
+.btns small{
+    padding-left: 2em;
+    font-size: 0.65rem;
+}
+.spinner{
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
@@ -12,6 +46,7 @@
     border-top: 7px solid var(--color-blue);
     animation:spin 1s linear infinite;
 }
+
 @keyframes spin{
     from{
         transform: rotate(0deg);

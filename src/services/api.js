@@ -110,5 +110,9 @@ class Api {
         const response = await axios.post("/api/users/kakao", { code });
         return response.data;
     }
+    async kakaoUnlink(accessToken) {
+        const response = await axios.post("/api/users/kakao/unlink", { accessToken });
+        return response.data;
+    }
 }
 export default Api;
