@@ -106,5 +106,9 @@ class Api {
         const response = await axios.post("/api/users/github", { code });
         return response.data;
     }
+    async loginKakao(code) {
+        const response = await axios.post("/api/users/kakao", { code });
+        return response.data;
+    }
 }
 export default Api;

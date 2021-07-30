@@ -14,7 +14,7 @@ import ViewPosts from './pages/ViewPosts/viewPosts';
 import CreatePost from './pages/CreatePost/createPost';
 import PostDetail from './pages/PostDetail/postDetail';
 import EditPost from './pages/EditPost/editPost';
-import GithubLogin from './pages/GithubLogin/githubLogin';
+import SocialLogin from './pages/SocialLogin/socialLogin';
 
 function App({ api }) {
   const [user, setUser] = useState(null);
@@ -69,8 +69,8 @@ function App({ api }) {
             <Route path="/post/:id" exact>
               <PostDetail api={api} user={user} />
             </Route>
-            <Route path="/github/:id">
-              <GithubLogin api={api} onLogin={handleLogin} />
+            <Route path="/oauth/callback/:id" exact>
+              <SocialLogin api={api} onLogin={handleLogin} />
             </Route>
             <Route path="/:id" exact>
               <ViewPosts api={api} user={user} />
