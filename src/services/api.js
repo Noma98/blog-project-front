@@ -114,5 +114,9 @@ class Api {
         const response = await axios.post("/api/users/kakao/unlink", { accessToken });
         return response.data;
     }
+    async googleLogin(userData) {
+        const response = await axios.post("/api/users/google", userData);
+        return response.data;
+    }
 }
 export default Api;

@@ -13,12 +13,13 @@
     --color-beige:rgb(231, 231, 231);
     --color-gray-1:#f1f1f1;
     --color-gray-2:#c7c7c7;
-    --color-gray-3:#575653;
+    --color-gray-3:#6e6d6a;
     --color-gray-4:#333230;
     --color-gray-trans:rgba(128, 128, 128, 0.479);
     --color-black:rgb(47, 47, 47);
+   
     /* shadow*/
-    --shadow-1:20px 0px 20px 6px #ececec;
+    --shadow-1: 4px 4px 4px #c7c7c7;
 }
 
 *{

@@ -1,0 +1,18 @@
+.google{
+    padding: 0.6em 1em;
+    border-radius: 0.25em;
+    font-size: 0.8rem;
+    margin-top: 0.7em;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    box-shadow: var(--shadow-1);
+}
+.google{
+    background-color: white;
+    color:var(--color-gray-3);  
+}
+.google img{
+    height:1.4rem;
+    margin-right: 0.5em;
+}
