@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 class Api {
     async postJoin(data) {
         const response = await axios.post("/api/users/join", data);
@@ -120,6 +119,10 @@ class Api {
     }
     async naverLogin(token) {
         const response = await axios.post("/api/users/naver", { token });
+        return response.data;
+    }
+    async naverUnlink(token) {
+        const response = await axios.post("/api/users/naver/unlink", { token });
         return response.data;
     }
 }
