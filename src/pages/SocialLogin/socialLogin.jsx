@@ -7,14 +7,16 @@ function SocialLogin({ api, onLogin }) {
     const [accessToken, setAccessToken] = useState(null);
     const history = useHistory();
     const location = useLocation();
-    const path = location.pathname;
+    const [provider, setProvider] = useState(location.pathname.split("/")[3]);
+    const history = useHistory();
+
     const search = location.search;
 
     const params = new URLSearchParams(search);
     const code = params.get("code");
 
     useEffect(() => {
-        if (path !== "/oauth/callback/github") {
+        if (provider !== "github") {
             return;
         }
         const loginGithub = async () => {
@@ -31,7 +33,7 @@ function SocialLogin({ api, onLogin }) {
     }, [code, history])
 
     useEffect(() => {
-        if (path !== "/oauth/callback/kakao") {
+        if (provider !== "kakao") {
             return;
         }
         const loginKakao = async () => {
@@ -45,7 +47,23 @@ function SocialLogin({ api, onLogin }) {
             }
         }
         loginKakao();
-    }, [code, history])
+    }, [api, onLogin, provider, code, history])
+    useEffect(() => {
+        if (provider !== "naver") {
+            return;
+        }
+        const loginNaver = async () => {
+            const token = location.hash.split("=")[1].split("&")[0];
+            const data = await api.naverLogin(token);
+            if (data.success) {
+                onLogin();
+                history.push("/");
+            } else {
+                setError(data.error);
+            }
+        }
+        loginNaver();
+    }, [api, onLogin, location.hash, provider, history])
 
     const handleUnlink = async () => {
         setError(null);

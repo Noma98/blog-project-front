@@ -118,5 +118,9 @@ class Api {
         const response = await axios.post("/api/users/google", userData);
         return response.data;
     }
+    async naverLogin(token) {
+        const response = await axios.post("/api/users/naver", { token });
+        return response.data;
+    }
 }
 export default Api;
