@@ -15,6 +15,7 @@ import CreatePost from './pages/CreatePost/createPost';
 import PostDetail from './pages/PostDetail/postDetail';
 import EditPost from './pages/EditPost/editPost';
 import SocialLogin from './pages/SocialLogin/socialLogin';
+import EditUser from './pages/EditUser/editUser';
 
 function App({ api }) {
   const [user, setUser] = useState(null);
@@ -62,7 +63,9 @@ function App({ api }) {
             <Route path="/login" exact>
               <Login api={api} onLogin={handleLogin} />
             </Route>
-
+            <Route path="/user/edit" exact>
+              <EditUser api={api} onFetchUser={fetchUserData} user={user} />
+            </Route>
             <Route path="/posts/create" exact>
               <CreatePost api={api} user={user} />
             </Route>

@@ -22,9 +22,9 @@ function Join({ api }) {
         const data = await api.postJoin({ email, pwd, name });
         if (!data.success) {
             setErr(data.message);
+            return;
         }
         history.push("/login");
-
     }
     const handleEmail = (e) => {
         setEmail(e.target.value);

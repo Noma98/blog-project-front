@@ -14,11 +14,19 @@ class Api {
     }
     async getUserData() {
         const response = await axios.get("/api/users/auth");
-        const { isAuth, _id, name, email, avatar, blogInfo, folders } = response.data;
+        const { isAuth, _id, name, email, avatar, blogInfo, folders, socialOnly } = response.data;
         if (!isAuth) {
             return null;
         }
-        return { _id, name, email, avatar, blogInfo, folders };
+        return { _id, name, email, avatar, blogInfo, folders, socialOnly };
+    }
+    async updatePwd(data) {
+        const response = await axios.post("/api/users/update/password", data);
+        return response.data;
+    }
+    async updateUser(data) {
+        const response = await axios.post("/api/users/update", data);
+        return response.data;
     }
     async makeFolder() {
         const response = await axios.get("/api/folders/create");

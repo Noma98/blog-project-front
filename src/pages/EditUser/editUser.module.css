@@ -1,0 +1,39 @@
+.edit{
+    width: 25rem;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+}
+.edit h2{
+    margin-bottom: 0.5em;
+    border-left: 0.8rem solid var(--color-dark-green);
+    padding-left: 0.7em;
+}
+.editUser,.editPwd{
+    position: relative;
+}
+.editUser{
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--color-gray-2);
+}
+.editPwd{
+    margin-top: 1em;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1em;
+}
+.editBtn{
+    position:absolute;
+    font-size: 0.8rem;
+    top:0.5em;
+    right:0.5em;
+    padding:0.2em 0.7em;
+    color:var(--color-gray-3);
+    background-color: transparent;
+}
+.edit small{
+    margin: 0.4em 0;
+    color: var(--color-red);
+}
