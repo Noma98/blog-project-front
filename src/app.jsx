@@ -33,10 +33,13 @@ function App({ api }) {
 
   useEffect(() => {
     fetchUserData();
+  }, [login, fetchUserData]);
+
+  useEffect(() => {
     if (user && user.folders.length === 0) {
       api.makeFolder();
     };
-  }, [login, fetchUserData, api]);
+  }, [user])
 
   return (
     <BrowserRouter>
