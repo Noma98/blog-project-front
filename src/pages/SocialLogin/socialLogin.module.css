@@ -5,24 +5,28 @@
     align-items: center;
 }
 .notice{
+    max-width: 40rem;
     display: flex;
     flex-direction: column;
     background-color: whitesmoke;
     padding: 2em 3em;
-    text-align: center;
     border-radius: 1em;
 }
-.notice h1 i{
+.notice h2{
+    text-align: center;
+}
+.notice h2 i{
     color:var(--color-orange);
 }
-.notice pre{
-    text-align: center;
+.notice p{
+   margin:0.7em 0;
+   font-size: 0.9rem;
 }
 .btns{
     background-color: white;
     padding: 1em;
     text-align: start;
-    width: 25rem;
+    width:100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

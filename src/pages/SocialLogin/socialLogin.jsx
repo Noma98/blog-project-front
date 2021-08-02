@@ -93,8 +93,8 @@ function SocialLogin({ api, onLogin }) {
                 <div className={styles.spinner}></div>
             ) : (
                 <div className={styles.notice}>
-                    <h1><i className="fas fa-exclamation-triangle"></i> {error.title}</h1>
-                    <pre>{error.message}</pre>
+                    <h2><i className="fas fa-exclamation-triangle"></i> {error.title}</h2>
+                    <p>{error.message}</p>
                     <div className={styles.btns}>
                         <button>
                             <Link to="/login">1. 로그인 페이지로 돌아가 다른 방법으로 로그인 하기</Link>
