@@ -28,6 +28,10 @@ class Api {
         const response = await axios.post("/api/users/update", data);
         return response.data;
     }
+    async updateBlogInfo(data) {
+        const response = await axios.post("/api/users/update/blog", data);
+        return response.data;
+    }
     async makeFolder() {
         const response = await axios.get("/api/folders/create");
         if (response.data.success) {

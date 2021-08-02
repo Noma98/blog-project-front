@@ -29,7 +29,7 @@ function Home({ user, api }) {
                         <img className={styles.avatar} src={user.avatar || "/images/default.PNG"} alt="user avatar" />
                         <div className={styles.info}>
                             <h3>{user.name}</h3>
-                            <p>Hi, I'm noma! I like pizza 🍕</p>
+                            <p>{user.blogInfo.introduction}</p>
                         </div>
                     </div>
                     <div className={styles.latest}>

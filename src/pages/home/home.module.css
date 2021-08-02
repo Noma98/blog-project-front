@@ -10,6 +10,9 @@
 .info{
     margin-left: 2em;
 }
+.info h3{
+    margin-bottom: 0.5em;
+}
 .latestHeader{
     display: flex;
     justify-content: space-between;
