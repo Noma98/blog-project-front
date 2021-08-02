@@ -77,6 +77,9 @@ button,input[type="submit"]{
     cursor: pointer;
     border: none;
 }
+#naverIdLogin{
+    display: none;
+}
 ::placeholder{
     font-size: 0.8rem;
 }
