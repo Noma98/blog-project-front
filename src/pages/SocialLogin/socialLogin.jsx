@@ -52,6 +52,11 @@ function SocialLogin({ api, onLogin }) {
             return;
         }
         const loginNaver = async () => {
+            if (!location.hash) {
+                // 동의 화면에서 "취소" 버튼 클릭시
+                history.push("/login");
+                return;
+            }
             const token = location.hash.split("=")[1].split("&")[0];
             const data = await api.naverLogin(token);
             if (data.success) {
