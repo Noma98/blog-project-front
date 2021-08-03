@@ -17,6 +17,7 @@ import EditPost from './pages/EditPost/editPost';
 import SocialLogin from './pages/SocialLogin/socialLogin';
 import EditUser from './pages/EditUser/editUser';
 import EditBlog from './pages/EditBlog/editBlog';
+import NotFound from './pages/NotFound/notFound';
 
 function App({ api }) {
   const [user, setUser] = useState(null);
@@ -74,10 +75,10 @@ function App({ api }) {
             <Route path="/posts/create" exact>
               <CreatePost api={api} user={user} />
             </Route>
-            <Route path="/posts/edit/:id" exact>
+            <Route path="/posts/edit/:id([0-9a-f]{24})" exact>
               <EditPost api={api} user={user} />
             </Route>
-            <Route path="/post/:id" exact>
+            <Route path="/post/:id([0-9a-f]{24})" exact>
               <PostDetail api={api} user={user} />
             </Route>
             <Route path="/oauth/callback/:id" exact>
@@ -85,6 +86,9 @@ function App({ api }) {
             </Route>
             <Route path="/:id" exact>
               <ViewPosts api={api} user={user} />
+            </Route>
+            <Route path="/">
+              <NotFound />
             </Route>
           </Switch>
         </section>
