@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import styles from './editPost.module.css';
 
@@ -12,6 +12,7 @@ function EditPost({ api, user }) {
     const [selectedFolder, setSelectedFolder] = useState("");
     const history = useHistory();
     const { id: postId } = useParams();
+    const textRef = useRef();
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -65,9 +66,18 @@ function EditPost({ api, user }) {
         setTagArray(prevTags);
         setSelectedFolder(prevFolderId);
     }, [api, postId]);
+
     useEffect(() => {
         fetchData();
     }, [fetchData])
+
+    useEffect(() => {
+        if (textRef === undefined || textRef.current === undefined) {
+            return;
+        }
+        textRef.current.style.height = textRef.current.scrollHeight + "px";
+    });
+
     return (
         <div className={styles.editPost}>
             <h2 className={styles.title}><input value={title} type="text" onChange={handleTitle} /></h2>
@@ -85,7 +95,7 @@ function EditPost({ api, user }) {
                         })
                     }
                 </select>
-                <textarea value={description} className={styles.description} onChange={handleDescription} required placeholder="내용을 입력하세요." />
+                <textarea value={description} className={styles.description} onChange={handleDescription} ref={textRef} required placeholder="내용을 입력하세요." />
                 <input className={styles.submit} type="submit" value="Edit Complete" />
             </form>
         </div>

@@ -1,6 +1,6 @@
 import styles from './postDetail.module.css';
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import { getFormattedDate } from '../../common';
 
@@ -8,6 +8,7 @@ function PostDetail({ api, user }) {
     const [postInfo, setPostInfo] = useState(null);
     const { id } = useParams();
     const history = useHistory();
+    const textRef = useRef();
 
     const getPostData = useCallback(async () => {
         const data = await api.fetchPostDetail(id);
@@ -23,6 +24,14 @@ function PostDetail({ api, user }) {
     useEffect(() => {
         getPostData();
     }, [getPostData]);
+
+    useEffect(() => {
+        if (textRef === undefined || textRef.current === undefined) {
+            return;
+        }
+        textRef.current.style.height = textRef.current.scrollHeight + "px";
+    });
+
     return (
         <div className={styles.postDetail}>
             {postInfo && <>
@@ -37,7 +46,7 @@ function PostDetail({ api, user }) {
                 <div className={styles.tagContainer}>
                     {postInfo.tags[0] !== "" && postInfo.tags.map(tag => <div className={styles.tag} key={tag.id}>{tag.name}</div>)}
                 </div>
-                <pre className={styles.description}>{postInfo.description}</pre>
+                <textarea ref={textRef} readOnly className={styles.description}>{postInfo.description}</textarea>
             </>}
         </div>
     )

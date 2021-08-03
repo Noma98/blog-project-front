@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import styles from './createPost.module.css';
 
@@ -9,6 +9,8 @@ function CreatePost({ api, user }) {
     const [tagArray, setTagArray] = useState([]);
     const [selectedFolder, setSelectedFolder] = useState(user.folders.length !== 0 && user.folders[0]._id);
     const history = useHistory();
+    const textRef = useRef();
+
     const handleTitle = (e) => {
         setTitle(e.target.value);
     };
@@ -53,6 +55,13 @@ function CreatePost({ api, user }) {
         await api.postNewPost({ title, description, selectedFolder, tagArray });
         history.push(`/posts?folder=${selectedFolder}`);
     }
+    useEffect(() => {
+        if (textRef === undefined || textRef.current === undefined) {
+            return;
+        }
+        textRef.current.style.height = textRef.current.scrollHeight + "px";
+    });
+
     return (
         <div className={styles.writePost}>
             <h1 className={styles.title}>Create new post</h1>
@@ -71,7 +80,7 @@ function CreatePost({ api, user }) {
                         })
                     }
                 </select>
-                <textarea value={description} className={styles.description} placeholder="내용" onChange={handleDescription} required />
+                <textarea ref={textRef} value={description} className={styles.description} placeholder="내용" onChange={handleDescription} required />
                 <input type="submit" value="Create" />
             </form>
         </div>
