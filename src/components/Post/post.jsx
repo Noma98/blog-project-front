@@ -24,7 +24,7 @@ function Post({ post, api, onFetchPosts, user }) {
             {post.tags[0] !== "" && <div className={styles.tagContainer}>
                 {post.tags.map(tag => <span className={styles.tag} key={tag.id}>{tag.name}</span>)}
             </div>}
-            <p>{post.description}</p>
+            <p className={styles.description}>{post.description}</p>
             {pathName !== "/" && <button className={styles.delete} onClick={handleDelete}><i className="fas fa-times"></i></button>}
         </div>
     )

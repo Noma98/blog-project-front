@@ -1,8 +1,11 @@
 .login{
-    display: flex;
-    flex-direction: column;
     width: 25rem;
     border-radius: 1em;
+}
+.loginForm{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
 }
 .join{
     font-weight: 600;
@@ -22,4 +25,41 @@
 }
 .loginBtn:hover{
     background-color: var(--color-dark-blue);
+}
+.line{
+    margin-top: 1em;
+    height: 1px;
+    width:100%;
+    background-color: var(--color-gray-2);
+}
+.socialLogin{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5em;
+}
+.social{
+    padding: 0.6em 1em;
+    border-radius: 0.25em;
+    font-size: 0.8rem;
+    margin-top: 0.7em;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    box-shadow: var(--shadow-1);
+}
+.github{
+    background-color: var(--color-gray-4);
+    color:white;  
+}
+.kakao{
+    background-color: #FEE500;
+    color:#191919;
+}
+.social i{
+    font-size: 1.5rem;
+    margin-right: 0.5em;
+}
+.social img{
+    height:1.2rem;
+    margin-right: 0.5em;
 }

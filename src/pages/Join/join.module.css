@@ -2,10 +2,16 @@
     width: 25rem;
     border-radius: 1em;
 }
+.joinForm{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+}
 .join small{
     margin-top: 0.4em;
     color: var(--color-red);
 }
+
 .joinBtn{
     margin-top: 1em;
     background-color: var(--color-blue);
