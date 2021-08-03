@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import styles from "./editUser.module.css";
 
 function EditUser({ api, user, onFetchUser }) {
@@ -9,6 +10,7 @@ function EditUser({ api, user, onFetchUser }) {
     const [userErr, setUserErr] = useState(null);
     const [pwdErr, setPwdErr] = useState(null);
     const formRef = useRef();
+    const history = useHistory();
     const handleName = (e) => {
         setName(e.target.value);
     }
@@ -48,6 +50,19 @@ function EditUser({ api, user, onFetchUser }) {
         alert("변경 완료");
         onFetchUser();
     }
+    const handleWithdraw = async () => {
+        if (!window.confirm("정말로 삭제하시겠습니까?")) {
+            return;
+        }
+        const response = await api.deleteUser(user._id);
+        if (!response.success) {
+            alert(response.message);
+            return;
+        }
+        alert("성공적으로 삭제했습니다.");
+        onFetchUser();
+        history.push("/");
+    }
 
     return (
         <div className={styles.edit}>
@@ -84,6 +99,7 @@ function EditUser({ api, user, onFetchUser }) {
                     </label>
                 </form>
             )}
+            <button onClick={handleWithdraw} className={styles.withdraw}>회원 탈퇴</button>
         </div >
     )
 }

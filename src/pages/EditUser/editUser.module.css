@@ -37,3 +37,11 @@
     margin: 0.4em 0;
     color: var(--color-red);
 }
+.withdraw{
+    padding: 1em;
+    margin:1em 0;
+    font-size: 0.8rem;
+    background-color: var(--color-dark-green);
+    border-radius: 0.5em;
+    color:white;
+}
