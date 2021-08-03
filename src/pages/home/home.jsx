@@ -37,7 +37,11 @@ function Home({ user, api }) {
                             <h2>Latest Posts</h2>
                             <button onClick={handleCreate}><i className="fas fa-edit"></i></button>
                         </div>
-                        {post && <Post post={post} api={api} user={user} />}
+                        {post ? (
+                            <Post post={post} api={api} user={user} />
+                        ) : (
+                            <div className={styles.none}>게시글이 없습니다.</div>
+                        )}
                     </div>
                 </>
             ) : (
