@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Post from '../../components/Post/post';
 import styles from './viewPosts.module.css';
 
@@ -8,6 +8,7 @@ function ViewPosts({ api, user }) {
     const params = new URLSearchParams(useLocation().search);
     const folder = params.get("folder");
     const query = params.get("query");
+    const history = useHistory();
 
     const fetchPosts = useCallback(async () => {
         const data = await api.fetchPosts(folder);
@@ -39,10 +40,15 @@ function ViewPosts({ api, user }) {
         !query && folder === "all" && fetchAllPosts();
     }, [query, folder, fetchAllPosts])
 
+    const handleCreate = () => {
+        history.push("/posts/create");
+    };
+
     return (
         <div className={styles.postsContainer}>
             <div className={styles.header}>
                 <h1>{query ? `Search results for "${query}"` : "All Posts"}</h1>
+                <button onClick={handleCreate}><i className="fas fa-edit"></i></button>
                 <button><i className="fas fa-ellipsis-v"></i></button>
             </div>
             {postsData &&
