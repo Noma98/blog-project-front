@@ -4,13 +4,20 @@ import styles from "./editUser.module.css";
 
 function EditUser({ api, user, onFetchUser }) {
     const [name, setName] = useState(user.name);
+    const [file, setFile] = useState(null);
+    const [imgBase64, setImgBase64] = useState(null);
+
     const [pwd, setPwd] = useState("");
     const [newPwd, setNewPwd] = useState("");
     const [newPwd2, setNewPwd2] = useState("");
+
     const [userErr, setUserErr] = useState(null);
     const [pwdErr, setPwdErr] = useState(null);
+
+
     const formRef = useRef();
     const history = useHistory();
+
     const handleName = (e) => {
         setName(e.target.value);
     }
@@ -23,6 +30,22 @@ function EditUser({ api, user, onFetchUser }) {
     const handleNewPwd2 = (e) => {
         setNewPwd2(e.target.value);
     }
+
+    const handleFile = (e) => {
+        let reader = new FileReader();
+        reader.onload = () => {
+            const base64 = reader.result;
+            if (base64) {
+                setImgBase64(base64.toString());
+            }
+        }
+        if (!e.target.files[0]) {
+            return;
+        }
+        reader.readAsDataURL(e.target.files[0]);
+        setFile(e.target.files[0]);
+    }
+
     const submitUser = async (e) => {
         e.preventDefault();
         setUserErr(null);
@@ -78,6 +101,14 @@ function EditUser({ api, user, onFetchUser }) {
                 <label>이름
                     <input type="text" value={name} onChange={handleName} maxLength="10" required />
                 </label>
+                <label htmlFor="avatar">프로필 이미지</label>
+                {imgBase64 ?
+                    <img src={imgBase64} alt="profile" className={styles.preview} />
+                    :
+                    <div className={styles.container}>
+                        미리보기
+                    </div>}
+                <input type="file" accept="image/*" id="avatar" name="avatar" id="avatar" onChange={handleFile} />
             </form>
 
             {user.socialOnly ? (

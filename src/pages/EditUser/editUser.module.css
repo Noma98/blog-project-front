@@ -45,3 +45,15 @@
     border-radius: 0.5em;
     color:white;
 }
+.container, .preview{
+    width: 8rem;
+    height: 8rem;
+    margin-top: 0.4em;
+}
+.container{
+    background-color: var(--color-gray-1);
+    font-size: 0.8rem;
+    color: var(--color-gray-2);
+    text-align: center;
+    line-height: 8rem;
+}
