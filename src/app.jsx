@@ -40,8 +40,9 @@ function App({ api }) {
   useEffect(() => {
     if (user && user.folders.length === 0) {
       api.makeFolder();
+      fetchUserData();
     };
-  }, [user])
+  }, [user, fetchUserData])
 
   return (
     <BrowserRouter>
