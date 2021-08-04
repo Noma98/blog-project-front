@@ -5,10 +5,13 @@ import styles from './viewPosts.module.css';
 
 function ViewPosts({ api, user }) {
     const [postsData, setPostsData] = useState();
+    const [editMode, setEditMode] = useState(false);
+
     const params = new URLSearchParams(useLocation().search);
     const folder = params.get("folder");
     const query = params.get("query");
     const history = useHistory();
+    const folderName = new RegExp(/([0-9a-f]){24}/).test(folder) ? user.folders.filter(x => x._id === folder)[0].name : "All Posts";
 
     const fetchPosts = useCallback(async () => {
         const data = await api.fetchPosts(folder);
@@ -43,25 +46,38 @@ function ViewPosts({ api, user }) {
     const handleCreate = () => {
         history.push("/posts/create");
     };
-
+    const handleEdit = () => {
+        setEditMode(!editMode);
+    }
     return (
         <div className={styles.postsContainer}>
             <div className={styles.header}>
-                <h1>{query ? `Search results for "${query}"` : "All Posts"}</h1>
-                <button onClick={handleCreate}><i className="fas fa-edit"></i></button>
-                <button><i className="fas fa-ellipsis-v"></i></button>
+                <h1>{query ? `Search results for "${query}"` : folderName}</h1>
+                <button onClick={handleCreate}>
+                    <i className="fas fa-edit"></i>
+                </button>
+                <button onClick={handleEdit} className={`${styles.editBtn} ${editMode && styles.highlight}`}>
+                    <i className="fas fa-ellipsis-v"></i>
+                </button>
             </div>
             {postsData &&
-                <div className={styles.posts}>
-                    {postsData.length !== 0 ? postsData.map(post => {
-                        return <Post key={post._id} post={post} api={api} onFetchPosts={folder === "all" ? fetchAllPosts : fetchPosts} user={user} />
-                    }) : <>{query ? `"${query}"의 검색 결과가 존재하지 않습니다.` : "게시글이 존재하지 않습니다."}</>
+                <div className={`${styles.posts} ${editMode && styles.editMode}`}>
+                    {postsData.length !== 0 ?
+                        postsData.map(post => {
+                            return <Post
+                                key={post._id}
+                                post={post}
+                                api={api}
+                                onFetchPosts={folder === "all" ? fetchAllPosts : fetchPosts}
+                                user={user}
+                                editMode={editMode}
+                            />
+                        })
+                        :
+                        <>{query ? `"${query}"의 검색 결과가 존재하지 않습니다.` : "게시글이 존재하지 않습니다."}</>
                     }
                 </div>
             }
-            <div className={styles.navBtn}>
-                <button>1</button>
-            </div>
         </div>
     )
 }

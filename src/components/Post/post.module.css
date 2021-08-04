@@ -12,10 +12,16 @@
     box-shadow: var(--shadow-1);
     transform: scale(1.003);
 }
-.post p{
-    font-size: 0.9rem;
-    color:var(--color-gray-3);
-    line-height: 160%;
+.editMode{
+    animation: floating 700ms ease-out infinite alternate;
+}
+@keyframes floating {
+    from{
+        transform:translateY(0px);
+    }
+    to{
+        transform:translateY(-5px);
+    }
 }
 .tagContainer{
     display: flex;

@@ -1,36 +1,35 @@
 .postsContainer h1{
     font-size: 2rem;
     padding: 0.3em;
-    margin-bottom: 0.5em;
+    
     color: rgb(66, 66, 66);
-    border-bottom: var(--color-gray-2) solid 1px;
+    
     width: 100%;
 }
+
 .header{
     display: flex;
     align-items: center;
+    border-bottom: var(--color-gray-2) solid 1px;
 }
 .header i{
     color:var(--color-gray-2);
 }
 .header button{
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     background-color: transparent;
     padding: 0.5em;
+    transition: all 100ms ease-in;
 }
-.navBtn{
-    text-align: center;
+.header button:hover{
+    transform: scale(1.05);
 }
-.navBtn button{
-    border-radius: 50%;
-    color: white;
-    background-color:var(--color-gray-2);
-    padding:0;
-    width: 1.5rem;
-    height:1.5rem;
-    margin:0.1em;
-    transition: all 150ms ease-in;
+.posts{
+    margin-top: 1em;
 }
-.navBtn button:hover{
-    background-color: var(--color-blue);
+.editBtn i{
+    transition: all 100ms ease-in;
+}
+.highlight i{
+    color: var(--color-blue);
 }
