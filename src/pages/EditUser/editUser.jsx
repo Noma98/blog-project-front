@@ -49,7 +49,9 @@ function EditUser({ api, user, onFetchUser }) {
     const submitUser = async (e) => {
         e.preventDefault();
         setUserErr(null);
-        const data = await api.updateUser({ userId: user._id, name });
+        const formData = new FormData(formRef.current);
+        formData.append("userId", user._id);
+        const data = await api.updateUser(formData);
         if (!data.success) {
             setUserErr(data.message);
             return;
@@ -69,7 +71,6 @@ function EditUser({ api, user, onFetchUser }) {
             setPwdErr(data.message);
             return;
         }
-        formRef.current.reset();
         alert("변경 완료");
         onFetchUser();
     }
@@ -89,17 +90,17 @@ function EditUser({ api, user, onFetchUser }) {
 
     return (
         <div className={styles.edit}>
-            <form className={styles.editUser} onSubmit={submitUser}>
+            <form ref={formRef} className={styles.editUser} onSubmit={submitUser}>
                 <h2>회원정보</h2>
                 {userErr && <small>
                     <i class="fas fa-exclamation-circle"></i> {userErr}</small>}
                 <button className={styles.editBtn}>변경</button>
 
                 <label>이메일(변경 불가)
-                    <input value={user.email} readOnly />
+                    <input name="email" value={user.email} disabled />
                 </label>
                 <label>이름
-                    <input type="text" value={name} onChange={handleName} maxLength="10" required />
+                    <input name="name" type="text" value={name} onChange={handleName} maxLength="10" required />
                 </label>
                 <label htmlFor="avatar">프로필 이미지</label>
                 {imgBase64 ?
@@ -108,13 +109,13 @@ function EditUser({ api, user, onFetchUser }) {
                     <div className={styles.container}>
                         미리보기
                     </div>}
-                <input type="file" accept="image/*" id="avatar" name="avatar" id="avatar" onChange={handleFile} />
+                <input type="file" accept="image/*" name="avatar" id="avatar" onChange={handleFile} />
             </form>
 
             {user.socialOnly ? (
                 <small>소셜 로그인 회원은 비밀번호가 없습니다.</small>
             ) : (
-                <form ref={formRef} className={styles.editPwd} onSubmit={submitPwd}>
+                <form className={styles.editPwd} onSubmit={submitPwd}>
                     <h2>비밀번호</h2>
                     {pwdErr && <small>
                         <i class="fas fa-exclamation-circle"></i> {pwdErr}</small>}
