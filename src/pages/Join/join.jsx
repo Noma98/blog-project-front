@@ -19,7 +19,7 @@ function Join({ api }) {
             setErr("비밀번호를 확인해주세요.");
             return;
         }
-        const data = await api.postJoin({ email, pwd, name });
+        const data = await api.postJoin({ email: email.toLowerCase(), pwd, name: name.toLowerCase() });
         if (!data.success) {
             setErr(data.message);
             return;

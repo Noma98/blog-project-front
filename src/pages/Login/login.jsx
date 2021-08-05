@@ -17,7 +17,7 @@ function Login({ api, onLogin }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErr(null);
-        const response = await api.postLogin({ email, pwd });
+        const response = await api.postLogin({ email: email.toLowerCase(), pwd });
         if (!response.success) {
             setErr(response.message);
             return;
