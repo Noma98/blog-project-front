@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
-import styles from './join.module.css';
-import { useHistory } from 'react-router-dom';
+import styles from '../Login/signInUp.module.css';
+import { Link, useHistory } from 'react-router-dom';
 import withAuth from '../../hoc/withAuth';
 
 function Join({ api }) {
@@ -39,15 +39,16 @@ function Join({ api }) {
         setPwd2(e.target.value);
     }
     return (
-        <div className={styles.join}>
-            <h1>회원가입</h1>
-            {err && <small>
-                <i class="fas fa-exclamation-circle"></i> {err}</small>}
+        <div className={`${styles.signInUp} ${styles.tight}`}>
+            <h1>Sign up <span className={styles.logo}>nomab.log</span></h1>
+            <small>계정이 이미 있으십니까? <Link to="/login" className={styles.login}>로그인하러 가기</Link></small>
+            <br />
+            {err && <small className={styles.err}><i class="fas fa-exclamation-circle"></i> {err}</small>}
             <form onSubmit={handleSubmit} ref={formRef} className={styles.joinForm}>
-                <label>이메일
+                <label>이메일 주소
                     <input type="email" required value={email} onChange={handleEmail} />
                 </label>
-                <label>이름
+                <label>이름 (닉네임)
                     <input type="text" required value={name} onChange={handleName} maxLength="10" />
                 </label>
                 <label>비밀번호 (6자 이상)
