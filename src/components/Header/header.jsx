@@ -8,7 +8,7 @@ function Header({ api, onLogout, user }) {
         const response = await api.getLogout();
         if (response.success) {
             onLogout();
-            history.push("/");
+            history.push("/login");
         } else {
             alert("⛔ 로그아웃 실패");
         }

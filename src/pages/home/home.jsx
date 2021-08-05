@@ -22,7 +22,7 @@ function Home({ user, api }) {
     }, [fetchData]);
     return (
         <div className={styles.home}>
-            {user ? (
+            {user &&
                 <>
                     <h2>{user.blogInfo.name}</h2>
                     <div className={styles.user}>
@@ -44,13 +44,9 @@ function Home({ user, api }) {
                         )}
                     </div>
                 </>
-            ) : (
-                <>
-                    <h2>Log in and write your own writing!</h2>
-                </>
-            )}
+            }
         </div>
     )
 }
 
-export default withAuth(Home, null);
+export default withAuth(Home, true);

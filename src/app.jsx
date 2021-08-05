@@ -48,6 +48,7 @@ function App({ api }) {
   return (
     <BrowserRouter>
       <div className={styles.app}>
+        {user &&
         <nav className={styles.nav}>
           <Header api={api} onLogout={handleLogout} user={user} />
           <Sidebar api={api} onFetchUser={fetchUserData} user={user} />
@@ -55,7 +56,8 @@ function App({ api }) {
             ⓒ noma
           </footer>
         </nav>
-        <section className={styles.content}>
+        }
+        <section className={`${styles.content} ${!user && styles.guest}`}>
           <Switch>
             <Route path="/" exact>
               <Home user={user} api={api} />
