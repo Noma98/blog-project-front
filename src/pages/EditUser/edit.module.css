@@ -9,14 +9,14 @@
     border-left: 0.8rem solid var(--color-dark-green);
     padding-left: 0.7em;
 }
-.editUser,.editPwd{
+.edit form{
     position: relative;
 }
-.editUser{
+.editUser,.editBlog{
     padding-bottom: 1em;
     border-bottom: 1px solid var(--color-gray-2);
 }
-.editPwd{
+.editPwd,.editUser{
     margin-top: 1em;
 }
 .header{

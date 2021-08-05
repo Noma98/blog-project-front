@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import styles from "./editUser.module.css";
+import styles from "./edit.module.css";
 
 function EditUser({ api, user, onFetchUser }) {
     const [name, setName] = useState(user.name);
@@ -91,7 +91,7 @@ function EditUser({ api, user, onFetchUser }) {
     return (
         <div className={styles.edit}>
             <form ref={formRef} className={styles.editUser} onSubmit={submitUser}>
-                <h2>회원정보</h2>
+                <h2>회원 정보</h2>
                 {userErr && <small>
                     <i class="fas fa-exclamation-circle"></i> {userErr}</small>}
                 <button className={styles.editBtn}>변경</button>
@@ -133,6 +133,7 @@ function EditUser({ api, user, onFetchUser }) {
             )}
             <button onClick={handleWithdraw} className={styles.withdraw}>회원 탈퇴</button>
         </div >
+
     )
 }
 
