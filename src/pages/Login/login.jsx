@@ -7,7 +7,7 @@ import Google from '../../components/Google/google';
 import Naver from '../../components/Naver/naver';
 
 
-function Login({ api, onLogin }) {
+function Login({ api, onFetchUser }) {
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
     const [err, setErr] = useState(null);
@@ -22,7 +22,7 @@ function Login({ api, onLogin }) {
             setErr(response.message);
             return;
         }
-        onLogin();
+        await onFetchUser();
         history.push("/");
     }
     const handleEmail = (e) => {
@@ -51,7 +51,7 @@ function Login({ api, onLogin }) {
                 <a href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_DEV_CLIENT}&scope=read%3Auser+user%3Aemail`} className={`${styles.social} ${styles.github}`}><i className="fab fa-github"></i>깃허브로 로그인하기</a>
 
                 <a className={`${styles.social} ${styles.kakao}`} href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${config.KAKAO_API_KEY}&redirect_uri=http://localhost:3000/oauth/callback/kakao&state=${config.KAKAO_STATE}`}><img src="/images/kakao.png"></img>카카오로 로그인하기</a>
-                <Google api={api} onLogin={onLogin} />
+                <Google api={api} onFetchUser={onFetchUser} />
                 <Naver />
             </div>
 

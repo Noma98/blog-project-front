@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import * as config from '../../config';
 import styles from './google.module.css';
 
-function Google({ api, onLogin }) {
+function Google({ api, onFetchUser }) {
     const history = useHistory();
     const onSuccess = async (response) => {
         const {
@@ -19,7 +19,7 @@ function Google({ api, onLogin }) {
             alert("로그인 실패");
             return;
         }
-        onLogin();
+        await onFetchUser();
         history.push("/");
     }
     const onFailure = (error) => {

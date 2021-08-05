@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
 
-function Header({ api, onLogout, user, onToggle }) {
+function Header({ api, onToggle, onFetchUser }) {
     const history = useHistory();
     const [visible, setVisible] = useState(false);
 
@@ -13,7 +13,7 @@ function Header({ api, onLogout, user, onToggle }) {
         }
         const response = await api.getLogout();
         if (response.success) {
-            onLogout();
+            await onFetchUser();
             history.push("/login");
         } else {
             alert("⛔ 로그아웃 실패");
@@ -32,7 +32,6 @@ function Header({ api, onLogout, user, onToggle }) {
     }
     return (
         <header className={styles.header}>
-
             <Link to="/">
                 <h3>nomab.log</h3>
             </Link>
@@ -40,27 +39,21 @@ function Header({ api, onLogout, user, onToggle }) {
             <div className={styles.flexRow}>
                 <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />
                 <nav className={styles.nav}>
-                    {user &&
-                        <>
-                            <ul className={`${styles.lists} ${visible && styles.visible}`}>
-                                <li className={styles.logout} onClick={handleLogout}>
-                                    <button>
-                                        <i className="fas fa-sign-out-alt"></i>
-                                    </button>
-                                </li>
-                                <li>
-                                    <Link to="/user/edit"><i className="fas fa-user-edit"></i></Link>
-                                </li>
-                            </ul>
-                            <TabletAndMobile>
-                                <button className={styles.settings} onClick={handleVisible}>
-                                    <i className="fas fa-cog"></i>
-                                </button>
-                            </TabletAndMobile>
-
-                        </>
-                    }
-
+                    <ul className={`${styles.lists} ${visible && styles.visible}`}>
+                        <li className={styles.logout} onClick={handleLogout}>
+                            <button>
+                                <i className="fas fa-sign-out-alt"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <Link to="/user/edit"><i className="fas fa-user-edit"></i></Link>
+                        </li>
+                    </ul>
+                    <TabletAndMobile>
+                        <button className={styles.settings} onClick={handleVisible}>
+                            <i className="fas fa-cog"></i>
+                        </button>
+                    </TabletAndMobile>
                 </nav>
 
                 <TabletAndMobile>

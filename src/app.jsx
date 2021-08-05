@@ -18,16 +18,7 @@ import { Desktop } from './common/mediaQuery';
 
 function App({ api }) {
   const [user, setUser] = useState(null);
-  const [login, setLogin] = useState(false);
   const [toggle, setToggle] = useState(false);
-
-  const handleLogin = useCallback(() => {
-    setLogin(true);
-  }, []);
-
-  const handleLogout = useCallback(() => {
-    setLogin(false);
-  }, []);
 
   const fetchUserData = useCallback(async () => {
     const userData = await api.getUserData();
@@ -37,7 +28,7 @@ function App({ api }) {
 
   useEffect(() => {
     fetchUserData();
-  }, [login, fetchUserData]);
+  }, [fetchUserData]);
 
   useEffect(() => {
     if (user && user.folders.length === 0) {
@@ -54,7 +45,7 @@ function App({ api }) {
       <div className={styles.app}>
         {user &&
           <nav className={styles.nav}>
-            <Header api={api} onLogout={handleLogout} user={user} onToggle={handleToggle} />
+            <Header api={api} onFetchUser={fetchUserData} onToggle={handleToggle} />
             <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
             <Desktop>
               <footer>
@@ -72,7 +63,7 @@ function App({ api }) {
               <Join api={api} />
             </Route>
             <Route path="/login" exact>
-              <Login api={api} onLogin={handleLogin} />
+              <Login api={api} onFetchUser={fetchUserData} />
             </Route>
             <Route path="/user/edit" exact>
               <EditBlog api={api} onFetchUser={fetchUserData} user={user} />
@@ -88,7 +79,7 @@ function App({ api }) {
               <PostDetail api={api} user={user} />
             </Route>
             <Route path="/oauth/callback/:id" exact>
-              <SocialLogin api={api} onLogin={handleLogin} />
+              <SocialLogin api={api} onFetchUser={fetchUserData} />
             </Route>
             <Route path="/:id" exact>
               <ViewPosts api={api} user={user} />
@@ -98,6 +89,8 @@ function App({ api }) {
             </Route>
           </Switch>
         </section>
+
+
       </div>
     </BrowserRouter>
   );

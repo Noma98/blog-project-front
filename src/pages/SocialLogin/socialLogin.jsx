@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import styles from './socialLogin.module.css';
 
-function SocialLogin({ api, onLogin }) {
+function SocialLogin({ api, onFetchUser }) {
     const [error, setError] = useState(null);
     const [accessToken, setAccessToken] = useState(null); //unlink시 필요
     const location = useLocation();
@@ -20,7 +20,7 @@ function SocialLogin({ api, onLogin }) {
         const loginGithub = async () => {
             const data = await api.loginGithub(code);
             if (data.success) {
-                onLogin();
+                await onFetchUser();
                 history.push("/");
             } else {
                 history.push("/login");
@@ -29,7 +29,7 @@ function SocialLogin({ api, onLogin }) {
             }
         }
         loginGithub();
-    }, [api, onLogin, provider, code, history])
+    }, [api, onFetchUser, provider, code, history])
 
     useEffect(() => {
         if (provider !== "kakao") {
@@ -38,7 +38,7 @@ function SocialLogin({ api, onLogin }) {
         const loginKakao = async () => {
             const data = await api.loginKakao(code);
             if (data.success) {
-                onLogin();
+                await onFetchUser();
                 history.push("/");
             } else {
                 setAccessToken(data.token);
@@ -46,7 +46,7 @@ function SocialLogin({ api, onLogin }) {
             }
         }
         loginKakao();
-    }, [api, onLogin, provider, code, history])
+    }, [api, onFetchUser, provider, code, history])
     useEffect(() => {
         if (provider !== "naver") {
             return;
@@ -60,7 +60,7 @@ function SocialLogin({ api, onLogin }) {
             const token = location.hash.split("=")[1].split("&")[0];
             const data = await api.naverLogin(token);
             if (data.success) {
-                onLogin();
+                await onFetchUser();
                 history.push("/");
             } else {
                 setAccessToken(data.token);
@@ -68,7 +68,7 @@ function SocialLogin({ api, onLogin }) {
             }
         }
         loginNaver();
-    }, [api, onLogin, location.hash, provider, history])
+    }, [api, onFetchUser, location.hash, provider, history])
 
     const kakaoUnlink = async () => {
         const data = await api.kakaoUnlink(accessToken);
@@ -88,24 +88,24 @@ function SocialLogin({ api, onLogin }) {
     }
 
     return (
-        <div className={styles.container}>
-            {!error ? (
-                <div className={styles.spinner}></div>
-            ) : (
-                <div className={styles.notice}>
-                    <h2><i className="fas fa-exclamation-triangle"></i> {error.title}</h2>
-                    <p>{error.message}</p>
-                    <div className={styles.btns}>
-                        <button>
-                            <Link to="/login">1. 로그인 페이지로 돌아가 다른 방법으로 로그인 하기</Link>
-                        </button>
+        <>
+            {error &&
+                <div className={styles.container}>
+                    <div className={styles.notice}>
+                        <h2><i className="fas fa-exclamation-triangle"></i> {error.title}</h2>
+                        <p>{error.message}</p>
+                        <div className={styles.btns}>
+                            <button>
+                                <Link to="/login">1. 로그인 페이지로 돌아가 다른 방법으로 로그인 하기</Link>
+                            </button>
 
-                        <button onClick={provider === "kakao" ? kakaoUnlink : naverUnlink}>{`2. 정보 제공에 동의하기 : ${provider}와 연결 끊기 후 재동의 진행`}</button>
-                        <small>개인정보 동의 화면을 다시 띄우기 위해서 필요한 절차입니다. 해당 버튼을 클릭하면 연결이 끊기고 로그인 화면으로 이동됩니다. 처음부터 다시 진행하시고, 정보 제공에 꼭 동의해주세요.</small>
+                            <button onClick={provider === "kakao" ? kakaoUnlink : naverUnlink}>{`2. 정보 제공에 동의하기 : ${provider}와 연결 끊기 후 재동의 진행`}</button>
+                            <small>개인정보 동의 화면을 다시 띄우기 위해서 필요한 절차입니다. 해당 버튼을 클릭하면 연결이 끊기고 로그인 화면으로 이동됩니다. 처음부터 다시 진행하시고, 정보 제공에 꼭 동의해주세요.</small>
+                        </div>
                     </div>
                 </div>
-            )}
-        </div>
+            }
+        </>
     );
 }
 
