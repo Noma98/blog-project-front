@@ -15,6 +15,9 @@
     text-align: start;
     background-color: transparent;
 }
+.posts{
+    font-weight: 1000 !important;
+}
 .sidebar::-webkit-scrollbar{
     display: none;
 }
@@ -57,15 +60,23 @@
     color: var(--color-gray-2);
     font-size: 1rem;
 }
-.addBtn:hover,.folder:hover{
+.folder:hover{
     background-color: var(--color-gray-3);
 }
 .posts{
     color: var(--color-blue);
     font-weight: 600;
 }
-.sidebar .addBtn{
-    color: whitesmoke;
+.addBtn:hover{
+    padding-top: 1.2em;
+}
+.addBtn{
+    color: var(--color-gray-3);
+    transition: 100ms all ease-in;
+}
+.addBtn i{
+    color: var(--color-gray-3);
+    margin-right: 1em;
 }
 .green{
     color: var(--color-green);
@@ -76,4 +87,29 @@
 }
 .mouseOver{
     transition: all 500ms ease-in;
+}
+.mouseOver i{
+    color: whitesmoke;
+    padding: 0.2em;
+}
+
+
+@media screen and (max-width:992px) {
+    .sidebar{
+        padding-top: 5.5rem;
+        position: fixed;
+        top:0;
+        height: 0;
+        width: 100%;
+        z-index: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 300ms ease-in;
+    }
+    .open{
+        height: 20rem;
+        opacity: 100;
+        pointer-events: all;
+        z-index: 5;
+    }
 }

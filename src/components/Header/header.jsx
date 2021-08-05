@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
 
-function Header({ api, onLogout, user }) {
+function Header({ api, onLogout, user, onToggle }) {
     const history = useHistory();
+    const [visible, setVisible] = useState(false);
+
     const handleLogout = async () => {
         const response = await api.getLogout();
         if (response.success) {
@@ -21,39 +24,46 @@ function Header({ api, onLogout, user }) {
             history.push(`/posts?folder=all&query=${value}`);
         }
     }
+    const handleVisible = () => {
+        setVisible(!visible);
+    }
     return (
         <header className={styles.header}>
+
             <Link to="/">
                 <h3>nomab.log</h3>
             </Link>
-            <ul className={styles.nav}>
-                {user ? (
-                    <>
-                        <li className={styles.logout} onClick={handleLogout}>
-                            <button>
-                                Logout
-                            </button>
-                        </li>
-                        <li>
-                            <Link to="/user/edit"><i className="fas fa-user-edit"></i></Link>
-                        </li>
-                        <li>
-                            <Link to="/blog/edit"><i className="fas fa-cog"></i></Link>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <li>
-                            <Link to="/login">Login</Link>
-                        </li>
-                        <li>
-                            <Link to="/join">Join</Link>
-                        </li>
-                    </>
-                )}
 
-            </ul>
-            <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />
+            <div className={styles.flexRow}>
+                <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />
+                <nav className={styles.nav}>
+                    {user &&
+                        <>
+                            <ul className={`${styles.lists} ${visible && styles.visible}`}>
+                                <li className={styles.logout} onClick={handleLogout}>
+                                    <button>
+                                        <i className="fas fa-sign-out-alt"></i>
+                                    </button>
+                                </li>
+                                <li>
+                                    <Link to="/user/edit"><i className="fas fa-user-edit"></i></Link>
+                                </li>
+                            </ul>
+                            <TabletAndMobile>
+                                <button className={styles.settings} onClick={handleVisible}>
+                                    <i className="fas fa-cog"></i>
+                                </button>
+                            </TabletAndMobile>
+
+                        </>
+                    }
+
+                </nav>
+
+                <TabletAndMobile>
+                    <button className={styles.toggle}><i className="fas fa-bars" onClick={onToggle}></i></button>
+                </TabletAndMobile>
+            </div>
         </header>
     )
 }

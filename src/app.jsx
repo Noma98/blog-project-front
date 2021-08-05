@@ -1,15 +1,11 @@
 import styles from './app.module.css';
-import {
-  BrowserRouter,
-  Switch,
-  Route
-} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
 import Home from './pages/home/home';
 import Join from './pages/Join/join';
 import Login from './pages/Login/login';
 import Sidebar from './components/Sidebar/sidebar';
 import Header from './components/Header/header';
-import { useCallback, useEffect, useState } from 'react';
 import ViewPosts from './pages/ViewPosts/viewPosts';
 import CreatePost from './pages/CreatePost/createPost';
 import PostDetail from './pages/PostDetail/postDetail';
@@ -18,16 +14,21 @@ import SocialLogin from './pages/SocialLogin/socialLogin';
 import EditUser from './pages/EditUser/editUser';
 import EditBlog from './pages/EditBlog/editBlog';
 import NotFound from './pages/NotFound/notFound';
+import { Desktop } from './common/mediaQuery';
 
 function App({ api }) {
   const [user, setUser] = useState(null);
   const [login, setLogin] = useState(false);
+  const [toggle, setToggle] = useState(false);
+
   const handleLogin = useCallback(() => {
     setLogin(true);
   }, []);
+
   const handleLogout = useCallback(() => {
     setLogin(false);
   }, []);
+
   const fetchUserData = useCallback(async () => {
     const userData = await api.getUserData();
     setUser(userData);
@@ -45,17 +46,22 @@ function App({ api }) {
     };
   }, [user, fetchUserData])
 
+  const handleToggle = () => {
+    setToggle(!toggle);
+  }
   return (
     <BrowserRouter>
       <div className={styles.app}>
         {user &&
-        <nav className={styles.nav}>
-          <Header api={api} onLogout={handleLogout} user={user} />
-          <Sidebar api={api} onFetchUser={fetchUserData} user={user} />
-          <footer>
-            ⓒ noma
-          </footer>
-        </nav>
+          <nav className={styles.nav}>
+            <Header api={api} onLogout={handleLogout} user={user} onToggle={handleToggle} />
+            <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
+            <Desktop>
+              <footer>
+                ⓒ noma
+              </footer>
+            </Desktop>
+          </nav>
         }
         <section className={`${styles.content} ${!user && styles.guest}`}>
           <Switch>
@@ -69,10 +75,8 @@ function App({ api }) {
               <Login api={api} onLogin={handleLogin} />
             </Route>
             <Route path="/user/edit" exact>
-              <EditUser api={api} onFetchUser={fetchUserData} user={user} />
-            </Route>
-            <Route path="/blog/edit" exact>
               <EditBlog api={api} onFetchUser={fetchUserData} user={user} />
+              <EditUser api={api} onFetchUser={fetchUserData} user={user} />
             </Route>
             <Route path="/posts/create" exact>
               <CreatePost api={api} user={user} />

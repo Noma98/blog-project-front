@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import styles from './sidebar.module.css';
 
-function Sidebar({ api, onFetchUser, user }) {
+
+function Sidebar({ api, onFetchUser, user, toggle, onToggle }) {
     const [edit, setEdit] = useState(null);
     const [newName, setNewName] = useState("");
     const [hover, setHover] = useState(null);
@@ -15,7 +16,7 @@ function Sidebar({ api, onFetchUser, user }) {
     const handleEdit = (e) => {
         setEdit(e.target.dataset.id);
     }
-    const handleChange = (e) => {
+    const handleInputChange = (e) => {
         setNewName(e.target.value);
     }
     const handleSubmit = async (e) => {
@@ -44,11 +45,15 @@ function Sidebar({ api, onFetchUser, user }) {
         setHover(null);
     }
     const handleClickFolder = (e) => {
+        if (e.target !== e.currentTarget) {
+            return;
+        }
         const folderId = e.target.dataset.id;
+        onToggle();
         history.push(`/posts?folder=${folderId}`);
     }
     return (
-        <div className={styles.sidebar}>
+        <div className={`${styles.sidebar} ${toggle && styles.open}`}>
             <button className={styles.posts}>
                 <Link to="/posts?folder=all">ALL POSTS</Link>
             </button>
@@ -64,7 +69,8 @@ function Sidebar({ api, onFetchUser, user }) {
                                     onMouseOver={handleMouseOver}
                                     onMouseOut={handleMouseOut}
                                     onClick={handleClickFolder}
-                                    data-id={folder._id} >
+                                    data-id={folder._id}
+                                >
                                     {folder.name}
                                     <div className={hover === folder._id ? styles.mouseOver : styles.mouseOut} data-id={folder._id}>
                                         <i className="fas fa-pen" onClick={handleEdit} data-id={folder._id}></i>
@@ -82,9 +88,9 @@ function Sidebar({ api, onFetchUser, user }) {
                                         data-id={folder._id}
                                         type="text"
                                         value={newName}
-                                        onChange={handleChange}
+                                        onChange={handleInputChange}
                                         onBlur={handleSubmit}
-                                        maxLength="10"
+                                        maxLength="20"
                                         placeholder={folder.name}
                                         autoFocus />
                                     <button><i className={newName ? `fas fa-check ${styles.green}` : "fas fa-check"} onClick={handleSubmit} data-id={folder._id}></i></button>
@@ -104,7 +110,7 @@ function Sidebar({ api, onFetchUser, user }) {
                 </ul>
             </nav>
             {user && <button className={styles.addBtn} onClick={handleAdd}>
-                ➕ Add Folder
+                <i className="fas fa-plus"></i> NEW FOLDER
             </button>}
         </div>
     )

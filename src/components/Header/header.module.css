@@ -10,23 +10,87 @@
 .header *{
     color: whitesmoke;
 }
-
-.nav{
-    display: flex;
-    align-items: center;
-    margin: 0.8em 0 0 0 ;
+.toggle{
+    background-color: transparent;
+    font-size: 1.3rem;
 }
 
-.nav i,.logout button,nav li a{
-    font-size: 0.8rem;
+.lists{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.8em 0 0 0 ;
+}
+
+.list i,.list a,.logout button{
+    font-size: 1.2rem;
     padding: 0.3em;
 }
 .logout button{
     background-color: transparent;
 }
+
 .search{
     color: var(--color-black);
     border-radius: 3em !important;
     outline-style: none;
     font-size: 0.8rem !important;
+}
+
+@media screen and (max-width:992px) {
+    .header{
+        position: fixed;
+        width: 100%;
+        flex-direction: row;
+        justify-content:space-between;
+        padding: 0 2em;
+        height: 4.5rem;
+        z-index: 100;
+    }
+    .flexRow{
+        display: flex;
+        align-items: center;
+    }
+    .search{
+        margin-right: 1em !important;
+    }
+    .nav{
+        position: fixed;
+        bottom:1rem;
+        right:1rem;
+    }
+    
+    .settings{
+        position: fixed;
+        bottom:1rem;
+        right:1rem;
+        background-color: var(--color-blue);
+        width: 3rem;
+        height:3rem;
+        line-height: 3rem;
+        font-size: 1.4rem;
+        border-radius: 50%;
+        z-index: 100;
+    }
+    .lists li{
+        margin-left: 0.6em;
+    }
+    .lists{
+        height: 3rem;
+        transition: 200ms ease-in all;
+        background-color: var(--color-dark-blue);
+        padding-right: 3rem;
+        border-radius: 3rem;
+        width:0rem;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .visible{
+        width: 9rem;
+        opacity: 100;
+        pointer-events: all;
+    }
+    .logout button i{
+        padding-top: 0.3em;
+    }
 }
