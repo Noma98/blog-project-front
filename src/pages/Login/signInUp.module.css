@@ -1,5 +1,10 @@
 .signInUp{
-    width: 23rem;
+    width: 35rem;
+    height: unset;
+    padding: 2em 5em;
+    border-radius: 2rem;
+    margin: auto;
+    background-color: var(--color-beige);
 }
 .logo{
     font-family: 'Lobster', cursive;
@@ -75,11 +80,14 @@
 @media screen and (max-width:767px) {
     .signInUp{
         width: 100%;
-        height: 100%;
+        padding: 2em;
     }
 }
 
 @media screen and (max-width:550px) {
+    .signInUp{
+        padding:1em;
+    }
     .socialLogin{
         grid-template-columns: 1fr;
     }

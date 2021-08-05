@@ -1,5 +1,5 @@
 .edit{
-    width: 25rem;
+    width: 30rem;
     border-radius: 1em;
     display: flex;
     flex-direction: column;
@@ -56,4 +56,16 @@
     color: var(--color-gray-2);
     text-align: center;
     line-height: 8rem;
+}
+
+@media screen and (min-width:767px) {
+    .edit{
+        padding: 1em;
+    }
+}
+@media screen and (max-width:767px) {
+    .edit{
+        margin:auto;
+        width: 85%;
+    }
 }

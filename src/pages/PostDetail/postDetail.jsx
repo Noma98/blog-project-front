@@ -46,7 +46,7 @@ function PostDetail({ api, user }) {
                 <div className={styles.tagContainer}>
                     {postInfo.tags[0] !== "" && postInfo.tags.map(tag => <div className={styles.tag} key={tag.id}>{tag.name}</div>)}
                 </div>
-                <textarea ref={textRef} readOnly className={styles.description}>{postInfo.description}</textarea>
+                <textarea ref={textRef} readOnly className={styles.description} value={postInfo.description}></textarea>
             </>}
         </div>
     )

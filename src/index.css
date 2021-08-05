@@ -2,21 +2,21 @@
 
 :root{
     /* color */
-    --color-blue:#297fba;
-    --color-dark-blue:#236fa1;
+    --color-blue:#1d82e0;
+    --color-dark-blue:#1277d6;
     --color-green:rgb(141, 255, 65);
     --color-yellow-green:rgb(221, 219, 108);
     --color-dark-green:rgb(164, 179, 34);
     --color-orange-yellow:rgb(226, 167, 58);
     --color-orange:rgb(214, 112, 64);
     --color-red:rgb(221, 35, 35);
-    --color-beige:rgb(231, 231, 231);
+    --color-beige:rgb(248, 248, 248);
     --color-gray-1:#f1f1f1;
     --color-gray-2:#c7c7c7;
     --color-gray-3:#6e6d6a;
     --color-gray-4:#333230;
     --color-gray-trans:rgba(128, 128, 128, 0.479);
-    --color-black:rgb(47, 47, 47);
+    --color-black:rgb(107, 107, 107);
    
     /* shadow*/
     --shadow-1: 4px 4px 4px #c7c7c7;
@@ -24,33 +24,48 @@
 
 *{
     box-sizing: border-box;
+    font-family: 'NanumSquareRound', sans-serif;
+    line-height: 160%;
+}
+input{
     font-family: 'Roboto', sans-serif;
-    font-weight: inherit;
+    background-color: white;
+}
+html{
+    font-size: 18px;
 }
 body{
     margin: 0;
     overflow-y: hidden;
 }
-h1,h2,h3,p{
+p,textarea,div,input{
+    color: var(--color-gray-3);
     margin: 0;
-    color: var(--color-black);
 }
 
+h1,h2,h3{
+    margin: 0;
+    font-weight: 1000;
+    color: var(--color-black);
+}
 h1{
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 2.3rem;
 }
 h2{
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.7rem;
 }
 h3{
     font-size: 1.2rem;
-    font-weight: 600;
 }
 a{
     text-decoration: none;
     color:inherit;
+}
+i{
+    transition: 100ms ease-in transform;
+}
+i:hover{
+    transform: scale(1.03);
 }
 ul{
     list-style: none;
@@ -85,11 +100,12 @@ button,input[type="submit"]{
 }
 @media screen and (max-width:960px){
     html{
-        font-size: 19px;
+        font-size: 17px;
     }
 }
 @media screen and (max-width:680px){
     html{
-        font-size: 18px;
+        font-size: 16px;
     }
 }
+

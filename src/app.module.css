@@ -4,15 +4,40 @@
 }
 .nav{
     width: 25%;
-    height: 100%;
 }
-
 .content{
     padding: 3em 4em;
     height: 100%;
     width:75%;
     background-color: var(--color-beige);
     overflow-y: auto;
+}
+.content.guest{
+    display: flex;
+    width: 100%;
+    padding:1em;
+    overflow-y: auto;
+    background-color: var(--color-gray-2);
+}
+footer{
+    background-color: var(--color-gray-3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--color-gray-2);
+    height: 10%;
+}
+.sideToggle{
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    background-color: transparent;
+    color: var(--color-blue);
+    font-size: 1.3rem;
+}
+.content{
+    margin: auto;
 }
 .content::-webkit-scrollbar{
     width: 0.5em;
@@ -24,11 +49,36 @@
     background-color: var(--color-gray-2);
     border-radius: 1em;
 }
-footer{
-    background-color: var(--color-gray-3);
-    padding: 1em;
-    font-size: 0.8rem;
-    text-align: center;
-    color: var(--color-gray-2);
-    height: 10%;
+.content.guest::-webkit-scrollbar{
+    width: 0;
+}
+@media screen and (max-width:992px) {
+    .app{
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    .app::-webkit-scrollbar{
+        width: 0;
+    }
+    .content,.nav{
+        width: 100%;
+    }
+    .content:not(.guest){
+        margin-top: 4.5rem;
+    }
+    .content::-webkit-scrollbar{
+        width: 0;
+    }
+}
+@media screen and (max-width:767px) {
+    .content{
+        padding: 3em 1.5em;
+    }
+    .content.guest{
+        background-color: var(--color-beige);
+        padding: 3em;
+        width: 100%;
+        border-radius: 0;
+        margin:0;
+    }
 }

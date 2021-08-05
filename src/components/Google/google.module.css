@@ -5,7 +5,7 @@
     margin-top: 0.7em;
     display: flex;
     align-items: center;
-    font-weight: 400;
+    font-weight: 700;
     box-shadow: var(--shadow-1);
 }
 .google{
@@ -15,4 +15,10 @@
 .google img{
     height:1.4rem;
     margin-right: 0.5em;
+}
+
+@media screen and (max-width:550px) {
+    .google{
+        justify-content: center;
+    }
 }

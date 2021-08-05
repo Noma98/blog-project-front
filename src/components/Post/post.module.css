@@ -1,6 +1,6 @@
 .post{
     position: relative;
-    padding: 1em;
+    padding: 2em;
     margin-bottom: 1em;
     border-radius: 1em;
     border-bottom: 1px solid var(--color-gray-2);
@@ -37,6 +37,8 @@
     margin: 0 0.5em 0.5em 0;
 }
 .description{
+    margin-top: 0.5em;
+    font-size: 0.9rem;
     display: -webkit-box;
     overflow: hidden;
     -webkit-line-clamp: 2;
@@ -56,11 +58,11 @@
 }
 .new{
     position:absolute;
-    top:-0.9em;
-    left: 0.5em;
+    top:-1em;
+    left: 0.7em;
     padding: 0.2em 0.5em;
     border-radius: 0.2em;
-    font-weight: 700;
+    font-weight: 1000;
     font-size: 1.2rem;
     animation: twinkle 1s ease-in-out infinite alternate;
 }
