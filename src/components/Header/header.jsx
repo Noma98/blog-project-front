@@ -8,6 +8,9 @@ function Header({ api, onLogout, user, onToggle }) {
     const [visible, setVisible] = useState(false);
 
     const handleLogout = async () => {
+        if (!window.confirm("정말 로그아웃하시겠습니까?")) {
+            return;
+        }
         const response = await api.getLogout();
         if (response.success) {
             onLogout();

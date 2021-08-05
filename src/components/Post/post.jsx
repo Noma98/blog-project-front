@@ -8,6 +8,9 @@ function Post({ post, api, onFetchPosts, user, editMode }) {
     const pathName = history.location.pathname;
 
     const handleDelete = async (e) => {
+        if (!window.confirm("정말 삭제하시겠습니까?")) {
+            return;
+        }
         await api.deletePost(post._id, post.folder);
         onFetchPosts();
     };
