@@ -16,21 +16,23 @@ function Google({ api, onLogin }) {
         } = response;
         const data = await api.googleLogin({ email, name, avatar });
         if (!data.success) {
-            alert(`${data.error.title}: ${data.error.message}`);
+            alert("로그인 실패");
             return;
         }
         onLogin();
         history.push("/");
     }
     const onFailure = (error) => {
-        console.log(error);
-        alert(`로그인 에러: ${error}`);
+        if (error.error === "popup_closed_by_user") {
+            return;
+        }
+        alert("로그인 실패");
     }
     return (
         <GoogleLogin
             clientId={config.GOOGLE_CLIENT}
             render={renderProps => (
-                <button className={styles.google} onClick={renderProps.onClick} disabled={renderProps.disabled}><img src="/images/google.png"></img>Login with Google</button>
+                <button className={styles.google} onClick={renderProps.onClick} disabled={renderProps.disabled}><img src="/images/google.png"></img>구글로 로그인하기</button>
             )}
             onSuccess={onSuccess}
             onFailure={onFailure}
