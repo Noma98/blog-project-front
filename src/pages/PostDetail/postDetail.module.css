@@ -3,6 +3,7 @@
 }
 .postDetail{
     padding: 1em;
+    height: 100%;
 }
 .postDetail h2{
     border-left: 0.4em solid var(--color-yellow-green);
