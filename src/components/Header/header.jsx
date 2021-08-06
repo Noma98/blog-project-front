@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
 
-function Header({ api, onToggle, onFetchUser }) {
+const Header = memo(({ api, onToggle, onFetchUser }) => {
     const history = useHistory();
     const [visible, setVisible] = useState(false);
 
@@ -62,6 +62,6 @@ function Header({ api, onToggle, onFetchUser }) {
             </div>
         </header>
     )
-}
+})
 
 export default Header

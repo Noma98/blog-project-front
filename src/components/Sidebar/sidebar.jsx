@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import styles from './sidebar.module.css';
 
 
-function Sidebar({ api, onFetchUser, user, toggle, onToggle }) {
+const Sidebar = memo(({ api, onFetchUser, user, toggle, onToggle }) => {
     const [edit, setEdit] = useState(null);
     const [newName, setNewName] = useState("");
     const [hover, setHover] = useState(null);
@@ -114,6 +114,6 @@ function Sidebar({ api, onFetchUser, user, toggle, onToggle }) {
             </button>}
         </div>
     )
-}
+})
 
 export default Sidebar
