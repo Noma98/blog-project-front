@@ -70,10 +70,7 @@ class Api {
     }
     async fetchPosts(folderId) {
         const response = await axios.post("/api/posts/read", { folderId });
-        if (response.data.success) {
-            return response.data.payload;
-        }
-        alert("⛔ 게시글 로드 실패")
+        return response.data;
     }
     async deletePost(postId, folderId) {
         const response = await axios.post("/api/posts/delete", { postId, folderId });
