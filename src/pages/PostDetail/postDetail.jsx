@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import { getFormattedDate } from '../../common';
 import Loading from '../../components/Loading/loading';
+import * as common from '../../common';
 
 function PostDetail({ api, user }) {
     const [postInfo, setPostInfo] = useState(null);
@@ -38,10 +39,7 @@ function PostDetail({ api, user }) {
     }, [getPostData]);
 
     useEffect(() => {
-        if (!textRef.current) {
-            return;
-        }
-        textRef.current.style.height = textRef.current.scrollHeight + "px";
+        common.setTextareaHeight(textRef);
     });
 
     return (
