@@ -1,15 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useHistory } from 'react-router-dom';
-import styles from './createPost.module.css';
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useHistory, useParams, useLocation } from 'react-router-dom';
+import styles from './createAndEditPost.module.css';
+import * as common from '../../common';
 
-function CreatePost({ api, user }) {
+let prevFolderId;
+function CreateAndEditPost({ api, user }) {
+    const history = useHistory();
+    const location = useLocation();
+    const textRef = useRef();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [tag, setTag] = useState("");
     const [tagArray, setTagArray] = useState([]);
-    const [selectedFolder, setSelectedFolder] = useState(user.folders.length !== 0 && user.folders[0]._id);
-    const history = useHistory();
-    const textRef = useRef();
+    const [selectedFolder, setSelectedFolder] = useState("");
+
+    const { id: postId } = useParams();
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -50,29 +55,53 @@ function CreatePost({ api, user }) {
     const handleClickTag = (e) => {
         setTagArray(tagArray => tagArray.filter(x => x.id !== e.target.id));
     }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await api.updatePost({ postId, title, description, selectedFolder, tagArray, prevFolderId });
+        history.push(`/post/${postId}`);
+    }
     const handleCreate = async (e) => {
         e.preventDefault();
         await api.postNewPost({ title, description, selectedFolder, tagArray });
         history.push(`/posts?folder=${selectedFolder}`);
     }
+
+    const fetchData = useCallback(async () => {
+        const { title: prevTitle, description: prevDescription, tags: prevTags, folder } = await api.fetchPostDetail(postId);
+        prevFolderId = folder;
+        setTitle(prevTitle);
+        setDescription(prevDescription);
+        setTagArray(prevTags);
+        setSelectedFolder(prevFolderId);
+    }, [api, postId]);
+
     useEffect(() => {
-        if (textRef === undefined || textRef.current === undefined) {
+        if (!postId) {
+            setSelectedFolder(location.state || user.folders[0]._id)
             return;
         }
-        textRef.current.style.height = textRef.current.scrollHeight + "px";
-    });
+        fetchData();
+    }, [fetchData])
 
+    useEffect(() => {
+        common.setTextareaHeight(textRef);
+    });
+    const handleBack = () => {
+        history.goBack();
+    }
     return (
-        <div className={styles.writePost}>
-            <h1 className={styles.title}>Create new post</h1>
-            <input value={title} type="text" placeholder="제목 없음" onChange={handleTitle} />
+        <div className={styles.editPost}>
+            <button className={styles.back} onClick={handleBack}>
+                <i className="fas fa-chevron-left"></i>
+            </button>
+            <h2 className={styles.title}><input value={title} type="text" placeholder="제목 없음" onChange={handleTitle} /></h2>
             <div className={styles.tagContainer}>
                 {tagArray && tagArray.map(tag =>
                     <div key={tag.id} id={tag.id} className={styles.tag} onClick={handleClickTag} >{tag.name}</div>
                 )}
                 <input type="text" value={tag} onKeyDown={handleKeydown} onChange={handleTag} placeholder="태그를 입력하세요." autoFocus />
             </div>
-            <form className={styles.writeForm} onSubmit={handleCreate}>
+            <form onSubmit={postId ? handleSubmit : handleCreate} className={styles.editForm}>
                 <select className={styles.folder} value={selectedFolder} onChange={handleFolder} required >
                     {
                         user && user.folders.map(folder => {
@@ -80,11 +109,11 @@ function CreatePost({ api, user }) {
                         })
                     }
                 </select>
-                <textarea ref={textRef} value={description} className={styles.description} placeholder="내용" onChange={handleDescription} required />
-                <input type="submit" value="Create" />
+                <textarea value={description} className={styles.description} onChange={handleDescription} ref={textRef} required placeholder="내용을 입력하세요." />
+                <input className={styles.submit} type="submit" value="Complete" />
             </form>
         </div>
     )
 }
 
-export default CreatePost
+export default CreateAndEditPost

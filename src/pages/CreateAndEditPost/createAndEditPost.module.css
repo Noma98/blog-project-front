@@ -2,6 +2,22 @@
     background-color: whitesmoke;
     padding: 1.5em;
     border-radius: 1em;
+    position: relative;
+}
+.back{
+    position: absolute;
+    line-height: 2rem;
+    top:2em;
+    right:2em;
+    width:2rem;
+    height:2rem;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    background-color: var(--color-gray-2);
+    color: white;
+}
+.back:hover{
+    background-color: var(--color-gray-3);
 }
 .title{
     border-left: 0.4em solid var(--color-yellow-green);
@@ -9,11 +25,15 @@
     margin-bottom: 0.5em;
 }
 .title input{
+    width: 90%;
     background-color: transparent !important;
     outline: none;
     padding: 0 !important;
     font-size: 1.5rem !important;
     margin:0 !important;
+}
+.title input::placeholder{
+    font-size: 1.5rem;
 }
 .editForm{
     display: flex;
@@ -38,7 +58,7 @@
     margin-top: 1em;
     padding: 1em;
     font-size: 0.9rem;
-    background-color: var(--color-blue) ;
+    background-color: var(--color-dark-green) ;
     border-radius: 0.2em;
     font-weight: 500;
     color: white;

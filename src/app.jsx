@@ -7,9 +7,8 @@ import Login from './pages/Login/login';
 import Sidebar from './components/Sidebar/sidebar';
 import Header from './components/Header/header';
 import ViewPosts from './pages/ViewPosts/viewPosts';
-import CreatePost from './pages/CreatePost/createPost';
 import PostDetail from './pages/PostDetail/postDetail';
-import EditPost from './pages/EditPost/editPost';
+import CreateAndEditPost from './pages/CreateAndEditPost/createAndEditPost';
 import SocialLogin from './pages/SocialLogin/socialLogin';
 import EditUser from './pages/EditUser/editUser';
 import EditBlog from './pages/EditBlog/editBlog';
@@ -70,10 +69,10 @@ function App({ api }) {
               <EditUser api={api} onFetchUser={fetchUserData} user={user} />
             </Route>
             <Route path="/posts/create" exact>
-              <CreatePost api={api} user={user} />
+              <CreateAndEditPost api={api} user={user} />
             </Route>
             <Route path="/posts/edit/:id([0-9a-f]{24})" exact>
-              <EditPost api={api} user={user} />
+              <CreateAndEditPost api={api} user={user} />
             </Route>
             <Route path="/post/:id([0-9a-f]{24})" exact>
               <PostDetail api={api} user={user} />
