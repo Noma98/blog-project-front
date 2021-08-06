@@ -24,7 +24,7 @@ const Header = memo(({ api, onToggle, onFetchUser }) => {
         if (value === "") {
             history.push("/");
         } else {
-            history.push(`/posts?folder=all&query=${value}`);
+            history.push(`/posts?query=${value}`);
         }
     }
     const handleVisible = () => {
