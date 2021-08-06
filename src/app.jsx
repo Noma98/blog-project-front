@@ -16,7 +16,7 @@ import NotFound from './pages/NotFound/notFound';
 import { Desktop } from './common/mediaQuery';
 
 function App({ api }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")) || null);
   const [toggle, setToggle] = useState(false);
 
   const fetchUserData = useCallback(async () => {
@@ -29,12 +29,17 @@ function App({ api }) {
     fetchUserData();
   }, [fetchUserData]);
 
+
   useEffect(() => {
     if (user && user.folders.length === 0) {
       api.makeFolder();
       fetchUserData();
     };
   }, [user, fetchUserData])
+
+  useEffect(() => {
+    window.localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
 
   const handleToggle = () => {
     setToggle(!toggle);
