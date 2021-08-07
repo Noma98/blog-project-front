@@ -4,15 +4,15 @@ import { useHistory } from 'react-router-dom';
 
 function withAuth(SpecificComponent, option) {
     /*option
-    true: 로그인한 유저만, false: 일반 유저만*/
+    null:누구나(로그인OX), true: 로그인O만, false:로그인X만*/
     function AuthCheck(props) {
         const history = useHistory();
         useEffect(() => {
             const fectchData = async () => {
                 const res = await axios.get("/api/users/auth");
-                const { isAuth } = res.data;
-                isAuth && !option && history.push("/");
-                !isAuth && option && history.push("/login");
+                const loggedIn = res.data.success; //true, false
+                loggedIn && (option === false) && history.push("/");
+                !loggedIn && (option === true) && history.push("/login");
             }
             fectchData();
         }, [history])

@@ -12,13 +12,20 @@ class Api {
         const response = await axios.get("/api/users/logout");
         return response.data;
     }
-    async getUserData() {
-        const response = await axios.get("/api/users/auth");
-        const { isAuth, _id, name, email, avatar, blogInfo, folders, socialOnly } = response.data;
-        if (!isAuth) {
+    async getPublicUserData(nickname) {
+        const response = await axios.post("/api/users/public", { nickname });
+        if (!response.data.success) {
             return null;
         }
-        return { _id, name, email, avatar, blogInfo, folders, socialOnly };
+        return response.data.payload;
+    }
+    async getLoginData() {
+        const response = await axios.get("/api/users/auth");
+        if (!response.data.success) {
+            return null;
+        }
+        const { _id, name } = response.data.payload;
+        return { _id, name };
     }
     async updatePwd(data) {
         const response = await axios.post("/api/users/update/password", data);

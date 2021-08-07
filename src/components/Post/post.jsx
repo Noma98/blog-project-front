@@ -19,7 +19,7 @@ function Post({ post, api, onFetchPosts, user, editMode }) {
             return;
         }
         if (e.target.nodeName !== "I") {
-            history.push(`/post/${post._id}`);
+            history.push(`/@${user.name}/post/${post._id}`);
         }
     }
     return (

@@ -76,7 +76,7 @@ function ViewPosts({ api, user }) {
 
     const handleCreate = () => {
         history.push({
-            pathname: "/posts/create",
+            pathname: `/@${user.name}/posts/create`,
             state: folder,
         });
     };

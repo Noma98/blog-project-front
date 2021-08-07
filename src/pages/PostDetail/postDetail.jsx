@@ -21,7 +21,7 @@ function PostDetail({ api, user }) {
     }, [api, id]);
 
     const handleEdit = () => {
-        history.push(`/posts/edit/${postInfo._id}`);
+        history.push(`/@${user.name}/posts/edit/${postInfo._id}`);
     }
 
     const handleDelete = async () => {

@@ -9,7 +9,7 @@ function Home({ user, api }) {
     const [post, setPost] = useState(null);
 
     const handleCreate = () => {
-        history.push("/posts/create");
+        history.push(`/@${user.name}/posts/create`);
     };
     const fetchData = useCallback(async () => {
         if (user) {
@@ -49,4 +49,4 @@ function Home({ user, api }) {
     )
 }
 
-export default withAuth(Home, true);
+export default withAuth(Home, null);

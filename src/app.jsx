@@ -1,5 +1,5 @@
 import styles from './app.module.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import Home from './pages/home/home';
 import Join from './pages/Join/join';
@@ -14,89 +14,110 @@ import EditUser from './pages/EditUser/editUser';
 import EditBlog from './pages/EditBlog/editBlog';
 import NotFound from './pages/NotFound/notFound';
 import { Desktop } from './common/mediaQuery';
+import PublicHome from './pages/PublicHome/publicHome';
 
 function App({ api }) {
+  const path = useLocation().pathname;
   const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")) || null);
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(window.localStorage.getItem("isLoggedIn")) || undefined);
   const [toggle, setToggle] = useState(false);
 
   const fetchUserData = useCallback(async () => {
-    const userData = await api.getUserData();
-    setUser(userData);
-    console.log("Refresh!");
-  }, [api]);
+    const nickname = path.split("/")[1].substr(1);
+    const userData = await api.getPublicUserData(nickname);
+    setUser(userData); //없는 닉넴=>null
+    console.log("퍼블릭 유저 Refresh!");
+  }, [api, path]);
+
+  const fetchLoginData = useCallback(async () => {
+    const loginData = await api.getLoginData(); //로그인X,에러=>null, 그외 {_id,name}
+    setIsLoggedIn(loginData);
+    console.log("로그인 유저 Refresh!")
+  }, [api])
 
   useEffect(() => {
+    if (['/login', '/join', '/'].includes(path)) {
+      return;
+    }
     fetchUserData();
   }, [fetchUserData]);
 
+  useEffect(() => {
+    fetchLoginData();
+  }, [fetchLoginData]);
+
 
   useEffect(() => {
-    if (user && user.folders.length === 0) {
+    if (user && (user.folders.length === 0)) {
       api.makeFolder();
       fetchUserData();
     };
   }, [user, fetchUserData])
 
   useEffect(() => {
-    window.localStorage.setItem("user", JSON.stringify(user));
+    user && window.localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
+  useEffect(() => {
+    isLoggedIn && window.localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
 
   const handleToggle = () => {
     setToggle(!toggle);
   }
   return (
-    <BrowserRouter>
-      <div className={styles.app}>
-        {user &&
-          <nav className={styles.nav}>
-            <Header api={api} onFetchUser={fetchUserData} onToggle={handleToggle} />
-            <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
-            <Desktop>
-              <footer>
-                ⓒ noma
-              </footer>
-            </Desktop>
-          </nav>
-        }
-        <section className={`${styles.content} ${!user && styles.guest}`}>
-          <Switch>
-            <Route path="/" exact>
-              <Home user={user} api={api} />
-            </Route>
-            <Route path="/join" exact>
-              <Join api={api} />
-            </Route>
-            <Route path="/login" exact>
-              <Login api={api} onFetchUser={fetchUserData} />
-            </Route>
-            <Route path="/user/edit" exact>
-              <EditBlog api={api} onFetchUser={fetchUserData} user={user} />
-              <EditUser api={api} onFetchUser={fetchUserData} user={user} />
-            </Route>
-            <Route path="/posts/create" exact>
-              <CreateAndEditPost api={api} user={user} />
-            </Route>
-            <Route path="/posts/edit/:id([0-9a-f]{24})" exact>
-              <CreateAndEditPost api={api} user={user} />
-            </Route>
-            <Route path="/post/:id([0-9a-f]{24})" exact>
-              <PostDetail api={api} user={user} />
-            </Route>
-            <Route path="/oauth/callback/:id" exact>
-              <SocialLogin api={api} onFetchUser={fetchUserData} />
-            </Route>
-            <Route path="/:id" exact>
-              <ViewPosts api={api} user={user} />
-            </Route>
-            <Route path="/">
-              <NotFound />
-            </Route>
-          </Switch>
-        </section>
-
-
-      </div>
-    </BrowserRouter>
+    <div className={styles.app}>
+      {user &&
+        <nav className={styles.nav}>
+          <Header api={api} onFetchUser={fetchUserData} onToggle={handleToggle} user={user} />
+          <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
+          <Desktop>
+            <footer>
+              ⓒ noma
+            </footer>
+          </Desktop>
+        </nav>
+      }
+      <section className={`${styles.content} ${!user && styles.guest}`}>
+        <Switch>
+          <Route path="/" exact>
+            <PublicHome />
+          </Route>
+          <Route path="/join" exact>
+            <Join api={api} />
+          </Route>
+          <Route path="/login" exact>
+            <Login api={api} onFetchUser={fetchUserData} />
+          </Route>
+          <Route path="/:nickname" exact>
+            {
+              user ? <Home user={user} api={api} /> : <NotFound />
+            }
+          </Route>
+          <Route path="/:nickname/user/edit" exact>
+            <EditBlog api={api} onFetchUser={fetchUserData} user={user} />
+            <EditUser api={api} onFetchUser={fetchUserData} user={user} />
+          </Route>
+          <Route path="/:nickname/posts/create" exact>
+            <CreateAndEditPost api={api} user={user} />
+          </Route>
+          <Route path="/:nickname/posts/edit/:id([0-9a-f]{24})" exact>
+            <CreateAndEditPost api={api} user={user} />
+          </Route>
+          <Route path="/:nickname/post/:id([0-9a-f]{24})" exact>
+            <PostDetail api={api} user={user} />
+          </Route>
+          <Route path="/oauth/callback/:id" exact>
+            <SocialLogin api={api} onFetchUser={fetchUserData} />
+          </Route>
+          <Route path="/:nickname/:id" exact>
+            <ViewPosts api={api} user={user} />
+          </Route>
+          <Route path="/">
+            <NotFound />
+          </Route>
+        </Switch>
+      </section>
+    </div>
   );
 }
 

@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
 
-const Header = memo(({ api, onToggle, onFetchUser }) => {
+const Header = memo(({ api, onToggle, onFetchUser, user }) => {
     const history = useHistory();
     const [visible, setVisible] = useState(false);
 
@@ -22,9 +22,9 @@ const Header = memo(({ api, onToggle, onFetchUser }) => {
     const handleQuery = (e) => {
         const value = e.target.value;
         if (value === "") {
-            history.push("/");
+            history.push(`/@${user.name}`);
         } else {
-            history.push(`/posts?query=${value}`);
+            history.push(`/@${user.name}/posts?query=${value}`);
         }
     }
     const handleVisible = () => {
@@ -46,7 +46,7 @@ const Header = memo(({ api, onToggle, onFetchUser }) => {
                             </button>
                         </li>
                         <li>
-                            <Link to="/user/edit"><i className="fas fa-user-edit"></i></Link>
+                            <Link to={`/@${user.name}/user/edit`}><i className="fas fa-user-edit"></i></Link>
                         </li>
                     </ul>
                     <TabletAndMobile>
