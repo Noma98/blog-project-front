@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom';
 import Loading from '../../components/Loading/loading';
 import Post from '../../components/Post/post';
-import NotFound from '../NotFound/notFound';
+import ErrorPage from '../ErrorPage/errorPage';
 import styles from './viewPosts.module.css';
 
 let folderName;
@@ -89,7 +89,7 @@ function ViewPosts({ api, user }) {
                 : <>
                     {
                         notFound ?
-                            <NotFound />
+                            <ErrorPage statusCode="404" />
                             : <>
                                 {postsData ? <>
                                     <div className={styles.header}>

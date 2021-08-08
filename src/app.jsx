@@ -12,9 +12,9 @@ import CreateAndEditPost from './pages/CreateAndEditPost/createAndEditPost';
 import SocialLogin from './pages/SocialLogin/socialLogin';
 import EditUser from './pages/EditUser/editUser';
 import EditBlog from './pages/EditBlog/editBlog';
-import NotFound from './pages/NotFound/notFound';
 import { Desktop } from './common/mediaQuery';
 import PublicHome from './pages/PublicHome/publicHome';
+import ErrorPage from './pages/ErrorPage/errorPage';
 
 function App({ api }) {
   const path = useLocation().pathname;
@@ -90,18 +90,31 @@ function App({ api }) {
           </Route>
           <Route path="/:nickname" exact>
             {
-              user ? <Home user={user} api={api} /> : <NotFound />
+              user ? <Home user={user} api={api} /> : <ErrorPage statusCode="404" />
             }
           </Route>
           <Route path="/:nickname/user/edit" exact>
+            {
+              isLoggedIn?.name === user?.name ? <>
             <EditBlog api={api} onFetchUser={fetchUserData} user={user} />
             <EditUser api={api} onFetchUser={fetchUserData} user={user} />
+              </> : <ErrorPage statusCode="403" />
+            }
           </Route>
           <Route path="/:nickname/posts/create" exact>
+            {
+              isLoggedIn?.name === user?.name ?
             <CreateAndEditPost api={api} user={user} />
+                : <ErrorPage statusCode="403" />
+            }
           </Route>
           <Route path="/:nickname/posts/edit/:id([0-9a-f]{24})" exact>
+            {
+              isLoggedIn?.name === user?.name ?
             <CreateAndEditPost api={api} user={user} />
+                : <ErrorPage statusCode="403" />
+            }
+
           </Route>
           <Route path="/:nickname/post/:id([0-9a-f]{24})" exact>
             <PostDetail api={api} user={user} />
@@ -113,7 +126,7 @@ function App({ api }) {
             <ViewPosts api={api} user={user} />
           </Route>
           <Route path="/">
-            <NotFound />
+            <ErrorPage statusCode="404" />
           </Route>
         </Switch>
       </section>
