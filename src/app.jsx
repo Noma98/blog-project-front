@@ -22,17 +22,16 @@ function App({ api }) {
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(window.localStorage.getItem("isLoggedIn")) || undefined);
   const [toggle, setToggle] = useState(false);
 
+
   const fetchUserData = useCallback(async () => {
     const nickname = path.split("/")[1].substr(1);
     const userData = await api.getPublicUserData(nickname);
     setUser(userData); //없는 닉넴=>null
-    console.log("퍼블릭 유저 Refresh!");
   }, [api, path]);
 
   const fetchLoginData = useCallback(async () => {
     const loginData = await api.getLoginData(); //로그인X,에러=>null, 그외 {_id,name}
     setIsLoggedIn(loginData);
-    console.log("로그인 유저 Refresh!")
   }, [api])
 
   useEffect(() => {
@@ -40,7 +39,7 @@ function App({ api }) {
       return;
     }
     fetchUserData();
-  }, [fetchUserData]);
+  }, [fetchUserData, path]);
 
   useEffect(() => {
     fetchLoginData();
@@ -49,10 +48,13 @@ function App({ api }) {
 
   useEffect(() => {
     if (user && (user.folders.length === 0)) {
-      api.makeFolder();
-      fetchUserData();
+      const fetchData = async () => {
+        await api.makeFolder();
+        fetchUserData();
+      }
+      fetchData();
     };
-  }, [user, fetchUserData])
+  }, [user, api, fetchUserData])
 
   useEffect(() => {
     user && window.localStorage.setItem("user", JSON.stringify(user));
@@ -66,16 +68,15 @@ function App({ api }) {
   }
   return (
     <div className={styles.app}>
-        <nav className={styles.nav}>
+      <nav className={styles.nav}>
         <Header api={api} onFetchLoginData={fetchLoginData} onToggle={handleToggle} user={user} isLoggedIn={isLoggedIn} />
-          <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
-          <Desktop>
-            <footer>
-              ⓒ noma
-            </footer>
-          </Desktop>
-        </nav>
-      }
+        <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
+        <Desktop>
+          <footer>
+            ⓒ noma
+          </footer>
+        </Desktop>
+      </nav>
       <section className={`${styles.content} ${!user && styles.guest}`}>
         <Switch>
           <Route path="/" exact>
@@ -85,7 +86,7 @@ function App({ api }) {
             <Join api={api} />
           </Route>
           <Route path="/login" exact>
-            <Login api={api} onFetchUser={fetchUserData} />
+            <Login api={api} onfetchLoginData={fetchLoginData} />
           </Route>
           <Route path="/:nickname" exact>
             {
@@ -95,22 +96,22 @@ function App({ api }) {
           <Route path="/:nickname/user/edit" exact>
             {
               isLoggedIn?.name === user?.name ? <>
-            <EditBlog api={api} onFetchUser={fetchUserData} user={user} />
-            <EditUser api={api} onFetchUser={fetchUserData} user={user} />
+                <EditBlog api={api} onFetchUser={fetchUserData} user={user} />
+                <EditUser api={api} onFetchUser={fetchUserData} user={user} />
               </> : <ErrorPage statusCode="403" />
             }
           </Route>
           <Route path="/:nickname/posts/create" exact>
             {
               isLoggedIn?.name === user?.name ?
-            <CreateAndEditPost api={api} user={user} />
+                <CreateAndEditPost api={api} user={user} />
                 : <ErrorPage statusCode="403" />
             }
           </Route>
           <Route path="/:nickname/posts/edit/:id([0-9a-f]{24})" exact>
             {
               isLoggedIn?.name === user?.name ?
-            <CreateAndEditPost api={api} user={user} />
+                <CreateAndEditPost api={api} user={user} />
                 : <ErrorPage statusCode="403" />
             }
 
@@ -119,7 +120,7 @@ function App({ api }) {
             <PostDetail api={api} user={user} />
           </Route>
           <Route path="/oauth/callback/:id" exact>
-            <SocialLogin api={api} onFetchUser={fetchUserData} />
+            <SocialLogin api={api} onfetchLoginData={fetchLoginData} onFetchUser={fetchUserData} />
           </Route>
           <Route path="/:nickname/:id" exact>
             <ViewPosts api={api} user={user} />

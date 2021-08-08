@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import * as config from '../../config';
 import styles from './google.module.css';
 
-function Google({ api, onFetchUser }) {
+function Google({ api, onfetchLoginData }) {
     const history = useHistory();
     const onSuccess = async (response) => {
         const {
@@ -19,8 +19,8 @@ function Google({ api, onFetchUser }) {
             alert("로그인 실패");
             return;
         }
-        await onFetchUser();
-        history.push("/");
+        await onfetchLoginData();
+        history.push(`/@${data.payload.name}`);
     }
     const onFailure = (error) => {
         if (error.error === "popup_closed_by_user") {
@@ -32,7 +32,7 @@ function Google({ api, onFetchUser }) {
         <GoogleLogin
             clientId={config.GOOGLE_CLIENT}
             render={renderProps => (
-                <button className={styles.google} onClick={renderProps.onClick} disabled={renderProps.disabled}><img src="/images/google.png"></img>구글로 로그인하기</button>
+                <button className={styles.google} onClick={renderProps.onClick} disabled={renderProps.disabled}><img src="/images/google.png" alt="google"></img>구글로 로그인하기</button>
             )}
             onSuccess={onSuccess}
             onFailure={onFailure}

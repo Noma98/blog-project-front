@@ -3,13 +3,13 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import Loading from '../../components/Loading/loading';
 import styles from './socialLogin.module.css';
 
-function SocialLogin({ api, onFetchUser }) {
+function SocialLogin({ api, onfetchLoginData }) {
     const [error, setError] = useState(null);
     const [accessToken, setAccessToken] = useState(null); //unlink시 필요
-    const location = useLocation();
-    const [provider, setProvider] = useState(location.pathname.split("/")[3]);
     const [loading, setLoading] = useState(false);
+    const location = useLocation();
     const history = useHistory();
+    const provider = location.pathname.split("/")[3];
 
     const search = location.search;
     const params = new URLSearchParams(search);
@@ -23,8 +23,8 @@ function SocialLogin({ api, onFetchUser }) {
             setLoading(true);
             const data = await api.loginGithub(code);
             if (data.success) {
-                await onFetchUser();
-                history.push("/");
+                await onfetchLoginData();
+                history.push(`/@${data.payload.name}`);
             } else {
                 history.push("/login");
                 alert(data.error.message);
@@ -33,7 +33,7 @@ function SocialLogin({ api, onFetchUser }) {
             setLoading(false);
         }
         loginGithub();
-    }, [api, onFetchUser, provider, code, history])
+    }, [api, onfetchLoginData, provider, code, history])
 
     useEffect(() => {
         if (provider !== "kakao") {
@@ -43,8 +43,8 @@ function SocialLogin({ api, onFetchUser }) {
             setLoading(true);
             const data = await api.loginKakao(code);
             if (data.success) {
-                await onFetchUser();
-                history.push("/");
+                await onfetchLoginData();
+                history.push(`/@${data.payload.name}`);
             } else {
                 setAccessToken(data.token);
                 setError(data.error);
@@ -52,7 +52,7 @@ function SocialLogin({ api, onFetchUser }) {
             setLoading(false);
         }
         loginKakao();
-    }, [api, onFetchUser, provider, code, history])
+    }, [api, onfetchLoginData, provider, code, history])
 
     useEffect(() => {
         if (provider !== "naver") {
@@ -68,8 +68,8 @@ function SocialLogin({ api, onFetchUser }) {
             const token = location.hash.split("=")[1].split("&")[0];
             const data = await api.naverLogin(token);
             if (data.success) {
-                await onFetchUser();
-                history.push("/");
+                await onfetchLoginData();
+                history.push(`/@${data.payload.name}`);
             } else {
                 setAccessToken(data.token);
                 setError(data.error);
@@ -77,7 +77,7 @@ function SocialLogin({ api, onFetchUser }) {
             setLoading(false);
         }
         loginNaver();
-    }, [api, onFetchUser, location.hash, provider, history])
+    }, [api, onfetchLoginData, location.hash, provider, history])
 
     const kakaoUnlink = async () => {
         setLoading(true);
