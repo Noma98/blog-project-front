@@ -58,12 +58,12 @@ function CreateAndEditPost({ api, user }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await api.updatePost({ postId, title, description, selectedFolder, tagArray, prevFolderId });
-        history.push(`/post/${postId}`);
+        history.push(`/@${user.name}/post/${postId}`);
     }
     const handleCreate = async (e) => {
         e.preventDefault();
         await api.postNewPost({ title, description, selectedFolder, tagArray });
-        history.push(`/posts?folder=${selectedFolder}`);
+        history.push(`/@${user.name}/posts?folder=${selectedFolder}`);
     }
 
     const fetchData = useCallback(async () => {
@@ -81,7 +81,7 @@ function CreateAndEditPost({ api, user }) {
             return;
         }
         fetchData();
-    }, [fetchData])
+    }, [fetchData, postId, user])
 
     useEffect(() => {
         common.setTextareaHeight(textRef);
