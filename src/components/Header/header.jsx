@@ -53,7 +53,7 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
                                     <Link to={`/@${isLoggedIn?.name}/user/edit`}><i className="fas fa-user-edit"></i></Link>
                                 </li>}
                                 <li>
-                            <Link to={`/@${user.name}/user/edit`}><i className="fas fa-user-edit"></i></Link>
+                                    <Link to={`/@${isLoggedIn?.name}`}><i className={`fas fa-home ${styles.home}`}></i></Link>
                                 </li>
                             </> : <>
                                 <li>
