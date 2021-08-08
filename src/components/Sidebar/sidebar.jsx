@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import styles from './sidebar.module.css';
 
 
@@ -8,6 +8,7 @@ const Sidebar = memo(({ api, onFetchUser, user, toggle, onToggle }) => {
     const [newName, setNewName] = useState("");
     const [hover, setHover] = useState(null);
     const history = useHistory();
+    const path = useLocation().pathname;
 
     const handleAdd = async () => {
         await api.makeFolder();
@@ -53,56 +54,59 @@ const Sidebar = memo(({ api, onFetchUser, user, toggle, onToggle }) => {
         history.push(`/@${user.name}/posts?folder=${folderId}`);
     }
     return (
-        <div className={`${styles.sidebar} ${toggle && styles.open}`}>
-            <button className={styles.posts}>
-                <Link to={`/@${user.name}/posts?folder=all`}>ALL POSTS</Link>
-            </button>
-            <nav>
-                <ul>
-                    {user?.folders && user.folders.map(folder => {
-                        if (edit !== folder._id) {
-                            //해당 폴더가 비편집모드일 때
-                            return <li
-                                key={folder._id}
-                                className={styles.folder}
-                                onMouseOver={handleMouseOver}
-                                onMouseOut={handleMouseOut}
-                                onClick={handleClickFolder}
-                                data-id={folder._id}
-                            >
-                                {folder.name}
-                                <div className={hover === folder._id ? styles.mouseOver : styles.mouseOut} data-id={folder._id}>
-                                    <i className="fas fa-pen" onClick={handleEdit} data-id={folder._id}></i>
-                                    <i className={`fas fa-times ${styles.delete}`} onClick={handleDelete} data-id={folder._id}></i>
-                                </div>
-                            </li>
-                        } else {
-                            //해당 폴더가 편집모드일 때
-                            return <form
-                                key={folder._id}
-                                data-id={folder._id}
-                                className={styles.editForm}
-                                onSubmit={handleSubmit}>
-                                <input
-                                    data-id={folder._id}
-                                    type="text"
-                                    value={newName}
-                                    onChange={handleInputChange}
-                                    onBlur={handleSubmit}
-                                    maxLength="20"
-                                    placeholder={folder.name}
-                                    autoFocus />
-                                <button><i className={newName ? `fas fa-check ${styles.green}` : "fas fa-check"} onClick={handleSubmit} data-id={folder._id}></i></button>
-                            </form>
-                        }
-                    })
-                    }
-                </ul>
-            </nav>
-            {user && <button className={styles.addBtn} onClick={handleAdd}>
-                <i className="fas fa-plus"></i> NEW FOLDER
-            </button>}
-        </div>
+        <>
+            {user && path.match(/^\/@/) &&
+                <div className={`${styles.sidebar} ${toggle && styles.open}`}>
+                    <button className={styles.posts}>
+                        <Link to={`/@${user.name}/posts?folder=all`}>ALL POSTS</Link>
+                    </button>
+                    <nav>
+                        <ul>
+                            {user?.folders && user.folders.map(folder => {
+                                if (edit !== folder._id) {
+                                    //해당 폴더가 비편집모드일 때
+                                    return <li
+                                        key={folder._id}
+                                        className={styles.folder}
+                                        onMouseOver={handleMouseOver}
+                                        onMouseOut={handleMouseOut}
+                                        onClick={handleClickFolder}
+                                        data-id={folder._id}
+                                    >
+                                        {folder.name}
+                                        <div className={hover === folder._id ? styles.mouseOver : styles.mouseOut} data-id={folder._id}>
+                                            <i className="fas fa-pen" onClick={handleEdit} data-id={folder._id}></i>
+                                            <i className={`fas fa-times ${styles.delete}`} onClick={handleDelete} data-id={folder._id}></i>
+                                        </div>
+                                    </li>
+                                } else {
+                                    //해당 폴더가 편집모드일 때
+                                    return <form
+                                        key={folder._id}
+                                        data-id={folder._id}
+                                        className={styles.editForm}
+                                        onSubmit={handleSubmit}>
+                                        <input
+                                            data-id={folder._id}
+                                            type="text"
+                                            value={newName}
+                                            onChange={handleInputChange}
+                                            onBlur={handleSubmit}
+                                            maxLength="20"
+                                            placeholder={folder.name}
+                                            autoFocus />
+                                        <button><i className={newName ? `fas fa-check ${styles.green}` : "fas fa-check"} onClick={handleSubmit} data-id={folder._id}></i></button>
+                                    </form>
+                                }
+                            })
+                            }
+                        </ul>
+                    </nav>
+                    {user && <button className={styles.addBtn} onClick={handleAdd}>
+                        <i className="fas fa-plus"></i> NEW FOLDER
+                    </button>}
+                </div>}
+        </>
     )
 })
 

@@ -1,9 +1,10 @@
 import React, { memo, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
 
-const Header = memo(({ api, onToggle, onFetchUser, user }) => {
+const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
+    const path = useLocation().pathname;
     const history = useHistory();
     const [visible, setVisible] = useState(false);
 
@@ -13,8 +14,8 @@ const Header = memo(({ api, onToggle, onFetchUser, user }) => {
         }
         const response = await api.getLogout();
         if (response.success) {
-            await onFetchUser();
-            history.push("/login");
+            window.localStorage.removeItem("isLoggedIn");
+            onFetchLoginData();
         } else {
             alert("⛔ 로그아웃 실패");
         }
@@ -22,9 +23,9 @@ const Header = memo(({ api, onToggle, onFetchUser, user }) => {
     const handleQuery = (e) => {
         const value = e.target.value;
         if (value === "") {
-            history.push(`/@${user.name}`);
+            history.push(`/@${user?.name}`);
         } else {
-            history.push(`/@${user.name}/posts?query=${value}`);
+            history.push(`/@${user?.name}/posts?query=${value}`);
         }
     }
     const handleVisible = () => {
@@ -37,17 +38,32 @@ const Header = memo(({ api, onToggle, onFetchUser, user }) => {
             </Link>
 
             <div className={styles.flexRow}>
-                <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />
+                {user &&
+                    <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />}
                 <nav className={styles.nav}>
                     <ul className={`${styles.lists} ${visible && styles.visible}`}>
-                        <li className={styles.logout} onClick={handleLogout}>
-                            <button>
-                                <i className="fas fa-sign-out-alt"></i>
-                            </button>
-                        </li>
-                        <li>
+                        {
+                            isLoggedIn ? <>
+                                <li className={styles.logout} onClick={handleLogout}>
+                                    <button>
+                                        <i className="fas fa-sign-out-alt"></i>
+                                    </button>
+                                </li>
+                                {user && path.match(`/@${isLoggedIn?.name}`) && <li>
+                                    <Link to={`/@${isLoggedIn?.name}/user/edit`}><i className="fas fa-user-edit"></i></Link>
+                                </li>}
+                                <li>
                             <Link to={`/@${user.name}/user/edit`}><i className="fas fa-user-edit"></i></Link>
-                        </li>
+                                </li>
+                            </> : <>
+                                <li>
+                                    <Link to="/login">Login</Link>
+                                </li>
+                                <li>
+                                    <Link to="/join">Join</Link>
+                                </li>
+                            </>
+                        }
                     </ul>
                     <TabletAndMobile>
                         <button className={styles.settings} onClick={handleVisible}>
@@ -56,11 +72,14 @@ const Header = memo(({ api, onToggle, onFetchUser, user }) => {
                     </TabletAndMobile>
                 </nav>
 
-                <TabletAndMobile>
-                    <button className={styles.toggle}><i className="fas fa-bars" onClick={onToggle}></i></button>
-                </TabletAndMobile>
+                {
+                    user &&
+                    <TabletAndMobile>
+                        <button className={styles.toggle}><i className="fas fa-bars" onClick={onToggle}></i></button>
+                    </TabletAndMobile>
+                }
             </div>
-        </header>
+        </header >
     )
 })
 

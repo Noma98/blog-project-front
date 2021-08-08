@@ -66,9 +66,8 @@ function App({ api }) {
   }
   return (
     <div className={styles.app}>
-      {user &&
         <nav className={styles.nav}>
-          <Header api={api} onFetchUser={fetchUserData} onToggle={handleToggle} user={user} />
+        <Header api={api} onFetchLoginData={fetchLoginData} onToggle={handleToggle} user={user} isLoggedIn={isLoggedIn} />
           <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
           <Desktop>
             <footer>
