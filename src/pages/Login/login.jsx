@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './signInUp.module.css';
 import { Link, useHistory } from 'react-router-dom';
 import withAuth from '../../hoc/withAuth';
@@ -31,6 +31,9 @@ function Login({ api, onfetchLoginData }) {
     const handlePwd = (e) => {
         setPwd(e.target.value);
     }
+    useEffect(() => {
+        localStorage.removeItem("user");
+    }, [])
     return (
         <div className={styles.signInUp}>
             <h1>Sign in <span className={styles.logo}>nomab.log</span></h1>

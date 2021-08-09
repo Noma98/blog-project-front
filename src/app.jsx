@@ -17,14 +17,14 @@ import ErrorPage from './pages/ErrorPage/errorPage';
 
 function App({ api }) {
   const path = useLocation().pathname;
-  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")) || null);
+  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")) || undefined);
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(window.localStorage.getItem("isLoggedIn")) || undefined);
   const [toggle, setToggle] = useState(false);
 
 
   const fetchUserData = useCallback(async (option) => {
     if (option) { //1
-      setUser(null);
+      setUser(undefined);
       return;
     }
     const nickname = path.split("/")[1].substr(1);
@@ -38,7 +38,7 @@ function App({ api }) {
   }, [api])
 
   useEffect(() => {
-    if (['/login', '/join', '/'].includes(path)) {
+    if (!path.match(/^\/@/)) {
       return;
     }
     fetchUserData();
@@ -92,8 +92,8 @@ function App({ api }) {
             <PublicHome api={api} />
           </Route>
           <Route path="/:nickname" exact>
-            {
-              user ? <Home user={user} api={api} /> : <ErrorPage statusCode="404" />
+            { // /@닉네임=> 제대로 된거면 object, 잘못된 닉네임이면 null, 아직 유저 정보를 fetch해오지 않은 경우=> undefined
+              user || user === undefined ? <Home user={user} api={api} /> : <ErrorPage statusCode="404" />
             }
           </Route>
           <Route path="/:nickname/user/settings" exact>
