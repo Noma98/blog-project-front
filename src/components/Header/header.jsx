@@ -4,11 +4,10 @@ import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
 import Tooltip from 'react-tooltip-lite';
 
-const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
+const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn, onFetchUser }) => {
     const path = useLocation().pathname;
     const history = useHistory();
     const [visible, setVisible] = useState(false);
-
     const handleLogout = async () => {
         if (!window.confirm("정말 로그아웃하시겠습니까?")) {
             return;
@@ -23,24 +22,28 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
     }
     const handleQuery = (e) => {
         const value = e.target.value;
+        //전체에서 검색, 유저데이터에서 검색
         if (value === "") {
-            history.push(`/@${user?.name}`);
+            user && history.push(`/@${user.name}`);
+            !user && history.push("/");
         } else {
-            history.push(`/@${user?.name}/posts?query=${value}`);
+            user && history.push(`/@${user.name}/posts?query=${value}`);
+            !user && history.push(`/posts?query=${value}`);
         }
     }
     const handleVisible = () => {
         setVisible(!visible);
     }
+    const handleLogo = async () => {
+        localStorage.removeItem("user");
+        history.push("/");
+        onFetchUser(1);//user를 null로
+    }
     return (
         <header className={styles.header}>
-            <Link to="/">
-                <h3>nomab.log</h3>
-            </Link>
-
+            <h3 onClick={handleLogo}>nomab.log</h3>
             <div className={styles.flexRow}>
-                {user &&
-                    <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />}
+                <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />
                 <nav className={styles.nav}>
                     <ul className={`${styles.lists} ${visible && styles.visible}`}>
                         {

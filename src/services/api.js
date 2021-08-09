@@ -4,6 +4,10 @@ class Api {
         const response = await axios.get("/api/posts/all");
         return response.data;
     }
+    async getAllResults(query) {
+        const response = await axios.post("/api/posts/search/global", { query });
+        return response.data;
+    }
     async postJoin(data) {
         const response = await axios.post("/api/users/join", data);
         return response.data;
@@ -105,7 +109,7 @@ class Api {
         alert("⛔ 게시글 로드 실패");
     }
     async fetchAllPosts(userId) {
-        const response = await axios.post("/api/posts/all", { userId });
+        const response = await axios.post("/api/posts/user", { userId });
         if (response.data.success) {
             return response.data.payload;
         }

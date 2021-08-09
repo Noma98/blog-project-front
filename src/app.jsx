@@ -22,7 +22,11 @@ function App({ api }) {
   const [toggle, setToggle] = useState(false);
 
 
-  const fetchUserData = useCallback(async () => {
+  const fetchUserData = useCallback(async (option) => {
+    if (option) { //1
+      setUser(null);
+      return;
+    }
     const nickname = path.split("/")[1].substr(1);
     const userData = await api.getPublicUserData(nickname);
     setUser(userData); //없는 닉넴=>null
@@ -67,7 +71,7 @@ function App({ api }) {
   }
   return (
     <div className={styles.app}>
-      <Header api={api} onFetchLoginData={fetchLoginData} onToggle={handleToggle} user={user} isLoggedIn={isLoggedIn} />
+      <Header api={api} onFetchLoginData={fetchLoginData} onFetchUser={fetchUserData} onToggle={handleToggle} user={user} isLoggedIn={isLoggedIn} />
       {user && path.match(/^\/@/) &&
         <nav className={styles.nav}>
           <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
@@ -83,6 +87,9 @@ function App({ api }) {
           </Route>
           <Route path="/login" exact>
             <Login api={api} onfetchLoginData={fetchLoginData} />
+          </Route>
+          <Route path="/posts" exact>
+            <PublicHome api={api} />
           </Route>
           <Route path="/:nickname" exact>
             {

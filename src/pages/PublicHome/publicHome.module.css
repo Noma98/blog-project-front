@@ -4,11 +4,17 @@
 }
 .home h2{
     margin-bottom: 0.5em;
-    margin-left: 0.2em;
+    margin-left: 0.4em;
+}
+.home h2 i{
+    margin-right: 0.3em;
 }
 .posts{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 1em;
+}
+.posts p{
+    padding-top: 2em;
 }
