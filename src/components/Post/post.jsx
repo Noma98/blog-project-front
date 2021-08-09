@@ -24,7 +24,7 @@ function Post({ post, api, onFetchPosts, user, editMode }) {
     }
     return (
         <div className={`${styles.post} ${editMode && styles.editMode}`} onClick={handleViewPost}>
-            {pathName === "/" &&
+            {pathName === `/@${user.name}` &&
                 <div className={styles.new}>New</div>}
             <h3>{post.title}</h3>
             <small>{`${user.name} · ${getFormattedDate(post.createdAt)}`}</small>

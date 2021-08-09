@@ -1,5 +1,9 @@
 import axios from 'axios';
 class Api {
+    async getAllPosts() {
+        const response = await axios.get("/api/posts/all");
+        return response.data;
+    }
     async postJoin(data) {
         const response = await axios.post("/api/users/join", data);
         return response.data;
