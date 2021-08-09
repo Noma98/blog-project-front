@@ -12,7 +12,6 @@ import CreateAndEditPost from './pages/CreateAndEditPost/createAndEditPost';
 import SocialLogin from './pages/SocialLogin/socialLogin';
 import EditUser from './pages/EditUser/editUser';
 import EditBlog from './pages/EditBlog/editBlog';
-import { Desktop } from './common/mediaQuery';
 import PublicHome from './pages/PublicHome/publicHome';
 import ErrorPage from './pages/ErrorPage/errorPage';
 
@@ -68,16 +67,13 @@ function App({ api }) {
   }
   return (
     <div className={styles.app}>
-      <nav className={styles.nav}>
-        <Header api={api} onFetchLoginData={fetchLoginData} onToggle={handleToggle} user={user} isLoggedIn={isLoggedIn} />
-        <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
-        <Desktop>
-          <footer>
-            ⓒ noma
-          </footer>
-        </Desktop>
-      </nav>
-      <section className={`${styles.content} ${!user && styles.guest}`}>
+      <Header api={api} onFetchLoginData={fetchLoginData} onToggle={handleToggle} user={user} isLoggedIn={isLoggedIn} />
+      {user && path.match(/^\/@/) &&
+        <nav className={styles.nav}>
+          <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
+        </nav>
+      }
+      <section className={styles.content}>
         <Switch>
           <Route path="/" exact>
             <PublicHome />
@@ -129,6 +125,9 @@ function App({ api }) {
             <ErrorPage statusCode="404" />
           </Route>
         </Switch>
+        <footer>
+          ⓒ noma
+        </footer>
       </section>
     </div>
   );
