@@ -89,7 +89,7 @@ function App({ api }) {
               user ? <Home user={user} api={api} /> : <ErrorPage statusCode="404" />
             }
           </Route>
-          <Route path="/:nickname/user/edit" exact>
+          <Route path="/:nickname/user/settings" exact>
             {
               isLoggedIn?.name === user?.name ? <>
                 <EditBlog api={api} onFetchUser={fetchUserData} user={user} />

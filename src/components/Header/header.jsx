@@ -2,6 +2,7 @@ import React, { memo, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
+import Tooltip from 'react-tooltip-lite';
 
 const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
     const path = useLocation().pathname;
@@ -44,17 +45,23 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
                     <ul className={`${styles.lists} ${visible && styles.visible}`}>
                         {
                             isLoggedIn ? <>
-                                <li className={styles.logout} onClick={handleLogout}>
-                                    <button>
-                                        <i className="fas fa-sign-out-alt"></i>
-                                    </button>
-                                </li>
-                                {user && path.match(`/@${isLoggedIn?.name}`) && <li>
-                                    <Link to={`/@${isLoggedIn?.name}/user/edit`}><i className="fas fa-user-edit"></i></Link>
-                                </li>}
-                                <li>
-                                    <Link to={`/@${isLoggedIn?.name}`}><i className={`fas fa-home ${styles.home}`}></i></Link>
-                                </li>
+                                <Tooltip content="Logout">
+                                    <li className={styles.logout} onClick={handleLogout}>
+                                        <button>
+                                            <i className="fas fa-sign-out-alt"></i>
+                                        </button>
+                                    </li>
+                                </Tooltip>
+                                {user && path.match(`/@${isLoggedIn?.name}`) && <Tooltip content="Settings">
+                                    <li>
+                                        <Link to={`/@${isLoggedIn?.name}/user/settings`}><i className="fas fa-user-edit"></i></Link>
+                                    </li>
+                                </Tooltip>}
+                                <Tooltip content="My blog">
+                                    <li>
+                                        <Link to={`/@${isLoggedIn?.name}`}><i className={`fas fa-home ${styles.home}`}></i></Link>
+                                    </li>
+                                </Tooltip>
                             </> : <>
                                 <li>
                                     <Link to="/login">Login</Link>

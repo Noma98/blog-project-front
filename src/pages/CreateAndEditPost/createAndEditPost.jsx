@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import styles from './createAndEditPost.module.css';
 import * as common from '../../common';
+import Tooltip from 'react-tooltip-lite';
 
 let prevFolderId;
 function CreateAndEditPost({ api, user }) {
@@ -31,7 +32,7 @@ function CreateAndEditPost({ api, user }) {
     const handleKeydown = (e) => {
         if (e.key === "," || e.key === "Enter") {
             e.preventDefault();
-            if (tagArray.length === 8) {
+            if (tagArray.length === 5) {
                 alert("더이상 추가할 수 없습니다.");
                 return;
             }
@@ -99,8 +100,14 @@ function CreateAndEditPost({ api, user }) {
                 {tagArray && tagArray.map(tag =>
                     <div key={tag.id} id={tag.id} className={styles.tag} onClick={handleClickTag} >{tag.name}</div>
                 )}
-                <input type="text" value={tag} onKeyDown={handleKeydown} onChange={handleTag} placeholder="태그를 입력하세요." autoFocus />
-            </div>
+                <Tooltip direction="down" content={(
+                    <>
+                        <span>쉼표 혹은 엔터를 입력하여 태그를 등록할 수 있습니다. <br />등록된 태그를 클릭하면 삭제됩니다.</span>
+                    </>
+                )}>
+                    <input type="text" value={tag} onKeyDown={handleKeydown} onChange={handleTag} placeholder="태그를 입력하세요." autoFocus maxLength="20" />
+                </Tooltip>
+            </div >
             <form onSubmit={postId ? handleSubmit : handleCreate} className={styles.editForm}>
                 <select className={styles.folder} value={selectedFolder} onChange={handleFolder} required >
                     {
@@ -112,7 +119,7 @@ function CreateAndEditPost({ api, user }) {
                 <textarea value={description} className={styles.description} onChange={handleDescription} ref={textRef} required placeholder="내용을 입력하세요." />
                 <input className={styles.submit} type="submit" value="Complete" />
             </form>
-        </div>
+        </div >
     )
 }
 

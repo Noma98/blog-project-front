@@ -95,6 +95,15 @@ button,input[type="submit"]{
 #naverIdLogin{
     display: none;
 }
+.react-tooltip-lite{
+    background:var(--color-gray-4);
+    color: white;
+    border-radius: 0.5em;
+    font-size: 0.8rem;
+}
+.react-tooltip-lite-arrow{
+    color:var(--color-gray-4);
+}
 ::placeholder{
     font-size: 0.8rem;
 }
