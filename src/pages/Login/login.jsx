@@ -36,7 +36,7 @@ function Login({ api, onfetchLoginData }) {
     }, [])
     return (
         <div className={styles.signInUp}>
-            <h1>Sign in <span className={styles.logo}>nomab.log</span></h1>
+            <h1>Sign in <span className={styles.logo}>noma's blog</span></h1>
             <small>아직 계정이 없으십니까? <Link to="/join" className={styles.join}>가입하러 가기</Link></small>
             <br />
             {err && <small className={styles.err}><i className="fas fa-exclamation-circle"></i> {err}</small>}

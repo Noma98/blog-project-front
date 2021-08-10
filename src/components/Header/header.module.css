@@ -12,6 +12,9 @@
 }
 .header h3{
     cursor: pointer;
+    font-family: 'Lobster', cursive;
+    font-size: 1.4rem;
+    font-weight: 400;
 }
 .flexRow{
     display: flex;

@@ -1,10 +1,12 @@
 .signInUp{
+    padding-top: 1em;
     width: 35rem;
     height: unset;
-    padding: 2em 5em;
     border-radius: 2rem;
     margin: auto;
-    background-color: var(--color-beige);
+}
+.signInUp input::placeholder{
+    color: var(--color-gray-2);
 }
 .logo{
     font-family: 'Lobster', cursive;

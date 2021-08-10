@@ -42,7 +42,10 @@ p,textarea,div,input{
     color: var(--color-gray-3);
     margin: 0;
 }
-
+textarea{
+    width: 100%;
+    resize: none;
+}
 h1,h2,h3{
     margin: 0;
     font-weight: 1000;

@@ -46,7 +46,7 @@
 }
 .editForm button{
     background-color: transparent;
-    color: whitesmoke;
+    color: var(--color-gray-3);
 }
 .editForm input{
     padding: 0 !important;
@@ -54,7 +54,7 @@
     background-color: transparent !important;
     border:none;
     outline:none;
-    color: whitesmoke;
+    color: var(--color-gray-3);
     line-height: 1rem;
     font-size: 1rem !important;
 }

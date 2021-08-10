@@ -9,7 +9,7 @@ function PublicPost({ post }) {
         history.push(`/@${post.author.name}/post/${post._id}`)
     }
     return (
-        <div className={styles.container}>
+        <>
             {post && <>
                 <div className={styles.post} onClick={handleViewPost}>
                     <h3>{post.title}</h3>
@@ -17,13 +17,13 @@ function PublicPost({ post }) {
                         <img src={post.author.avatar || "/images/default.PNG"} alt="avatar" />
                         <small>{`${post.author.name} · ${getFormattedDate(post.createdAt)}`}</small>
                     </div>
+                    <p className={styles.description}>{post.description}</p>
                     {post.tags[0] !== "" && <div className={styles.tagContainer}>
                         {post.tags.map(tag => <span className={styles.tag} key={tag.id}>{tag.name}</span>)}
                     </div>}
-                    <p className={styles.description}>{post.description}</p>
                 </div>
             </>}
-        </div>
+        </>
     )
 }
 

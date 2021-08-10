@@ -136,9 +136,11 @@ function App({ api }) {
             <ErrorPage statusCode="404" />
           </Route>
         </Switch>
-        <footer>
-          ⓒ noma
-        </footer>
+        {
+          !path.match("/post/") && <footer>
+            ⓒ noma
+          </footer>
+        }
       </section>
     </div>
   );

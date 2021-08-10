@@ -1,6 +1,8 @@
 .post{
-    width: 20rem;
-    height: 20rem;
+    flex:1 1 20rem;
+    max-width: 24rem;
+    min-width: 17rem;
+    height: 19rem;
     position: relative;
     padding: 2em;
     margin-bottom: 1em;
@@ -32,8 +34,9 @@
     transform: translateY(-5px);
 }
 .tagContainer{
+    border-top: 1px solid lightgray;
     display: flex;
-    padding-top:0.3em;
+    padding-top:1em;
     flex-wrap: wrap;
 }
 .tag{
@@ -45,10 +48,16 @@
     margin: 0 0.5em 0.5em 0;
 }
 .description{
-    margin-top: 0.5em;
+    margin: 1em 0;
     font-size: 0.9rem;
     display: -webkit-box;
     overflow: hidden;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
+}
+@media screen and (max-width:992px) {
+    .post{
+        flex:1 1 100%;
+        max-width: none;
+    }
 }
