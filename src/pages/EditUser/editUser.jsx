@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import styles from "./edit.module.css";
 
-function EditUser({ api, user, onFetchUser }) {
+function EditUser({ api, user, onFetchUser, onFetchLoginData }) {
     const [name, setName] = useState(user.name);
     const [file, setFile] = useState(null);
     const [imgBase64, setImgBase64] = useState(null);
@@ -57,7 +57,8 @@ function EditUser({ api, user, onFetchUser }) {
             return;
         }
         alert("변경 완료");
-        onFetchUser();
+        onFetchLoginData();
+        history.push(`/@${name.toLowerCase().replaceAll(" ", "")}/user/settings`);
     }
     const submitPwd = async (e) => {
         e.preventDefault();
@@ -98,11 +99,11 @@ function EditUser({ api, user, onFetchUser }) {
                     <i className="fas fa-exclamation-circle"></i> {userErr}</small>}
                 <button className={styles.editBtn}>변경</button>
 
-                <label>이메일(변경 불가)
+                <label>이메일 (변경 불가)
                     <input name="email" value={user.email} disabled />
                 </label>
-                <label>이름
-                    <input name="name" type="text" value={name} onChange={handleName} maxLength="10" required />
+                <label>닉네임 (영문/숫자/밑줄 문자(_)만 사용 가능)
+                    <input name="name" type="text" value={name} onChange={handleName} maxLength="20" required />
                 </label>
                 <label htmlFor="avatar">프로필 이미지</label>
                 {imgBase64 ?

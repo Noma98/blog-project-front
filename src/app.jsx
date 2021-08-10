@@ -102,9 +102,9 @@ function App({ api }) {
           </Route>
           <Route path="/:nickname/user/settings" exact>
             {
-              isLoggedIn?.name === user?.name ? <>
+              isLoggedIn?._id === user?._id ? <>
                 <EditBlog api={api} onFetchUser={fetchUserData} user={user} />
-                <EditUser api={api} onFetchUser={fetchUserData} user={user} />
+                <EditUser api={api} onFetchUser={fetchUserData} onFetchLoginData={fetchLoginData} user={user} />
               </> : <ErrorPage statusCode="403" />
             }
           </Route>
