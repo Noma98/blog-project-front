@@ -15,18 +15,25 @@ function Google({ api, onfetchLoginData }) {
             }
         } = response;
         const data = await api.googleLogin({ email, name, avatar });
-        if (!data.success) {
+        if (data.success === true) {
+            await onfetchLoginData();
+            history.push(`/@${data.payload.name}`);
+        } else if (data.succss === "join") {
+            history.push({
+                pathname: "/join",
+                state: { email, name: name.toLowerCase().replace(" ", ""), avatar }
+            })
+        } else {
             alert("로그인 실패");
-            return;
+            history.push("/login");
         }
-        await onfetchLoginData();
-        history.push(`/@${data.payload.name}`);
     }
     const onFailure = (error) => {
         if (error.error === "popup_closed_by_user") {
             return;
         }
         alert("로그인 실패");
+        history.push("/login");
     }
     return (
         <GoogleLogin

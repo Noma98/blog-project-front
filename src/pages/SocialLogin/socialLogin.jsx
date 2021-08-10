@@ -22,13 +22,18 @@ function SocialLogin({ api, onfetchLoginData }) {
         const loginGithub = async () => {
             setLoading(true);
             const data = await api.loginGithub(code);
-            if (data.success) {
+            if (data.success === true) {
                 await onfetchLoginData();
                 history.push(`/@${data.payload.name}`);
+            } else if (data.success === "join") {
+                const { email, name, avatar } = data.payload;
+                history.push({
+                    pathname: "/join",
+                    state: { email, name, avatar }
+                });
             } else {
                 history.push("/login");
                 alert(data.error.message);
-                // setError(data.error);
             }
             setLoading(false);
         }
@@ -42,9 +47,15 @@ function SocialLogin({ api, onfetchLoginData }) {
         const loginKakao = async () => {
             setLoading(true);
             const data = await api.loginKakao(code);
-            if (data.success) {
+            if (data.success === true) {
                 await onfetchLoginData();
                 history.push(`/@${data.payload.name}`);
+            } else if (data.success === "join") {
+                const { email, name, avatar } = data.payload;
+                history.push({
+                    pathname: "/join",
+                    state: { email, name, avatar }
+                });
             } else {
                 setAccessToken(data.token);
                 setError(data.error);
@@ -67,9 +78,15 @@ function SocialLogin({ api, onfetchLoginData }) {
             setLoading(true);
             const token = location.hash.split("=")[1].split("&")[0];
             const data = await api.naverLogin(token);
-            if (data.success) {
+            if (data.success === true) {
                 await onfetchLoginData();
                 history.push(`/@${data.payload.name}`);
+            } else if (data.success === "join") {
+                const { name, avatar, email } = data.payload;
+                history.push({
+                    pathname: "/join",
+                    state: { name, avatar, email }
+                })
             } else {
                 setAccessToken(data.token);
                 setError(data.error);
