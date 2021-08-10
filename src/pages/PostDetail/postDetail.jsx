@@ -6,7 +6,7 @@ import { getFormattedDate } from '../../common';
 import Loading from '../../components/Loading/loading';
 import * as common from '../../common';
 
-function PostDetail({ api, user }) {
+function PostDetail({ api, user, isLoggedIn }) {
     const [postInfo, setPostInfo] = useState(null);
     const { id } = useParams();
     const history = useHistory();
@@ -21,7 +21,7 @@ function PostDetail({ api, user }) {
     }, [api, id]);
 
     const handleEdit = () => {
-        history.push(`/@${user.name}/posts/edit/${postInfo._id}`);
+        history.push(`/@${user?.name}/posts/edit/${postInfo._id}`);
     }
 
     const handleDelete = async () => {
@@ -41,18 +41,19 @@ function PostDetail({ api, user }) {
     useEffect(() => {
         common.setTextareaHeight(textRef);
     });
-
+    //PublicHome에서 들어오면 user가 null이므로, obtional Chaining 처리
     return (
         <div className={styles.postDetail}>
             {loading ? <Loading /> : <>
                 {postInfo && <>
                     <h2>{postInfo.title}</h2>
                     <div className={styles.metaAndBtns}>
-                        <small>{`${user.name} · ${getFormattedDate(postInfo.createdAt)}`}</small>
-                        <div className={styles.btns}>
-                            <button onClick={handleEdit}><i className="fas fa-pen"></i></button>
-                            <button onClick={handleDelete}><i className="fas fa-trash-alt"></i></button>
-                        </div>
+                        <small>{`${user?.name} · ${getFormattedDate(postInfo.createdAt)}`}</small>
+                        {user?._id === isLoggedIn?._id &&
+                            <div className={styles.btns}>
+                                <button onClick={handleEdit}><i className="fas fa-pen"></i></button>
+                                <button onClick={handleDelete}><i className="fas fa-trash-alt"></i></button>
+                            </div>}
                     </div>
                     <div className={styles.tagContainer}>
                         {postInfo.tags[0] !== "" && postInfo.tags.map(tag => <div className={styles.tag} key={tag.id}>{tag.name}</div>)}

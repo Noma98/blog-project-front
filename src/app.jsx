@@ -74,7 +74,7 @@ function App({ api }) {
       <Header api={api} onFetchLoginData={fetchLoginData} onFetchUser={fetchUserData} onToggle={handleToggle} user={user} isLoggedIn={isLoggedIn} />
       {user && path.match(/^\/@/) &&
         <nav className={styles.nav}>
-          <Sidebar api={api} onFetchUser={fetchUserData} user={user} toggle={toggle} onToggle={handleToggle} />
+          <Sidebar api={api} onFetchUser={fetchUserData} isLoggedIn={isLoggedIn} user={user} toggle={toggle} onToggle={handleToggle} />
         </nav>
       }
       <section className={styles.content}>
@@ -93,7 +93,7 @@ function App({ api }) {
           </Route>
           <Route path="/:nickname" exact>
             { // /@닉네임=> 제대로 된거면 object, 잘못된 닉네임이면 null, 아직 유저 정보를 fetch해오지 않은 경우=> undefined
-              user || user === undefined ? <Home user={user} api={api} /> : <ErrorPage statusCode="404" />
+              user || user === undefined ? <Home user={user} api={api} isLoggedIn={isLoggedIn} /> : <ErrorPage statusCode="404" />
             }
           </Route>
           <Route path="/:nickname/user/settings" exact>
@@ -120,13 +120,13 @@ function App({ api }) {
 
           </Route>
           <Route path="/:nickname/post/:id([0-9a-f]{24})" exact>
-            <PostDetail api={api} user={user} />
+            <PostDetail api={api} user={user} isLoggedIn={isLoggedIn} />
           </Route>
           <Route path="/oauth/callback/:id" exact>
             <SocialLogin api={api} onfetchLoginData={fetchLoginData} onFetchUser={fetchUserData} />
           </Route>
           <Route path="/:nickname/:id" exact>
-            <ViewPosts api={api} user={user} />
+            <ViewPosts api={api} user={user} isLoggedIn={isLoggedIn} />
           </Route>
           <Route path="/">
             <ErrorPage statusCode="404" />

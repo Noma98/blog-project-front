@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import styles from './sidebar.module.css';
 
 
-const Sidebar = memo(({ api, onFetchUser, user, toggle, onToggle }) => {
+const Sidebar = memo(({ api, onFetchUser, isLoggedIn, user, toggle, onToggle }) => {
     const [edit, setEdit] = useState(null);
     const [newName, setNewName] = useState("");
     const [hover, setHover] = useState(null);
@@ -59,7 +59,7 @@ const Sidebar = memo(({ api, onFetchUser, user, toggle, onToggle }) => {
             </button>
             <nav>
                 <ul>
-                    {user?.folders && user.folders.map(folder => {
+                    {user.folders && user.folders.map(folder => {
                         if (edit !== folder._id) {
                             //해당 폴더가 비편집모드일 때
                             return <li
@@ -72,8 +72,10 @@ const Sidebar = memo(({ api, onFetchUser, user, toggle, onToggle }) => {
                             >
                                 {folder.name}
                                 <div className={hover === folder._id ? styles.mouseOver : styles.mouseOut} data-id={folder._id}>
-                                    <i className="fas fa-pen" onClick={handleEdit} data-id={folder._id}></i>
-                                    <i className={`fas fa-times ${styles.delete}`} onClick={handleDelete} data-id={folder._id}></i>
+                                    {user._id === isLoggedIn?._id && <>
+                                        <i className="fas fa-pen" onClick={handleEdit} data-id={folder._id}></i>
+                                        <i className={`fas fa-times ${styles.delete}`} onClick={handleDelete} data-id={folder._id}></i>
+                                    </>}
                                 </div>
                             </li>
                         } else {
@@ -99,7 +101,7 @@ const Sidebar = memo(({ api, onFetchUser, user, toggle, onToggle }) => {
                     }
                 </ul>
             </nav>
-            {user && <button className={styles.addBtn} onClick={handleAdd}>
+            {user._id === isLoggedIn?._id && <button className={styles.addBtn} onClick={handleAdd}>
                 <i className="fas fa-plus"></i> NEW FOLDER
             </button>}
         </div>

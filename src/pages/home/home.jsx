@@ -4,7 +4,7 @@ import Post from '../../components/Post/post';
 import withAuth from '../../hoc/withAuth'
 import styles from './home.module.css';
 
-function Home({ user, api }) {
+function Home({ user, api, isLoggedIn }) {
     const history = useHistory();
     const [post, setPost] = useState(null);
 
@@ -35,7 +35,7 @@ function Home({ user, api }) {
                     <div className={styles.latest}>
                         <div className={styles.latestHeader}>
                             <h2>Latest Posts</h2>
-                            <button onClick={handleCreate}><i className="fas fa-edit"></i></button>
+                            {user._id === isLoggedIn?._id && <button onClick={handleCreate}><i className="fas fa-edit"></i></button>}
                         </div>
                         {post ? (
                             <Post post={post} api={api} user={user} />

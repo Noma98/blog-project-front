@@ -7,7 +7,7 @@ import styles from './viewPosts.module.css';
 
 let folderName;
 
-function ViewPosts({ api, user }) {
+function ViewPosts({ api, user, isLoggedIn }) {
     const [postsData, setPostsData] = useState();
     const [notFound, setNotFound] = useState(false);
 
@@ -94,12 +94,14 @@ function ViewPosts({ api, user }) {
                                 {postsData ? <>
                                     <div className={styles.header}>
                                         <h1>{folderName}</h1>
-                                        <button onClick={handleCreate}>
-                                            <i className="fas fa-edit"></i>
-                                        </button>
-                                        <button onClick={handleEdit} className={`${styles.editBtn} ${editMode && styles.highlight}`}>
-                                            <i className="fas fa-ellipsis-v"></i>
-                                        </button>
+                                        {user._id === isLoggedIn?._id && <>
+                                            <button onClick={handleCreate}>
+                                                <i className="fas fa-edit"></i>
+                                            </button>
+                                            <button onClick={handleEdit} className={`${styles.editBtn} ${editMode && styles.highlight}`}>
+                                                <i className="fas fa-ellipsis-v"></i>
+                                            </button>
+                                        </>}
                                     </div>
                                     <div className={`${styles.posts} ${editMode && styles.editMode}`}>
                                         {postsData.length !== 0 ?
