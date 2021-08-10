@@ -32,10 +32,9 @@ function SocialLogin({ api, onfetchLoginData }) {
                     state: { email, name, avatar }
                 });
             } else {
-                history.push("/login");
                 alert(data.error.message);
+                history.push("/login");
             }
-            setLoading(false);
         }
         loginGithub();
     }, [api, onfetchLoginData, provider, code, history])
@@ -58,9 +57,9 @@ function SocialLogin({ api, onfetchLoginData }) {
                 });
             } else {
                 setAccessToken(data.token);
+                setLoading(false);
                 setError(data.error);
             }
-            setLoading(false);
         }
         loginKakao();
     }, [api, onfetchLoginData, provider, code, history])
@@ -89,9 +88,9 @@ function SocialLogin({ api, onfetchLoginData }) {
                 })
             } else {
                 setAccessToken(data.token);
+                setLoading(false);
                 setError(data.error);
             }
-            setLoading(false);
         }
         loginNaver();
     }, [api, onfetchLoginData, location.hash, provider, history])
