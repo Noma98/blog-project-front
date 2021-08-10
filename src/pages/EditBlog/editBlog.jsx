@@ -21,14 +21,14 @@ function EditBlog({ user, api, onFetchUser }) {
             return;
         }
         onFetchUser();
-        alert("성공적으로 변경하였습니다.");
+        alert("변경이 완료되었습니다.");
     }
     return (
         <div className={styles.edit}>
             <form onSubmit={handleSubmit} className={styles.editBlog}>
                 <h2>블로그 정보</h2>
                 {err && <small>
-                    <i class="fas fa-exclamation-circle"></i> {err}</small>}
+                    <i className="fas fa-exclamation-circle"></i> {err}</small>}
                 <button className={styles.editBtn}>변경</button>
                 <label>블로그 이름
                     <input type="text" required value={name} onChange={handleName} maxLength="25" />

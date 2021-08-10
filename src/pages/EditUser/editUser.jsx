@@ -4,8 +4,7 @@ import styles from "./edit.module.css";
 
 function EditUser({ api, user, onFetchUser, onFetchLoginData }) {
     const [name, setName] = useState(user.name);
-    const [file, setFile] = useState(null);
-    const [imgBase64, setImgBase64] = useState(null);
+    const [imgBase64, setImgBase64] = useState(user.avatar || null);
 
     const [pwd, setPwd] = useState("");
     const [newPwd, setNewPwd] = useState("");
@@ -43,12 +42,10 @@ function EditUser({ api, user, onFetchUser, onFetchLoginData }) {
             return;
         }
         reader.readAsDataURL(e.target.files[0]);
-        setFile(e.target.files[0]);
     }
 
     const submitUser = async (e) => {
         e.preventDefault();
-        setUserErr(null);
         const formData = new FormData(formRef.current);
         formData.append("userId", user._id);
         const data = await api.updateUser(formData);
@@ -56,7 +53,7 @@ function EditUser({ api, user, onFetchUser, onFetchLoginData }) {
             setUserErr(data.message);
             return;
         }
-        alert("변경 완료");
+        alert("변경이 완료되었습니다.");
         onFetchLoginData();
         history.push(`/@${name.toLowerCase().replaceAll(" ", "")}/user/settings`);
     }
@@ -72,7 +69,7 @@ function EditUser({ api, user, onFetchUser, onFetchLoginData }) {
             setPwdErr(data.message);
             return;
         }
-        alert("변경 완료");
+        alert("변경이 완료되었습니다.");
         onFetchUser();
     }
     const handleWithdraw = async () => {
