@@ -3,8 +3,9 @@ import { useLocation } from 'react-router-dom';
 import PublicPost from '../../components/PublicPost/publicPost';
 import styles from './publicHome.module.css';
 
-function PublicHome({ api }) {
+function PublicHome({ api, onFetchLoginData, onFetchUser }) {
     const [posts, setPosts] = useState();
+    const location = useLocation();
     const params = new URLSearchParams(useLocation().search);
     const query = params.get("query");
 
@@ -18,6 +19,22 @@ function PublicHome({ api }) {
         }
         fetchData();
     }, [api, query]);
+    useEffect(() => {
+        if (query) {
+            return;
+        }
+        if (!location.state) {
+            onFetchUser(1);
+            return;
+        }
+        const fetchData = async () => {
+            window.localStorage.clear();
+            await api.getLogout();
+            onFetchUser(1);
+            onFetchLoginData(1);
+        }
+        fetchData();
+    }, [api, query, location, onFetchLoginData, onFetchUser])
 
     return (
         <div className={styles.home}>

@@ -32,7 +32,11 @@ function App({ api }) {
     setUser(userData); //없는 닉넴=>null
   }, [api, path]);
 
-  const fetchLoginData = useCallback(async () => {
+  const fetchLoginData = useCallback(async (option) => {
+    if (option) { //1
+      setIsLoggedIn(null);
+      return;
+    }
     const loginData = await api.getLoginData(); //로그인X,에러=>null, 그외 {_id,name}
     setIsLoggedIn(loginData);
   }, [api])
@@ -80,7 +84,7 @@ function App({ api }) {
       <section className={styles.content}>
         <Switch>
           <Route path="/" exact>
-            <PublicHome api={api} />
+            <PublicHome api={api} onFetchLoginData={fetchLoginData} onFetchUser={fetchUserData} />
           </Route>
           <Route path="/join" exact>
             <Join api={api} />

@@ -84,8 +84,10 @@ function EditUser({ api, user, onFetchUser }) {
             return;
         }
         alert("성공적으로 삭제했습니다.");
-        onFetchUser();
-        history.push("/");
+        history.push({
+            pathname: "/",
+            state: { withdraw: true }
+        });
     }
 
     return (
@@ -93,7 +95,7 @@ function EditUser({ api, user, onFetchUser }) {
             <form ref={formRef} className={styles.editUser} onSubmit={submitUser}>
                 <h2>회원 정보</h2>
                 {userErr && <small>
-                    <i class="fas fa-exclamation-circle"></i> {userErr}</small>}
+                    <i className="fas fa-exclamation-circle"></i> {userErr}</small>}
                 <button className={styles.editBtn}>변경</button>
 
                 <label>이메일(변경 불가)
@@ -118,7 +120,7 @@ function EditUser({ api, user, onFetchUser }) {
                 <form className={styles.editPwd} onSubmit={submitPwd}>
                     <h2>비밀번호</h2>
                     {pwdErr && <small>
-                        <i class="fas fa-exclamation-circle"></i> {pwdErr}</small>}
+                        <i className="fas fa-exclamation-circle"></i> {pwdErr}</small>}
                     <button className={styles.editBtn} >변경</button>
                     <label>현재 비밀번호
                         <input type="password" value={pwd} minLength="6" onChange={handlePwd} required />

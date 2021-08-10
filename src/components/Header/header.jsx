@@ -37,7 +37,6 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn, onFetc
     const handleLogo = async () => {
         localStorage.removeItem("user");
         history.push("/");
-        onFetchUser(1);//user를 null로
     }
     return (
         <header className={styles.header}>
