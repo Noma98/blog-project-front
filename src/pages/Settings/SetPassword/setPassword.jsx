@@ -1,25 +1,17 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import styles from "./edit.module.css";
+import styles from "../settings.module.css";
 
-function EditUser({ api, user, onFetchUser, onFetchLoginData }) {
-    const [name, setName] = useState(user.name);
-    const [imgBase64, setImgBase64] = useState(user.avatar || null);
+function SetPassword({ api, user, onFetchUser }) {
 
     const [pwd, setPwd] = useState("");
     const [newPwd, setNewPwd] = useState("");
     const [newPwd2, setNewPwd2] = useState("");
 
-    const [userErr, setUserErr] = useState(null);
     const [pwdErr, setPwdErr] = useState(null);
 
-
-    const formRef = useRef();
     const history = useHistory();
 
-    const handleName = (e) => {
-        setName(e.target.value);
-    }
     const handlePwd = (e) => {
         setPwd(e.target.value);
     }
@@ -30,33 +22,6 @@ function EditUser({ api, user, onFetchUser, onFetchLoginData }) {
         setNewPwd2(e.target.value);
     }
 
-    const handleFile = (e) => {
-        let reader = new FileReader();
-        reader.onload = () => {
-            const base64 = reader.result;
-            if (base64) {
-                setImgBase64(base64.toString());
-            }
-        }
-        if (!e.target.files[0]) {
-            return;
-        }
-        reader.readAsDataURL(e.target.files[0]);
-    }
-
-    const submitUser = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(formRef.current);
-        formData.append("userId", user._id);
-        const data = await api.updateUser(formData);
-        if (!data.success) {
-            setUserErr(data.message);
-            return;
-        }
-        alert("변경이 완료되었습니다.");
-        onFetchLoginData();
-        history.push(`/@${name.toLowerCase().replaceAll(" ", "")}/user/settings`);
-    }
     const submitPwd = async (e) => {
         e.preventDefault();
         setPwdErr(null);
@@ -90,28 +55,6 @@ function EditUser({ api, user, onFetchUser, onFetchLoginData }) {
 
     return (
         <div className={styles.edit}>
-            <form ref={formRef} className={styles.editUser} onSubmit={submitUser}>
-                <h2>회원 정보</h2>
-                {userErr && <small>
-                    <i className="fas fa-exclamation-circle"></i> {userErr}</small>}
-                <button className={styles.editBtn}>변경</button>
-
-                <label>이메일 (변경 불가)
-                    <input name="email" value={user.email} disabled />
-                </label>
-                <label>닉네임 (영문/숫자/밑줄 문자(_)만 사용 가능)
-                    <input name="name" type="text" value={name} onChange={handleName} maxLength="20" required />
-                </label>
-                <label htmlFor="avatar">프로필 이미지</label>
-                {imgBase64 ?
-                    <img src={imgBase64} alt="profile" className={styles.preview} />
-                    :
-                    <div className={styles.container}>
-                        미리보기
-                    </div>}
-                <input type="file" accept="image/*" name="avatar" id="avatar" onChange={handleFile} />
-            </form>
-
             {user.socialOnly ? (
                 <small>소셜 로그인 회원은 비밀번호가 없습니다.</small>
             ) : (
@@ -137,4 +80,4 @@ function EditUser({ api, user, onFetchUser, onFetchLoginData }) {
     )
 }
 
-export default EditUser
+export default SetPassword
