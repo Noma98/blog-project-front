@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './publicPost.module.css';
 import { getFormattedDate } from '../../common';
 import { useHistory } from 'react-router-dom';
+import defaultImage from '../../assets/images/default.PNG';
 
 function PublicPost({ post }) {
     const history = useHistory();
@@ -14,7 +15,7 @@ function PublicPost({ post }) {
                 <div className={styles.post} onClick={handleViewPost}>
                     <h3>{post.title}</h3>
                     <div className={styles.meta}>
-                        <img src={post.author.avatar || "/images/default.PNG"} alt="avatar" />
+                        <img src={post.author.avatar || defaultImage} alt="avatar" />
                         <small>{`${post.author.name} · ${getFormattedDate(post.createdAt)}`}</small>
                     </div>
                     <p className={styles.description}>{post.description}</p>

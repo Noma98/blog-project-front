@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import * as config from '../../config';
 import styles from './naver.module.css';
+import naverImage from '../../assets/images/naver.jpg';
 
 function Naver() {
     const naverRef = useRef();
@@ -33,7 +34,7 @@ function Naver() {
         <>
             <div ref={naverRef} id="naverIdLogin"></div>
             <button onClick={handleClick} className={styles.naver} >
-                <img src="/images/naver.jpg" alt="naver" />
+                <img src={naverImage} alt="naver" />
                 네이버로 로그인하기
             </button>
         </>

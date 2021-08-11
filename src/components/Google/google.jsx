@@ -3,6 +3,7 @@ import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import * as config from '../../config';
 import styles from './google.module.css';
+import googleImage from '../../assets/images/google.png';
 
 function Google({ api, onfetchLoginData }) {
     const history = useHistory();
@@ -39,7 +40,7 @@ function Google({ api, onfetchLoginData }) {
         <GoogleLogin
             clientId={config.GOOGLE_CLIENT}
             render={renderProps => (
-                <button className={styles.google} onClick={renderProps.onClick} disabled={renderProps.disabled}><img src="/images/google.png" alt="google"></img>구글로 로그인하기</button>
+                <button className={styles.google} onClick={renderProps.onClick} disabled={renderProps.disabled}><img src={googleImage} alt="google"></img>구글로 로그인하기</button>
             )}
             onSuccess={onSuccess}
             onFailure={onFailure}
