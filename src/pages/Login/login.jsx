@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './signInUp.module.css';
 import { Link, useHistory } from 'react-router-dom';
 import withAuth from '../../hoc/withAuth';
-import * as config from '../../config';
+import * as config from '../../config/config';
 import Google from '../../components/Google/google';
 import Naver from '../../components/Naver/naver';
 import kakaoImage from '../../assets/images/kakao.png';
@@ -17,7 +17,7 @@ function Login({ api, onfetchLoginData }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErr(null);
-        const response = await api.postLogin({ email: email.toLowerCase(), pwd });
+        const response = await api.login({ email, pwd });
         if (!response.success) {
             setErr(response.message);
             return;
@@ -51,9 +51,9 @@ function Login({ api, onfetchLoginData }) {
             </form>
             <div className={styles.line}></div>
             <div className={styles.socialLogin}>
-                <a href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_DEV_CLIENT}&scope=read%3Auser+user%3Aemail`} className={`${styles.social} ${styles.github}`}><i className="fab fa-github"></i>깃허브로 로그인하기</a>
+                <a href={config.GITHUB_OAUTH_URI} className={`${styles.social} ${styles.github}`}><i className="fab fa-github"></i>깃허브로 로그인하기</a>
 
-                <a className={`${styles.social} ${styles.kakao}`} href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${config.KAKAO_API_KEY}&redirect_uri=http://localhost:3000/oauth/callback/kakao&state=${config.KAKAO_STATE}`}><img src={kakaoImage} alt="kakao"></img>카카오로 로그인하기</a>
+                <a className={`${styles.social} ${styles.kakao}`} href={config.KAKAO_OAUTH_URI}><img src={kakaoImage} alt="kakao"></img>카카오로 로그인하기</a>
                 <Google api={api} onfetchLoginData={onfetchLoginData} />
                 <Naver />
             </div>
