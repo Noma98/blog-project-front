@@ -7,7 +7,7 @@ export const getFormattedDate = (createdAt) => {
     return `${year}년 ${month}월 ${date}일`;
 }
 export const setTextareaHeight = (textRef) => {
-    if (textRef === undefined || textRef.current === undefined) {
+    if (!textRef?.current) {
         return;
     }
     textRef.current.style.height = textRef.current.scrollHeight + "px";

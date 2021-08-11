@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import styles from './createAndEditPost.module.css';
-import * as common from '../../common';
+import * as common from '../../common/common';
 import Tooltip from 'react-tooltip-lite';
 
 let prevFolderId;

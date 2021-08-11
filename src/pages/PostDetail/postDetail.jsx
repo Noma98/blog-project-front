@@ -2,9 +2,8 @@ import styles from './postDetail.module.css';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
-import { getFormattedDate } from '../../common';
 import Loading from '../../components/Loading/loading';
-import * as common from '../../common';
+import * as common from '../../common/common';
 
 function PostDetail({ api, user, isLoggedIn }) {
     const [postInfo, setPostInfo] = useState(null);
@@ -48,7 +47,7 @@ function PostDetail({ api, user, isLoggedIn }) {
                 {postInfo && <>
                     <h2>{postInfo.title}</h2>
                     <div className={styles.metaAndBtns}>
-                        <small>{`${user?.name} · ${getFormattedDate(postInfo.createdAt)}`}</small>
+                        <small>{`${user?.name} · ${common.getFormattedDate(postInfo.createdAt)}`}</small>
                         {user?._id === isLoggedIn?._id &&
                             <div className={styles.btns}>
                                 <button onClick={handleEdit}><i className="fas fa-pen"></i></button>
