@@ -1,7 +1,7 @@
 import React from 'react'
 import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom';
-import * as config from '../../config';
+import * as config from '../../config/config';
 import styles from './google.module.css';
 import googleImage from '../../assets/images/google.png';
 

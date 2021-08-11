@@ -4,7 +4,7 @@ import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
 import Tooltip from 'react-tooltip-lite';
 
-const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn, onFetchUser }) => {
+const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
     const path = useLocation().pathname;
     const history = useHistory();
     const [visible, setVisible] = useState(false);
@@ -12,12 +12,12 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn, onFetc
         if (!window.confirm("정말 로그아웃하시겠습니까?")) {
             return;
         }
-        const response = await api.getLogout();
+        const response = await api.logout();
         if (response.success) {
             window.localStorage.removeItem("isLoggedIn");
             onFetchLoginData();
         } else {
-            alert("⛔ 로그아웃 실패");
+            alert("로그아웃에 실패하였습니다.");
         }
     }
     const handleQuery = (e) => {

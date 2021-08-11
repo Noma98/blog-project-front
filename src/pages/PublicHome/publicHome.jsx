@@ -11,7 +11,7 @@ function PublicHome({ api, onFetchLoginData, onFetchUser }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = query ? await api.getAllResults(query) : await api.getAllPosts();
+            const response = query ? await api.fetchAllResults(query) : await api.fetchAllPosts();
             if (!response.success) {
                 return;
             }
@@ -29,7 +29,7 @@ function PublicHome({ api, onFetchLoginData, onFetchUser }) {
         }
         const fetchData = async () => {
             window.localStorage.clear();
-            await api.getLogout();
+            await api.logout();
             onFetchUser(1);
             onFetchLoginData(1);
         }

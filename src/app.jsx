@@ -1,7 +1,7 @@
 import styles from './app.module.css';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
-import Home from './pages/home/home';
+import Home from './pages/Home/home';
 import Join from './pages/Join/join';
 import Login from './pages/Login/login';
 import Sidebar from './components/Sidebar/sidebar';
@@ -10,10 +10,9 @@ import ViewPosts from './pages/ViewPosts/viewPosts';
 import PostDetail from './pages/PostDetail/postDetail';
 import CreateAndEditPost from './pages/CreateAndEditPost/createAndEditPost';
 import SocialLogin from './pages/SocialLogin/socialLogin';
-import EditUser from './pages/EditUser/editUser';
-import EditBlog from './pages/EditBlog/editBlog';
 import PublicHome from './pages/PublicHome/publicHome';
 import ErrorPage from './pages/ErrorPage/errorPage';
+import Settings from './pages/Settings/settings';
 
 function App({ api }) {
   const path = useLocation().pathname;
@@ -21,14 +20,13 @@ function App({ api }) {
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(window.localStorage.getItem("isLoggedIn")) || undefined);
   const [toggle, setToggle] = useState(false);
 
-
   const fetchUserData = useCallback(async (option) => {
     if (option) { //1
       setUser(undefined);
       return;
     }
     const nickname = path.split("/")[1].substr(1);
-    const userData = await api.getPublicUserData(nickname);
+    const userData = await api.fetchPublicUser(nickname);
     setUser(userData); //없는 닉넴=>null
   }, [api, path]);
 
@@ -37,7 +35,7 @@ function App({ api }) {
       setIsLoggedIn(null);
       return;
     }
-    const loginData = await api.getLoginData(); //로그인X,에러=>null, 그외 {_id,name}
+    const loginData = await api.fetchLoginUser(); //로그인X,에러=>null, 그외 {_id,name}
     setIsLoggedIn(loginData);
   }, [api])
 
@@ -103,8 +101,7 @@ function App({ api }) {
           <Route path="/:nickname/user/settings" exact>
             {
               isLoggedIn?._id === user?._id ? <>
-                <EditBlog api={api} onFetchUser={fetchUserData} user={user} />
-                <EditUser api={api} onFetchUser={fetchUserData} onFetchLoginData={fetchLoginData} user={user} />
+                <Settings api={api} user={user} onFetchLoginData={fetchLoginData} onFetchUser={fetchUserData} />
               </> : <ErrorPage statusCode="403" />
             }
           </Route>

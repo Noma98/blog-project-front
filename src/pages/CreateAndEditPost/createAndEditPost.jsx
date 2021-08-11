@@ -63,7 +63,7 @@ function CreateAndEditPost({ api, user }) {
     }
     const handleCreate = async (e) => {
         e.preventDefault();
-        await api.postNewPost({ title, description, selectedFolder, tagArray });
+        await api.createNewPost({ title, description, selectedFolder, tagArray });
         history.push(`/@${user.name}/posts?folder=${selectedFolder}`);
     }
 

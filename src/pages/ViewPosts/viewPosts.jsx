@@ -64,7 +64,7 @@ function ViewPosts({ api, user, isLoggedIn }) {
 
     const fetchAllPosts = useCallback(async () => {
         setLoading(true);
-        const data = await api.fetchAllPosts(user._id);
+        const data = await api.fetchUserPosts(user._id);
         setLoading(false);
         setPostsData(data);
     }, [api, user._id]);

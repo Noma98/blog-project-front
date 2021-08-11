@@ -24,4 +24,4 @@ yarn-error.log*
 node_modules
 
 # key
-/src/config.js
+config.js

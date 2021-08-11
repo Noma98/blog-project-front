@@ -32,7 +32,7 @@ function SocialLogin({ api, onfetchLoginData }) {
                     state: { email, name, avatar }
                 });
             } else {
-                alert(data.error.message);
+                alert(data.message);
                 history.push("/login");
             }
         }

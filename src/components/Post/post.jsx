@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
 import styles from './post.module.css';
-import { getFormattedDate } from '../../common';
+import * as common from '../../common/common';
 
 function Post({ post, api, onFetchPosts, user, editMode }) {
     const history = useHistory();
@@ -27,7 +27,7 @@ function Post({ post, api, onFetchPosts, user, editMode }) {
             {pathName === `/@${user.name}` &&
                 <div className={styles.new}>New</div>}
             <h3>{post.title}</h3>
-            <small>{`${user.name} · ${getFormattedDate(post.createdAt)}`}</small>
+            <small>{`${user.name} · ${common.getFormattedDate(post.createdAt)}`}</small>
             {post.tags[0] !== "" && <div className={styles.tagContainer}>
                 {post.tags.map(tag => <span className={styles.tag} key={tag.id}>{tag.name}</span>)}
             </div>}
