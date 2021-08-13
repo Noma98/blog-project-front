@@ -40,7 +40,7 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
     }
     return (
         <header className={styles.header}>
-            <h3 onClick={handleLogo}>Today I learned</h3>
+            <h3 onClick={handleLogo}>Nomalog</h3>
             <div className={styles.flexRow}>
                 <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />
                 <nav className={styles.nav}>

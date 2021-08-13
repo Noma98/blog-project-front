@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import * as config from '../../config/config';
 import styles from './naver.module.css';
 import naverImage from '../../assets/images/naver.jpg';
 
@@ -13,7 +12,7 @@ function Naver() {
 
         naverScript.onload = () => {
             const naverLogin = new window.naver.LoginWithNaverId({
-                clientId: config.NAVER_CLIENT,
+                clientId: process.env.REACT_APP_NAVER_CLIENT,
                 callbackUrl: "http://localhost:3000/oauth/callback/naver",
                 callbackHandle: true,
                 isPopup: false,

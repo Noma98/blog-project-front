@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './signInUp.module.css';
 import { Link, useHistory } from 'react-router-dom';
 import withAuth from '../../hoc/withAuth';
-import * as config from '../../config/config';
 import Google from '../../components/Google/google';
 import Naver from '../../components/Naver/naver';
 import kakaoImage from '../../assets/images/kakao.png';
@@ -51,9 +50,9 @@ function Login({ api, onfetchLoginData }) {
             </form>
             <div className={styles.line}></div>
             <div className={styles.socialLogin}>
-                <a href={config.GITHUB_OAUTH_URI} className={`${styles.social} ${styles.github}`}><i className="fab fa-github"></i>깃허브로 로그인하기</a>
+                <a href={process.env.REACT_APP_GITHUB_OAUTH_URI} className={`${styles.social} ${styles.github}`}><i className="fab fa-github"></i>깃허브로 로그인하기</a>
 
-                <a className={`${styles.social} ${styles.kakao}`} href={config.KAKAO_OAUTH_URI}><img src={kakaoImage} alt="kakao"></img>카카오로 로그인하기</a>
+                <a className={`${styles.social} ${styles.kakao}`} href={process.env.REACT_APP_KAKAO_OAUTH_URI}><img src={kakaoImage} alt="kakao"></img>카카오로 로그인하기</a>
                 <Google api={api} onfetchLoginData={onfetchLoginData} />
                 <Naver />
             </div>
