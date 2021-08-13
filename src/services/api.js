@@ -12,19 +12,19 @@ class Api {
         return response.data;
     }
     async login(data) {
-        const response = await axios.post(`${API_URL}/api/users/login`, data);
+        const response = await axios.post(`${API_URL}/api/users/login`, data, { withCredentials: true, credentials: 'include' });
         return response.data;
     }
     async logout() {
-        const response = await axios.get(`${API_URL}/api/users/logout`);
+        const response = await axios.get(`${API_URL}/api/users/logout`, { withCredentials: true, credentials: 'include' });
         return response.data;
     }
     async loginGithub(code) {
-        const response = await axios.post(`${API_URL}/api/users/github`, { code });
+        const response = await axios.post(`${API_URL}/api/users/github`, { code }, { withCredentials: true, credentials: 'include' });
         return response.data;
     }
     async loginKakao(code) {
-        const response = await axios.post(`${API_URL}/api/users/kakao`, { code });
+        const response = await axios.post(`${API_URL}/api/users/kakao`, { code }, { withCredentials: true, credentials: 'include' });
         return response.data;
     }
     async kakaoUnlink(accessToken) {
@@ -32,11 +32,11 @@ class Api {
         return response.data;
     }
     async googleLogin(userData) {
-        const response = await axios.post(`${API_URL}/api/users/google`, userData);
+        const response = await axios.post(`${API_URL}/api/users/google`, userData, { withCredentials: true, credentials: 'include' });
         return response.data;
     }
     async naverLogin(token) {
-        const response = await axios.post(`${API_URL}/api/users/naver`, { token });
+        const response = await axios.post(`${API_URL}/api/users/naver`, { token }, { withCredentials: true, credentials: 'include' });
         return response.data;
     }
     async naverUnlink(token) {
@@ -44,19 +44,19 @@ class Api {
         return response.data;
     }
     async updatePwd(data) {
-        const response = await axios.post(`${API_URL}/api/users/update/password`, data);
+        const response = await axios.post(`${API_URL}/api/users/update/password`, data, { withCredentials: true });
         return response.data;
     }
     async updateUser(data) {
-        const response = await axios.post(`${API_URL}/api/users/update`, data);
+        const response = await axios.post(`${API_URL}/api/users/update`, data, { withCredentials: true });
         return response.data;
     }
     async deleteUser(userId) {
-        const response = await axios.post(`${API_URL}/api/users/delete`, { userId });
+        const response = await axios.post(`${API_URL}/api/users/delete`, { userId }, { withCredentials: true });
         return response.data;
     }
     async updateBlogInfo(data) {
-        const response = await axios.post(`${API_URL}/api/users/update/blog`, data);
+        const response = await axios.post(`${API_URL}/api/users/update/blog`, data, { withCredentials: true });
         return response.data;
     }
     async fetchPublicUser(nickname) {
@@ -67,7 +67,9 @@ class Api {
         return response.data.payload;
     }
     async fetchLoginUser() {
-        const response = await axios.get(`${API_URL}/api/users/auth`);
+        const response = await axios.get(`${API_URL}/api/users/auth`, {
+            withCredentials: true
+        });
         if (!response.data.success) {
             return null;
         }
@@ -76,7 +78,7 @@ class Api {
     }
     //------------------Folder---------------------
     async makeFolder() {
-        const response = await axios.get(`${API_URL}/api/folders/create`);
+        const response = await axios.get(`${API_URL}/api/folders/create`, { withCredentials: true });
         if (response.data.success) {
             return;
         }
@@ -85,7 +87,7 @@ class Api {
     async editFolder(folderId, newName) {
         const response = await axios.post(`${API_URL}/api/folders/edit`, {
             folderId, newName
-        });
+        }, { withCredentials: true });
         if (response.data.success) {
             return;
         }
@@ -94,7 +96,7 @@ class Api {
     async deleteFolder(folderId, userId) {
         const response = await axios.post(`${API_URL}/api/folders/delete`, {
             folderId, userId
-        });
+        }, { withCredentials: true });
         if (response.data.success) {
             return;
         }
@@ -102,21 +104,21 @@ class Api {
     }
     //-----------------Post----------------------
     async createNewPost(data) {
-        const response = await axios.post(`${API_URL}/api/posts/create`, data);
+        const response = await axios.post(`${API_URL}/api/posts/create`, data, { withCredentials: true });
         if (response.data.success) {
             return;
         }
         alert("게시글 생성에 실패하였습니다.")
     }
     async updatePost(data) {
-        const response = await axios.post(`${API_URL}/api/posts/update`, data);
+        const response = await axios.post(`${API_URL}/api/posts/update`, data, { withCredentials: true });
         if (response.data.success) {
             return;
         }
         alert("게시글 변경에 실패하였습니다.");
     }
     async deletePost(postId, folderId) {
-        const response = await axios.post(`${API_URL}/api/posts/delete`, { postId, folderId });
+        const response = await axios.post(`${API_URL}/api/posts/delete`, { postId, folderId }, { withCredentials: true });
         if (response.data.success) {
             return;
         }
