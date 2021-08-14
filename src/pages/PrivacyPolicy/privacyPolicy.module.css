@@ -1,0 +1,10 @@
+.policy{
+    height: 20rem;
+    font-size: 10px;
+    padding: 2em;
+    outline: none;
+    margin: 1em 0;
+}
+.policy::-webkit-scrollbar{
+    width: 0;
+}

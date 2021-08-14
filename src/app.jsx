@@ -1,5 +1,5 @@
 import styles from './app.module.css';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation, Link } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import Home from './pages/Home/home';
 import Join from './pages/Join/join';
@@ -13,6 +13,7 @@ import SocialLogin from './pages/SocialLogin/socialLogin';
 import PublicHome from './pages/PublicHome/publicHome';
 import ErrorPage from './pages/ErrorPage/errorPage';
 import Settings from './pages/Settings/settings';
+import PrivacyPolicy from './pages/PrivacyPolicy/privacyPolicy';
 
 function App({ api }) {
   const path = useLocation().pathname;
@@ -93,6 +94,9 @@ function App({ api }) {
           <Route path="/posts" exact>
             <PublicHome api={api} />
           </Route>
+          <Route path="/privacy_policy" exact>
+            <PrivacyPolicy />
+          </Route>
           <Route path="/:nickname" exact>
             { // /@닉네임=> 제대로 된거면 object, 잘못된 닉네임이면 null, 아직 유저 정보를 fetch해오지 않은 경우=> undefined
               user || user === undefined ? <Home user={user} api={api} isLoggedIn={isLoggedIn} /> : <ErrorPage statusCode="404" />
@@ -135,7 +139,8 @@ function App({ api }) {
         </Switch>
         {
           !path.match("/post/") && <footer>
-            ⓒ noma
+            <p>Copyright ⓒ 2021. noma. All rights reserved.</p>
+            <Link to="/privacy_policy"> 개인정보처리방침 </Link>
           </footer>
         }
       </section>

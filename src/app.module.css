@@ -19,7 +19,10 @@ footer{
     color: var(--color-gray-3);
     text-align: center;
     margin-top: 2.5em;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+}
+footer a{
+    font-size: 0.65rem;
 }
 .sideToggle{
     position: fixed;
