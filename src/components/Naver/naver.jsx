@@ -13,7 +13,7 @@ function Naver() {
         naverScript.onload = () => {
             const naverLogin = new window.naver.LoginWithNaverId({
                 clientId: process.env.REACT_APP_NAVER_CLIENT,
-                callbackUrl: "http://localhost:3000/oauth/callback/naver",
+                callbackUrl: `${process.env.REACT_APP_SERVICE_URL}/oauth/callback/naver`,
                 callbackHandle: true,
                 isPopup: false,
                 loginButton: {
