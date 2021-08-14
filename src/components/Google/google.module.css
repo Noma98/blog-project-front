@@ -1,20 +1,20 @@
 .google{
-    padding: 0.6em 1em;
+    height: 3rem;
+    padding: 0;
     border-radius: 0.25em;
     font-size: 0.8rem;
     margin-top: 0.7em;
     display: flex;
     align-items: center;
-    font-weight: 700;
+    font-weight: 600;
     box-shadow: var(--shadow-1);
-}
-.google{
     background-color: white;
     color:var(--color-gray-3);  
 }
 .google img{
-    height:1.4rem;
-    margin-right: 0.5em;
+    height:1.12rem;
+    margin-left: 20px;
+    margin-right: 23px;
 }
 
 @media screen and (max-width:550px) {

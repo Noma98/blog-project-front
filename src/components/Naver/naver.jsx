@@ -34,7 +34,7 @@ function Naver() {
             <div ref={naverRef} id="naverIdLogin"></div>
             <button onClick={handleClick} className={styles.naver} >
                 <img src={naverImage} alt="naver" />
-                네이버로 로그인하기
+                네이버 아이디로 로그인
             </button>
         </>
     )

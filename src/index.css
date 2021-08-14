@@ -2,8 +2,8 @@
 
 :root{
     /* color */
-    --color-blue:#1d82e0;
-    --color-dark-blue:#1277d6;
+    --color-blue:#117de2;
+    --color-dark-blue:rgb(26, 116, 201);
     --color-green:rgb(141, 255, 65);
     --color-yellow-green:rgb(221, 219, 108);
     --color-dark-green:rgb(164, 179, 34);
@@ -19,7 +19,7 @@
     --color-black:rgb(107, 107, 107);
    
     /* shadow*/
-    --shadow-1: 4px 4px 4px #c7c7c7;
+    --shadow-1: 1px 2px 2px #c7c7c7;
 }
 
 *{

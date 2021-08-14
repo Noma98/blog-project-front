@@ -1,16 +1,17 @@
 .naver img{
-    height:0.9rem;
-    margin-right: 0.7em;
-    margin-left: 0.2em;
+    height:0.75rem;
+    margin-left: 23px;
+    margin-right: 25px;
 }
 .naver{
-    padding: 0.6em 1em;
+    padding: 0;
+    height: 3rem;
     border-radius: 0.25em;
     font-size: 0.8rem;
     margin-top: 0.7em;
     display: flex;
     align-items: center;
-    font-weight: 700;
+    font-weight: 600;
     box-shadow: var(--shadow-1);
     background-color: #03C75A;
     color: white;

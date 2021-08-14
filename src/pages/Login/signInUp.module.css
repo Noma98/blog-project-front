@@ -1,12 +1,17 @@
 .signInUp{
     padding-top: 1em;
-    width: 35rem;
+    width: 30rem;
     height: unset;
     border-radius: 2rem;
     margin: auto;
 }
 .signInUp input::placeholder{
     color: var(--color-gray-2);
+}
+.signInUp input:not(input[type="submit"]){
+    border-left:1px solid rgb(199, 207, 214) !important;
+    border-top:1px solid rgb(226, 230, 235) !important;
+    border-right:1px solid rgb(226, 230, 235) !important;
 }
 .logo{
     font-family: 'Lobster', cursive;
@@ -37,6 +42,7 @@
     font-size: 1rem;
     padding: 0.7em 2em;
     border-radius: 0.5em;
+    box-shadow: var(--shadow-1);
 }
 :is(.loginBtn,.joinBtn):hover{
     background-color: var(--color-dark-blue);
@@ -53,13 +59,13 @@
     gap: 0.5em;
 }
 .social{
-    padding: 0.6em 1em;
+    height: 3rem;
     border-radius: 0.25em;
     font-size: 0.8rem;
     margin-top: 0.7em;
     display: flex;
     align-items: center;
-    font-weight: 700;
+    font-weight: 600;
     box-shadow: var(--shadow-1);
 }
 .github{
@@ -70,13 +76,15 @@
     background-color: #FEE500;
     color:#191919;
 }
-.social i{
-    font-size: 1.5rem;
-    margin-right: 0.5em;
+.kakao img{
+    height:1.05rem;
+    margin-left: 20px;
+    margin-right: 21px;
 }
-.social img{
-    height:1.2rem;
-    margin-right: 0.5em;
+.github i{
+    font-size: 1.2rem;
+    margin-left: 20px;
+    margin-right: 22px;
 }
 
 @media screen and (max-width:767px) {
