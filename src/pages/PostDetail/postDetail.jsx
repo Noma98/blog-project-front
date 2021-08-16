@@ -30,7 +30,7 @@ function PostDetail({ api, user, isLoggedIn }) {
         setLoading(true);
         await api.deletePost(postInfo._id, postInfo.folder);
         setLoading(false);
-        history.push(`/${postInfo.folder}`);
+        history.push(`/@${user?.name}/posts?folder=${postInfo.folder}`);
     }
 
     useEffect(() => {
