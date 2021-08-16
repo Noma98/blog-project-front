@@ -34,6 +34,9 @@ const Sidebar = memo(({ api, onFetchUser, isLoggedIn, user, toggle, onToggle }) 
             alert("최소 한 개 이상의 폴더를 가져야합니다.");
             return;
         }
+        if (!window.confirm("정말로 삭제하시겠습니까?")) {
+            return;
+        }
         const folderId = e.target.dataset.id;
         await api.deleteFolder(folderId);
         onFetchUser();

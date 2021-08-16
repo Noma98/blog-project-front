@@ -32,7 +32,6 @@ function SetUser({ api, user, onFetchLoginData }) {
     const submitUser = async (e) => {
         e.preventDefault();
         const formData = new FormData(formRef.current);
-        formData.append("userId", user._id);
         const data = await api.updateUser(formData);
         if (!data.success) {
             setUserErr(data.message);

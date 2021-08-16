@@ -50,8 +50,8 @@ class Api {
         const response = await axios.post(`${API_URL}/api/users/update`, data, { withCredentials: true });
         return response.data;
     }
-    async deleteUser(userId) {
-        const response = await axios.post(`${API_URL}/api/users/delete`, { userId }, { withCredentials: true });
+    async deleteUser() {
+        const response = await axios.get(`${API_URL}/api/users/delete`, { withCredentials: true });
         return response.data;
     }
     async updateBlogInfo(data) {

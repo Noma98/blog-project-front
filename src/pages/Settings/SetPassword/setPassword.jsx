@@ -29,7 +29,7 @@ function SetPassword({ api, user, onFetchUser }) {
             setPwdErr("새 비밀번호를 동일하게 입력하세요.");
             return;
         }
-        const data = await api.updatePwd({ userId: user._id, pwd, newPwd });
+        const data = await api.updatePwd({ pwd, newPwd });
         if (!data.success) {
             setPwdErr(data.message);
             return;
@@ -41,7 +41,7 @@ function SetPassword({ api, user, onFetchUser }) {
         if (!window.confirm("정말로 삭제하시겠습니까?")) {
             return;
         }
-        const response = await api.deleteUser(user._id);
+        const response = await api.deleteUser();
         if (!response.success) {
             alert(response.message);
             return;
