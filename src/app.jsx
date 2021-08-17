@@ -14,6 +14,7 @@ import PublicHome from './pages/PublicHome/publicHome';
 import ErrorPage from './pages/ErrorPage/errorPage';
 import Settings from './pages/Settings/settings';
 import PrivacyPolicy from './pages/PrivacyPolicy/privacyPolicy';
+import _ from 'lodash';
 
 function App({ api }) {
   const path = useLocation().pathname;
@@ -28,8 +29,11 @@ function App({ api }) {
     }
     const nickname = path.split("/")[1].substr(1);
     const userData = await api.fetchPublicUser(nickname);
+    if (_.isEqual(user, userData)) {
+      return;
+    }
     setUser(userData); //없는 닉넴=>null
-  }, [api, path]);
+  }, [api, path, user]);
 
   const fetchLoginData = useCallback(async (option) => {
     if (option) { //1
