@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useHistory } from 'react-router-dom';
 import styles from './post.module.css';
 import * as common from '../../common/common';
 
-function Post({ post, api, onFetchPosts, user, editMode }) {
+const Post = memo(({ post, api, onFetchPosts, user, editMode }) => {
     const history = useHistory();
     const pathName = history.location.pathname;
 
@@ -35,6 +35,6 @@ function Post({ post, api, onFetchPosts, user, editMode }) {
             {pathName !== "/" && editMode && <button className={styles.delete} onClick={handleDelete}><i className="fas fa-times"></i></button>}
         </div>
     )
-}
+});
 
 export default Post

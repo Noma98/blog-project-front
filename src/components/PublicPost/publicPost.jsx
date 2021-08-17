@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import styles from './publicPost.module.css';
 import * as common from '../../common/common';
 import { useHistory } from 'react-router-dom';
 import defaultImage from '../../assets/images/default.PNG';
 
-function PublicPost({ post }) {
+const PublicPost = memo(({ post }) => {
     const history = useHistory();
     const handleViewPost = () => {
         history.push(`/@${post.author.name}/post/${post._id}`)
@@ -26,6 +26,6 @@ function PublicPost({ post }) {
             </>}
         </>
     )
-}
+})
 
 export default PublicPost

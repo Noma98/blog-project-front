@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom';
 import Loading from '../../components/Loading/loading';
 import Post from '../../components/Post/post';
@@ -7,7 +7,7 @@ import styles from './viewPosts.module.css';
 
 let folderName;
 
-function ViewPosts({ api, user, isLoggedIn }) {
+const ViewPosts = memo(({ api, user, isLoggedIn }) => {
     const [postsData, setPostsData] = useState();
     const [notFound, setNotFound] = useState(false);
 
@@ -19,6 +19,30 @@ function ViewPosts({ api, user, isLoggedIn }) {
     const query = params.get("query");
 
     const history = useHistory();
+
+    const fetchPosts = useCallback(async () => {
+        setLoading(true);
+        const response = await api.fetchPosts(folder);
+        if (!response.success) {
+            setLoading(false);
+            setNotFound(true);
+            return;
+        }
+        setLoading(false);
+        setPostsData(response.payload);
+    }, [api, folder]);
+
+    const fetchAllPosts = useCallback(async () => {
+        setLoading(true);
+        const data = await api.fetchUserPosts(user._id);
+        setLoading(false);
+        setPostsData(data);
+    }, [api, user._id]);
+
+    const fetchResults = useCallback(async () => {
+        const data = await api.fetchResults(query, user._id);
+        setPostsData(data);
+    }, [query, api, user._id])
 
     useEffect(() => {
         const confirmFolderId = new RegExp(/^[0-9a-f]{24}$/).test(folder);
@@ -48,31 +72,7 @@ function ViewPosts({ api, user, isLoggedIn }) {
             fetchPosts();
             return;
         }
-    }, [user, query, folder])
-
-    const fetchPosts = useCallback(async () => {
-        setLoading(true);
-        const response = await api.fetchPosts(folder);
-        if (!response.success) {
-            setLoading(false);
-            setNotFound(true);
-            return;
-        }
-        setLoading(false);
-        setPostsData(response.payload);
-    }, [api, folder]);
-
-    const fetchAllPosts = useCallback(async () => {
-        setLoading(true);
-        const data = await api.fetchUserPosts(user._id);
-        setLoading(false);
-        setPostsData(data);
-    }, [api, user._id]);
-
-    const fetchResults = useCallback(async () => {
-        const data = await api.fetchResults(query, user._id);
-        setPostsData(data);
-    }, [query, api, user._id])
+    }, [user, query, folder, fetchAllPosts, fetchPosts, fetchResults])
 
     const handleCreate = () => {
         history.push({
@@ -127,6 +127,6 @@ function ViewPosts({ api, user, isLoggedIn }) {
                 </>}
         </div>
     )
-}
+});
 
 export default ViewPosts;
