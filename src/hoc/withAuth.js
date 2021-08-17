@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 function withAuth(SpecificComponent, option) {
     /*option
-    null:누구나(로그인OX), true: 로그인O만, false:로그인X만*/
+    true: 로그인O만, false:로그인X만*/
     function AuthCheck(props) {
         const history = useHistory();
         const API_URL = process.env.REACT_APP_API_URL;
@@ -15,10 +15,9 @@ function withAuth(SpecificComponent, option) {
                 });
                 const loggedIn = res.data.success; //true, false
                 loggedIn && (option === false) && history.push("/");
-                !loggedIn && (option === true) && history.push("/login");
             }
             fectchData();
-        }, [history])
+        }, [history, API_URL])
         return (
             <SpecificComponent {...props} />
         );

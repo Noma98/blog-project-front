@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Post from '../../components/Post/post';
-import withAuth from '../../hoc/withAuth'
 import styles from './home.module.css';
 import defaultImage from '../../assets/images/default.PNG';
 
@@ -50,4 +49,4 @@ function Home({ user, api, isLoggedIn }) {
     )
 }
 
-export default withAuth(Home, null);
+export default Home;
