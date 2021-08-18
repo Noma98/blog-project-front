@@ -11,6 +11,17 @@
     min-height: 20rem;
     width: 100%;
     overflow-y: auto;
+    scrollbar-width:none;
+}
+.content::-webkit-scrollbar{
+    width: 0.5em;
+}
+.content::-webkit-scrollbar-track{
+    background-color: var(--color-beige);
+}
+.content::-webkit-scrollbar-thumb{
+    background-color: var(--color-gray-15);
+    border-radius: 1em;
 }
 .content,.nav{
     margin-top: 4.5rem;
@@ -32,16 +43,6 @@ footer a{
     color: var(--color-blue);
     font-size: 1.3rem;
 }
-.content::-webkit-scrollbar{
-    width: 0.5em;
-}
-.content::-webkit-scrollbar-track{
-    background-color: var(--color-beige);
-}
-.content::-webkit-scrollbar-thumb{
-    background-color: var(--color-gray-1);
-    border-radius: 1em;
-}
 @media screen and (max-width:992px) {
     .app{
         flex-direction: column;
@@ -50,14 +51,8 @@ footer a{
     .nav{
         margin: 0;
     }
-    .app::-webkit-scrollbar{
-        width: 0;
-    }
     .content,.nav{
         width: 100%;
-    }
-    .content::-webkit-scrollbar{
-        width: 0;
     }
 }
 @media screen and (max-width:767px) {

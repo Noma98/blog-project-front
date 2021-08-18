@@ -40,11 +40,17 @@ function PostDetail({ api, user, isLoggedIn }) {
     useEffect(() => {
         common.setTextareaHeight(textRef);
     });
+    const handleBack = () => {
+        history.goBack();
+    }
     //PublicHome에서 들어오면 user가 null이므로, obtional Chaining 처리
     return (
         <div className={styles.postDetail}>
             {loading ? <Loading /> : <>
                 {postInfo && <>
+                    <button className={styles.back} onClick={handleBack}>
+                        <i className="fas fa-chevron-left"></i>
+                    </button>
                     <h2>{postInfo.title}</h2>
                     <div className={styles.metaAndBtns}>
                         <small>{`${user?.name} · ${common.getFormattedDate(postInfo.createdAt)}`}</small>

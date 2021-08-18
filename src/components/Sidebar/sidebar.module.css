@@ -7,6 +7,7 @@
     height: 100%;
     font-weight: 600;
     border-right: 1px solid rgb(211, 211, 211);
+    scrollbar-width:none;
 }
 .sidebar li,.addBtn,.posts,.editForm{
     font-size: 0.9rem;

@@ -12,6 +12,7 @@
     --color-red:rgb(221, 35, 35);
     --color-beige:rgb(248, 248, 248);
     --color-gray-1:#f1f1f1;
+    --color-gray-15:#e9e9e9;
     --color-gray-2:#c7c7c7;
     --color-gray-3:#6e6d6a;
     --color-gray-4:#333230;
@@ -94,6 +95,10 @@ input:not(input[type="submit"]),textarea{
 button,input[type="submit"]{
     cursor: pointer;
     border: none;
+    appearance: button;
+}
+button{
+    padding:0;
 }
 #naverIdLogin{
     display: none;

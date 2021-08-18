@@ -141,12 +141,10 @@ function App({ api }) {
             <ErrorPage statusCode="404" />
           </Route>
         </Switch>
-        {
-          !path.match("/post/") && <footer>
-            <p>Copyright ⓒ 2021. noma. All rights reserved.</p>
-            <Link to="/privacy_policy"> 개인정보처리방침 </Link>
-          </footer>
-        }
+        <footer>
+          <p>Copyright ⓒ 2021. noma. All rights reserved.</p>
+          <Link to="/privacy_policy"> 개인정보처리방침 </Link>
+        </footer>
       </section>
     </div>
   );

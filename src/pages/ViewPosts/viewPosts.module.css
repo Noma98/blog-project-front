@@ -1,5 +1,5 @@
 .postsContainer{
-    height: 100%;
+    min-height: 85%;
 }
 .postsContainer h1{
     font-size: 2rem;
