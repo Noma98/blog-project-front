@@ -73,9 +73,9 @@ function App({ api }) {
     isLoggedIn && window.localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
-  const handleToggle = () => {
-    setToggle(!toggle);
-  }
+  const handleToggle = useCallback(() => {
+    setToggle(state => !state);
+  }, [])
   return (
     <div className={styles.app}>
       <Header api={api} onFetchLoginData={fetchLoginData} onFetchUser={fetchUserData} onToggle={handleToggle} user={user} isLoggedIn={isLoggedIn} />
@@ -135,7 +135,7 @@ function App({ api }) {
             <SocialLogin api={api} onfetchLoginData={fetchLoginData} onFetchUser={fetchUserData} />
           </Route>
           <Route path="/:nickname/:id" exact>
-            <ViewPosts api={api} user={user} isLoggedIn={isLoggedIn} />
+            {user ? <ViewPosts api={api} user={user} isLoggedIn={isLoggedIn} /> : <ErrorPage statusCode="404" />}
           </Route>
           <Route path="/">
             <ErrorPage statusCode="404" />

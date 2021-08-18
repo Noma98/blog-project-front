@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Post from '../../components/Post/post';
 import styles from './home.module.css';
@@ -11,15 +11,16 @@ function Home({ user, api, isLoggedIn }) {
     const handleCreate = () => {
         history.push(`/@${user.name}/posts/create`);
     };
-    const fetchData = useCallback(async () => {
-        if (user) {
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+        const fetchData = async () => {
             const latest = await api.fetchLatest(user._id);
             setPost(latest);
         }
-    }, [api, user]);
-    useEffect(() => {
         fetchData();
-    }, [fetchData]);
+    }, [api, user]);
     return (
         <div className={styles.home}>
             {user &&

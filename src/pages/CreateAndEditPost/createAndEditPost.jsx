@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import styles from './createAndEditPost.module.css';
 import * as common from '../../common/common';
@@ -67,22 +67,21 @@ function CreateAndEditPost({ api, user }) {
         history.push(`/@${user.name}/posts?folder=${selectedFolder}`);
     }
 
-    const fetchData = useCallback(async () => {
-        const { title: prevTitle, description: prevDescription, tags: prevTags, folder } = await api.fetchPostDetail(postId);
-        prevFolderId = folder;
-        setTitle(prevTitle);
-        setDescription(prevDescription);
-        setTagArray(prevTags);
-        setSelectedFolder(prevFolderId);
-    }, [api, postId]);
-
     useEffect(() => {
         if (!postId) {
             setSelectedFolder(location.state || user.folders[0]._id)
             return;
         }
+        const fetchData = async () => {
+            const { title: prevTitle, description: prevDescription, tags: prevTags, folder } = await api.fetchPostDetail(postId);
+            prevFolderId = folder;
+            setTitle(prevTitle);
+            setDescription(prevDescription);
+            setTagArray(prevTags);
+            setSelectedFolder(prevFolderId);
+        };
         fetchData();
-    }, [fetchData, postId, user])
+    }, [postId, user, api, location.state])
 
     useEffect(() => {
         common.setTextareaHeight(textRef);
