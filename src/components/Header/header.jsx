@@ -1,11 +1,11 @@
 import React, { memo, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
 import Tooltip from 'react-tooltip-lite';
+import _ from 'lodash';
 
 const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
-    const path = useLocation().pathname;
     const history = useHistory();
     const [visible, setVisible] = useState(false);
     const handleLogout = async () => {
@@ -15,11 +15,12 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
         const response = await api.logout();
         if (response.success) {
             window.localStorage.removeItem("isLoggedIn");
-            onFetchLoginData();
+            onFetchLoginData(1);
         } else {
             alert("로그아웃에 실패하였습니다.");
         }
     }
+    const delayedQueryCall = _.debounce((e) => handleQuery(e), 500);
     const handleQuery = (e) => {
         const value = e.target.value;
         //전체에서 검색, 유저데이터에서 검색
@@ -42,7 +43,7 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
         <header className={styles.header}>
             <h3 onClick={handleLogo}>Nomalog</h3>
             <div className={styles.flexRow}>
-                <input className={styles.search} onChange={handleQuery} type="text" placeholder="Search Docs..." />
+                <input className={styles.search} onChange={delayedQueryCall} type="text" placeholder="Search Docs..." />
                 <nav className={styles.nav}>
                     <ul className={`${styles.lists} ${visible && styles.visible}`}>
                         {
@@ -54,7 +55,7 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
                                         </button>
                                     </li>
                                 </Tooltip>
-                                {user && path.match(`/@${isLoggedIn?.name}`) && <Tooltip content="Settings">
+                                {isLoggedIn?._id === user?._id && <Tooltip content="Settings">
                                     <li>
                                         <Link to={`/@${isLoggedIn?.name}/user/settings`}><i className="fas fa-user-edit"></i></Link>
                                     </li>
