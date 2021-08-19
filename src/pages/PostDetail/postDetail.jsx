@@ -1,15 +1,16 @@
 import styles from './postDetail.module.css';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/loading';
 import * as common from '../../common/common';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-function PostDetail({ api, user, isLoggedIn }) {
+const PostDetail = memo(({ api, user, isLoggedIn }) => {
     const [postInfo, setPostInfo] = useState(null);
     const { id } = useParams();
     const history = useHistory();
-    const textRef = useRef();
     const [loading, setLoading] = useState(false);
 
     const getPostData = useCallback(async () => {
@@ -37,9 +38,6 @@ function PostDetail({ api, user, isLoggedIn }) {
         getPostData();
     }, [getPostData]);
 
-    useEffect(() => {
-        common.setTextareaHeight(textRef);
-    });
     const handleBack = () => {
         history.goBack();
     }
@@ -48,26 +46,33 @@ function PostDetail({ api, user, isLoggedIn }) {
         <div className={styles.postDetail}>
             {loading ? <Loading /> : <>
                 {postInfo && <>
-                    <button className={styles.back} onClick={handleBack}>
-                        <i className="fas fa-chevron-left"></i>
-                    </button>
-                    <h2>{postInfo.title}</h2>
-                    <div className={styles.metaAndBtns}>
-                        <small>{`${user?.name} · ${common.getFormattedDate(postInfo.createdAt)}`}</small>
-                        {user?._id === isLoggedIn?._id &&
-                            <div className={styles.btns}>
-                                <button onClick={handleEdit}><i className="fas fa-pen"></i></button>
-                                <button onClick={handleDelete}><i className="fas fa-trash-alt"></i></button>
-                            </div>}
+                    <div className={styles.postingMeta}>
+                        <button className={styles.back} onClick={handleBack}>
+                            <i className="fas fa-chevron-left"></i>
+                        </button>
+                        <h2>{postInfo.title}</h2>
+                        <div className={styles.metaAndBtns}>
+                            <small>{`${user?.name} · ${common.getFormattedDate(postInfo.createdAt)}`}</small>
+                            {user?._id === isLoggedIn?._id &&
+                                <div className={styles.btns}>
+                                    <button onClick={handleEdit}><i className="fas fa-pen"></i></button>
+                                    <button onClick={handleDelete}><i className="fas fa-trash-alt"></i></button>
+                                </div>}
+                        </div>
+                        <div className={styles.tagContainer}>
+                            {postInfo.tags[0] !== "" && postInfo.tags.map(tag => <div className={styles.tag} key={tag.id}>{tag.name}</div>)}
+                        </div>
                     </div>
-                    <div className={styles.tagContainer}>
-                        {postInfo.tags[0] !== "" && postInfo.tags.map(tag => <div className={styles.tag} key={tag.id}>{tag.name}</div>)}
-                    </div>
-                    <textarea ref={textRef} readOnly className={styles.description} value={postInfo.description}></textarea>
+                    <ReactQuill
+                        value={postInfo.htmlContent}
+                        theme="bubble"
+                        readOnly={true}
+                        className={styles.quillEditor}
+                    />
                 </>}
             </>}
         </div>
     )
-}
+})
 
 export default PostDetail

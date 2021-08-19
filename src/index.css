@@ -112,6 +112,9 @@ button{
 .react-tooltip-lite-arrow{
     color:var(--color-gray-4);
 }
+.ql-editor{
+    min-height:20rem;
+}
 ::placeholder{
     font-size: 0.8rem;
 }
