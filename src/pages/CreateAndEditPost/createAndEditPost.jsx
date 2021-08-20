@@ -1,21 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useMemo, useCallback, memo } from 'react'
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import styles from './createAndEditPost.module.css';
-import * as common from '../../common/common';
 import Tooltip from 'react-tooltip-lite';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 let prevFolderId;
-function CreateAndEditPost({ api, user }) {
+const CreateAndEditPost = memo(({ api, user }) => {
     const history = useHistory();
     const location = useLocation();
-    const textRef = useRef();
     const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
     const [tag, setTag] = useState("");
     const [tagArray, setTagArray] = useState([]);
     const [selectedFolder, setSelectedFolder] = useState("");
-
+    const [htmlContent, setHtmlContent] = useState("");
     const { id: postId } = useParams();
+    const quillRef = useRef();
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -23,9 +23,6 @@ function CreateAndEditPost({ api, user }) {
     const handleFolder = (e) => {
         setSelectedFolder(e.target.value);
     }
-    const handleDescription = (e) => {
-        setDescription(e.target.value);
-    };
     const handleTag = (e) => {
         setTag(e.target.value);
     };
@@ -53,18 +50,23 @@ function CreateAndEditPost({ api, user }) {
             setTag(newTag.name);
         }
     }
+
     const handleClickTag = (e) => {
         setTagArray(tagArray => tagArray.filter(x => x.id !== e.target.id));
     }
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        await api.updatePost({ postId, title, description, selectedFolder, tagArray, prevFolderId });
-        history.push(`/@${user.name}/post/${postId}`);
-    }
-    const handleCreate = async (e) => {
-        e.preventDefault();
-        await api.createNewPost({ title, description, selectedFolder, tagArray });
-        history.push(`/@${user.name}/posts?folder=${selectedFolder}`);
+    const handleSubmit = async () => {
+        const description = quillRef.current.getEditor().getText();
+        if (!description.match(/\S/)) {
+            alert("내용을 입력해주세요.")
+            return;
+        }
+        if (postId) {
+            await api.updatePost({ postId, title, description, htmlContent, selectedFolder, tagArray, prevFolderId });
+            history.push(`/@${user.name}/post/${postId}`);
+        } else {
+            await api.createNewPost({ title, description, htmlContent, selectedFolder, tagArray });
+            history.push(`/@${user.name}/posts?folder=${selectedFolder}`);
+        }
     }
 
     useEffect(() => {
@@ -73,22 +75,66 @@ function CreateAndEditPost({ api, user }) {
             return;
         }
         const fetchData = async () => {
-            const { title: prevTitle, description: prevDescription, tags: prevTags, folder } = await api.fetchPostDetail(postId);
+            const { title: prevTitle, htmlContent: prevHtml, tags: prevTags, folder } = await api.fetchPostDetail(postId);
             prevFolderId = folder;
             setTitle(prevTitle);
-            setDescription(prevDescription);
+            setHtmlContent(prevHtml);
             setTagArray(prevTags);
             setSelectedFolder(prevFolderId);
         };
         fetchData();
     }, [postId, user, api, location.state])
 
-    useEffect(() => {
-        common.setTextareaHeight(textRef);
-    });
+    const imageHandler = useCallback(() => {
+        const input = document.createElement("input");
+        const formData = new FormData();
+        input.setAttribute("type", "file");
+        input.setAttribute("accept", "image/*");
+        input.setAttribute("name", "image");
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files[0];
+            formData.append("image", file);
+            const res = await api.uploadImage(formData);
+            if (!res.success) {
+                alert("이미지 업로드에 실패하였습니다.");
+            }
+            const url = res.payload.url;
+            const quill = quillRef.current.getEditor();
+            const range = quill.getSelection()?.index;
+            if (typeof (range) !== "number") return;
+            quill.setSelection(range, 1);
+            quill.clipboard.dangerouslyPasteHTML(
+                range,
+                `<img src=${url} alt="image" />`);
+        }
+    }, [api]);
+    const modules = useMemo(
+        () => ({
+            toolbar: {
+                container: [
+                    ["bold", "italic", "underline", "strike", "blockquote"],
+                    [{ size: ["small", false, "large", "huge"] }, { color: [] }],
+                    [
+                        { list: "ordered" },
+                        { list: "bullet" },
+                        { indent: "-1" },
+                        { indent: "+1" },
+                        { align: [] },
+                    ],
+                    ["image", "video"],
+                ],
+                handlers: {
+                    image: imageHandler,
+                },
+            },
+        }), [imageHandler]);
+
     const handleBack = () => {
         history.goBack();
     }
+
     return (
         <div className={styles.editPost}>
             <button className={styles.back} onClick={handleBack}>
@@ -107,19 +153,24 @@ function CreateAndEditPost({ api, user }) {
                     <input type="text" value={tag} onKeyDown={handleKeydown} onChange={handleTag} placeholder="태그를 입력하세요." autoFocus maxLength="20" />
                 </Tooltip>
             </div >
-            <form onSubmit={postId ? handleSubmit : handleCreate} className={styles.editForm}>
-                <select className={styles.folder} value={selectedFolder} onChange={handleFolder} required >
-                    {
-                        user && user.folders.map(folder => {
-                            return <option key={Math.random().toString(36).substr(2, 8)} value={folder._id}>{folder.name}</option>
-                        })
-                    }
-                </select>
-                <textarea value={description} className={styles.description} onChange={handleDescription} ref={textRef} required placeholder="내용을 입력하세요." />
-                <input className={styles.submit} type="submit" value="Complete" />
-            </form>
+            <select className={styles.folder} value={selectedFolder} onChange={handleFolder} required >
+                {
+                    user && user.folders.map(folder => {
+                        return <option key={Math.random().toString(36).substr(2, 8)} value={folder._id}>{folder.name}</option>
+                    })
+                }
+            </select>
+            <ReactQuill
+                ref={quillRef}
+                value={htmlContent}
+                onChange={setHtmlContent}
+                modules={modules}
+                theme="snow"
+                className={styles.quillEditor}
+            />
+            <button className={styles.submit} onClick={handleSubmit}>Done</button>
         </div >
     )
-}
+})
 
 export default CreateAndEditPost

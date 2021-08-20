@@ -35,33 +35,28 @@
 .title input::placeholder{
     font-size: 1.5rem;
 }
-.editForm{
-    display: flex;
-    flex-direction: column;
-}
 .folder{
+    width: 100%;
     font-size: 0.7rem;
-    padding: 0.4em;
+    padding: 0.55em 1em;
     border:1px solid lightgray;
     outline: none;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
 }
 .folder option{
     font-size: 0.8rem;
 }
-.description{
-    outline: none;
-    padding: 1em;
-    border-radius: 1em;
+
+.submit{
     margin-top: 1em;
-}
-.editForm .submit{
-    margin-top: 1em;
-    padding: 1em;
-    font-size: 0.9rem;
-    background-color: var(--color-dark-green) ;
-    border-radius: 0.2em;
-    font-weight: 500;
+    padding: 0.7em;
+    font-size: 1rem;
     color: white;
+    background-color: var(--color-dark-green);
+    border-radius: 0.2em;
+    font-weight: 600;
+    width: 100%;
 }
 
 .tagContainer{
@@ -71,7 +66,7 @@
     flex-wrap: wrap;
 }
 .tag{
-    background-color: rgb(164, 179, 34);
+    background-color: var(--color-dark-green);
     color: white;
     padding: 0.2em 0.5em;
     font-size: 0.8rem;
@@ -83,4 +78,11 @@
     margin: 0 0.5em 0.5em 0 !important;
     padding: 0 !important;
     background-color: transparent !important;
+}
+.quillEditor{
+    background-color: white;
+}
+.quillEditor img{
+    max-height:20rem;
+    max-width: 100%;
 }

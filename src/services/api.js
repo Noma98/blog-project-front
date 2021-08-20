@@ -175,5 +175,9 @@ class Api {
         const response = await postAPI.post('search/global', { query });
         return response.data;
     }
+    async uploadImage(data) {
+        const response = await postAPI.post('image', data);
+        return response.data;
+    }
 }
 export default Api;
