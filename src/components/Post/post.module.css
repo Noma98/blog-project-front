@@ -1,15 +1,20 @@
 .post{
     position: relative;
-    padding: 2em;
-    margin-bottom: 1em;
-    border-radius: 1em;
-    border-bottom: 1px solid var(--color-gray-2);
+    background-color: white;
+    margin-bottom: 1.5em;
     cursor: pointer;
     transition: all 150ms ease-in;
-    background-color: white;
+    border-bottom: 1px solid var(--color-gray-2);
+}
+.post img{
+    height:10rem;
+    width: 100%;
+}
+.post .content{
+    padding: 0.7em 1em 1.2em 1em;
+    position: relative;
 }
 .post:hover{
-    box-shadow: var(--shadow-1);
     transform: scale(1.003);
 }
 .editMode{
@@ -25,19 +30,19 @@
 }
 .tagContainer{
     display: flex;
-    padding-top:0.3em;
+    padding-top:0.2em;
     flex-wrap: wrap;
 }
 .tag{
     background-color: rgb(164, 179, 34);
     color: white;
     padding: 0.2em 0.5em;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     border-radius: 0.8em;
-    margin: 0 0.5em 0.5em 0;
+    margin: 0 0.3em 0.3em 0;
 }
 .description{
-    margin-top: 0.5em;
+    margin-top: 0.2em;
     font-size: 0.9rem;
     display: -webkit-box;
     overflow: hidden;
@@ -56,12 +61,11 @@
 .delete:hover{
     color: var(--color-gray-3);
 }
+.headerBox{
+    display:flex;
+}
 .new{
-    position:absolute;
-    top:-1em;
-    left: 0.7em;
-    padding: 0.2em 0.5em;
-    border-radius: 0.2em;
+    margin-left: 0.5em;
     font-weight: 1000;
     font-size: 1.2rem;
     animation: twinkle 1s ease-in-out infinite alternate;
@@ -69,10 +73,9 @@
 @keyframes twinkle {
     from{
         color:var(--color-orange-yellow);
-        transform: translateY(10%);
+        transform: translateY(-5%);
     }
     to{
         color: var(--color-orange);
-        padding-bottom: 0;
     }
 }
