@@ -1,4 +1,4 @@
-.postDetail h2,.postDetail small, .tags{
+.postDetail h2, .tags{
     margin-bottom: 0.5em ;
 }
 .postDetail{
@@ -36,7 +36,22 @@
 }
 .metaAndBtns{
     display: flex;
+    align-items: center;
     justify-content: space-between;
+}
+.meta,.meta a{
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+}
+.meta span{
+    margin-left: 0.2em;
+}
+.meta img{
+    width:2rem;
+    height:2rem;
+    border-radius: 50%;
+    margin-right: 0.5em;
 }
 .btns{
     display: flex;

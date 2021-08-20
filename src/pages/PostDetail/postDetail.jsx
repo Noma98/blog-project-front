@@ -1,7 +1,7 @@
 import styles from './postDetail.module.css';
 
 import React, { memo, useCallback, useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/loading';
 import * as common from '../../common/common';
 import ReactQuill from 'react-quill';
@@ -52,7 +52,10 @@ const PostDetail = memo(({ api, user, isLoggedIn }) => {
                         </button>
                         <h2>{postInfo.title}</h2>
                         <div className={styles.metaAndBtns}>
-                            <small>{`${user?.name} · ${common.getFormattedDate(postInfo.createdAt)}`}</small>
+                            <div className={styles.meta}>
+                                <Link to={`/@${user?.name}`}><img src={user?.avatar} alt="avatar" />{user?.name}</Link>
+                                <span>{` · ${common.getFormattedDate(postInfo.createdAt)}`}</span>
+                            </div>
                             {user?._id === isLoggedIn?._id &&
                                 <div className={styles.btns}>
                                     <button onClick={handleEdit}><i className="fas fa-pen"></i></button>
@@ -71,7 +74,7 @@ const PostDetail = memo(({ api, user, isLoggedIn }) => {
                     />
                 </>}
             </>}
-        </div>
+        </div >
     )
 })
 
