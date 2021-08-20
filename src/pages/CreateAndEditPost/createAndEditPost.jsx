@@ -56,13 +56,17 @@ const CreateAndEditPost = memo(({ api, user }) => {
     }
     const handleSubmit = async () => {
         const description = quillRef.current.getEditor().getText();
-        await api.updatePost({ postId, title, description, htmlContent, selectedFolder, tagArray, prevFolderId });
-        history.push(`/@${user.name}/post/${postId}`);
-    }
-    const handleCreate = async () => {
-        const description = quillRef.current.getEditor().getText();
-        await api.createNewPost({ title, description, htmlContent, selectedFolder, tagArray });
-        history.push(`/@${user.name}/posts?folder=${selectedFolder}`);
+        if (!description.match(/\S/)) {
+            alert("내용을 입력해주세요.")
+            return;
+        }
+        if (postId) {
+            await api.updatePost({ postId, title, description, htmlContent, selectedFolder, tagArray, prevFolderId });
+            history.push(`/@${user.name}/post/${postId}`);
+        } else {
+            await api.createNewPost({ title, description, htmlContent, selectedFolder, tagArray });
+            history.push(`/@${user.name}/posts?folder=${selectedFolder}`);
+        }
     }
 
     useEffect(() => {
@@ -164,7 +168,7 @@ const CreateAndEditPost = memo(({ api, user }) => {
                 theme="snow"
                 className={styles.quillEditor}
             />
-            <button className={styles.submit} onClick={postId ? handleSubmit : handleCreate}>Done</button>
+            <button className={styles.submit} onClick={handleSubmit}>Done</button>
         </div >
     )
 })
