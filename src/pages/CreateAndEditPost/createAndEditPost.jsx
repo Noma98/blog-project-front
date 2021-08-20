@@ -4,6 +4,7 @@ import styles from './createAndEditPost.module.css';
 import Tooltip from 'react-tooltip-lite';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import ImageUploader from '../../components/ImageUploader/imageUploader';
 
 let prevFolderId;
 const CreateAndEditPost = memo(({ api, user }) => {
@@ -14,6 +15,8 @@ const CreateAndEditPost = memo(({ api, user }) => {
     const [tagArray, setTagArray] = useState([]);
     const [selectedFolder, setSelectedFolder] = useState("");
     const [htmlContent, setHtmlContent] = useState("");
+    const [image, setImage] = useState({}); //object일 때만 업데이트
+    const [prevThumbnail, setPrevThumbnail] = useState("");
     const { id: postId } = useParams();
     const quillRef = useRef();
 
@@ -60,23 +63,33 @@ const CreateAndEditPost = memo(({ api, user }) => {
             alert("내용을 입력해주세요.")
             return;
         }
+        const formData = new FormData();
+        formData.append("thumbnail", image);
+
         if (postId) {
-            await api.updatePost({ postId, title, description, htmlContent, selectedFolder, tagArray, prevFolderId });
+            //기존 게시글 업데이트
+            formData.append("data", JSON.stringify({ postId, title, description, htmlContent, selectedFolder, tagArray, prevFolderId, update: typeof (image) === "object" }));
+
+            await api.updatePost(formData);
             history.push(`/@${user.name}/post/${postId}`);
         } else {
-            await api.createNewPost({ title, description, htmlContent, selectedFolder, tagArray });
+            //새로운 게시글 생성
+            formData.append("data", JSON.stringify({ title, description, htmlContent, selectedFolder, tagArray }));
+
+            await api.createNewPost(formData);
             history.push(`/@${user.name}/posts?folder=${selectedFolder}`);
         }
     }
-
     useEffect(() => {
         if (!postId) {
             setSelectedFolder(location.state || user.folders[0]._id)
             return;
         }
         const fetchData = async () => {
-            const { title: prevTitle, htmlContent: prevHtml, tags: prevTags, folder } = await api.fetchPostDetail(postId);
+            const { title: prevTitle, htmlContent: prevHtml, tags: prevTags, folder, thumbnail } = await api.fetchPostDetail(postId);
             prevFolderId = folder;
+            setPrevThumbnail(thumbnail);
+            setImage(thumbnail);
             setTitle(prevTitle);
             setHtmlContent(prevHtml);
             setTagArray(prevTags);
@@ -168,6 +181,7 @@ const CreateAndEditPost = memo(({ api, user }) => {
                 theme="snow"
                 className={styles.quillEditor}
             />
+            <ImageUploader name="thumbnail" setImage={setImage} prevImg={prevThumbnail} label="포스팅 썸네일" />
             <button className={styles.submit} onClick={handleSubmit}>Done</button>
         </div >
     )
