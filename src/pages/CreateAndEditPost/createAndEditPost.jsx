@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState, useMemo, useCallback, memo } from 'react'
+import React, { useEffect, useRef, useState, memo } from 'react'
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import styles from './createAndEditPost.module.css';
 import Tooltip from 'react-tooltip-lite';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import ImageUploader from '../../components/ImageUploader/imageUploader';
+import QuillEditor from '../../components/QuillEditor/quillEditor';
 
 let prevFolderId;
 const CreateAndEditPost = memo(({ api, user }) => {
@@ -98,52 +97,6 @@ const CreateAndEditPost = memo(({ api, user }) => {
         fetchData();
     }, [postId, user, api, location.state])
 
-    const imageHandler = useCallback(() => {
-        const input = document.createElement("input");
-        const formData = new FormData();
-        input.setAttribute("type", "file");
-        input.setAttribute("accept", "image/*");
-        input.setAttribute("name", "image");
-        input.click();
-
-        input.onchange = async () => {
-            const file = input.files[0];
-            formData.append("image", file);
-            const res = await api.uploadImage(formData);
-            if (!res.success) {
-                alert("이미지 업로드에 실패하였습니다.");
-            }
-            const url = res.payload.url;
-            const quill = quillRef.current.getEditor();
-            const range = quill.getSelection()?.index;
-            if (typeof (range) !== "number") return;
-            quill.setSelection(range, 1);
-            quill.clipboard.dangerouslyPasteHTML(
-                range,
-                `<img src=${url} alt="image" />`);
-        }
-    }, [api]);
-    const modules = useMemo(
-        () => ({
-            toolbar: {
-                container: [
-                    ["bold", "italic", "underline", "strike", "blockquote"],
-                    [{ size: ["small", false, "large", "huge"] }, { color: [] }],
-                    [
-                        { list: "ordered" },
-                        { list: "bullet" },
-                        { indent: "-1" },
-                        { indent: "+1" },
-                        { align: [] },
-                    ],
-                    ["image", "video"],
-                ],
-                handlers: {
-                    image: imageHandler,
-                },
-            },
-        }), [imageHandler]);
-
     const handleBack = () => {
         history.goBack();
     }
@@ -173,18 +126,10 @@ const CreateAndEditPost = memo(({ api, user }) => {
                     })
                 }
             </select>
-            <ReactQuill
-                ref={quillRef}
-                value={htmlContent}
-                onChange={setHtmlContent}
-                modules={modules}
-                theme="snow"
-                className={styles.quillEditor}
-            />
+            <QuillEditor quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api={api} />
             <ImageUploader name="thumbnail" setImage={setImage} prevImg={prevThumbnail} label="포스팅 썸네일" />
             <button className={styles.submit} onClick={handleSubmit}>Done</button>
         </div >
     )
 })
-
 export default CreateAndEditPost

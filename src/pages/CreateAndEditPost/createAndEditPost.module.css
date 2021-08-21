@@ -78,10 +78,3 @@
     padding: 0 !important;
     background-color: transparent !important;
 }
-.quillEditor{
-    background-color: white;
-}
-.quillEditor img{
-    max-height:20rem;
-    max-width: 100%;
-}
