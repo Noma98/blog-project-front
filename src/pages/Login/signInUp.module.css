@@ -2,8 +2,7 @@
     padding-top: 1em;
     width: 30rem;
     height: unset;
-    border-radius: 2rem;
-    margin: auto;
+    margin:auto;
 }
 .signInUp input::placeholder{
     color: var(--color-gray-2);

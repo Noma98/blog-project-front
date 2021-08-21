@@ -13,8 +13,8 @@ const PublicPost = memo(({ post }) => {
         <>
             {post && <>
                 <div className={styles.post} onClick={handleViewPost}>
-                    <div>
-                        {post.thumbnail && <img className={styles.thumbnail} src={post.thumbnail} alt="thumbnail" />}
+                    {post.thumbnail && <img className={styles.thumbnail} src={post.thumbnail} alt="thumbnail" />}
+                    <div className={styles.content}>
                         <h3>{post.title}</h3>
                         {post.tags[0] !== "" && <div className={styles.tagContainer}>
                             {post.tags.map(tag => <span className={styles.tag} key={tag.id}>{tag.name}</span>)}

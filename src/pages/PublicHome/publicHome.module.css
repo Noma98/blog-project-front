@@ -2,8 +2,18 @@
    width: 100%;
    min-height: 20rem;
 }
-.home h2{
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1.5px solid var(--color-gray-15);
     margin-bottom: 0.5em;
+}
+.header i{
+    font-size: 1.2rem;
+    color: var(--color-gray-15);
+}
+.home h2{
     margin-left: 0.4em;
 }
 .home h2 i{
@@ -11,6 +21,7 @@
 }
 .posts{
     display: flex;
+    margin-top: 1.5em;
     justify-content: center;
     flex-wrap: wrap;
     gap: 1em;

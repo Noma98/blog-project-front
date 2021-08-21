@@ -10,19 +10,19 @@
 .header{
     display: flex;
     align-items: center;
-    border-bottom: var(--color-gray-2) solid 1px;
+    border-bottom: var(--color-gray-15) solid 1.5px;
 }
 .header i{
     color:var(--color-gray-2);
 }
 .header button{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     background-color: transparent;
     padding: 0.5em;
     transition: all 100ms ease-in;
 }
-.header button:hover{
-    transform: scale(1.05);
+.header button i:hover{
+    color:var(--color-blue);
 }
 .posts{
     margin-top: 1em;

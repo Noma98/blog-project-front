@@ -4,16 +4,17 @@
     flex-direction: column;
     justify-content: space-between;
     max-width: 24rem;
-    min-width: 17rem;
+    min-width: 16rem;
     position: relative;
-    padding: 1em;
     margin-bottom: 1em;
     border-radius: 0.3em;
-    /* border: 1px solid var(--color-gray-2); */
     cursor: pointer;
     transition: all 150ms ease-in;
     background-color: white;
     box-shadow: var(--shadow-1);
+}
+.post .content{
+    padding: 1em;
 }
 .post h3{
     text-overflow: ellipsis;
@@ -30,6 +31,7 @@
     align-items: center;
     padding-top:0.6em;
     font-size: 0.85rem;
+    padding: 0.7em 1em;
 }
 .meta img{
     margin-right: 0.5em;
@@ -66,5 +68,11 @@
     .post{
         flex:1 1 100%;
         max-width: none;
+    }
+    .post .content{
+        padding: 1em 1.8em;
+    }
+    .meta{
+        padding: 0.8em 1.8em;
     }
 }

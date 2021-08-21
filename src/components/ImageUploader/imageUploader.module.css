@@ -28,6 +28,7 @@
     font-size: 1.15rem;
 }
 .preview {
+    position: relative;
     margin: 1em 0;
     width: 100%;
     height:10rem;

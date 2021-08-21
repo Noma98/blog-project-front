@@ -22,13 +22,13 @@
     margin: 1.1em 0;
 }
 .latestHeader button{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     background-color: transparent;
     color: var(--color-gray-2);
     transition: all 100ms ease-in;
 }
-.latestHeader button:hover{
-    transform: scale(1.05);
+.latestHeader button i:hover{
+    color:var(--color-blue);
 }
 
 .none{

@@ -1,13 +1,18 @@
 .app{
     display: flex;
     height: 100vh;
-    background-color: var(--color-beige);
+    
 }
 .nav{
-    width: 15rem;
+    width: 17rem;
+}
+.middle{
+    padding:2em 10em 2em 4.5em !important;
+    background-color:var(--color-white) !important;
 }
 .content{
-    padding: 2em 4em;
+    background-color:var(--color-beige);
+    padding:2em 4em;
     min-height: 20rem;
     width: 100%;
     overflow-y: auto;
@@ -55,11 +60,11 @@ footer a{
         width: 100%;
     }
     .content{
-        background-color: white;
+        padding: 2em 3em !important;
     }
 }
 @media screen and (max-width:767px) {
     .content{
-        padding: 2em 1.5em;
+        padding: 2em !important;
     }
 }

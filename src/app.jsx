@@ -84,7 +84,7 @@ function App({ api }) {
           <Sidebar api={api} onFetchUser={fetchUserData} isLoggedIn={isLoggedIn} user={user} toggle={toggle} onToggle={handleToggle} />
         </nav>
       }
-      <section className={styles.content}>
+      <section className={`${styles.content} ${path.match(/^\/@/) && styles.middle}`}>
         <Switch>
           <Route path="/" exact>
             <PublicHome api={api} onFetchLoginData={fetchLoginData} onFetchUser={fetchUserData} />

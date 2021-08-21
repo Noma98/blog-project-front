@@ -38,7 +38,10 @@ function PublicHome({ api, onFetchLoginData, onFetchUser }) {
 
     return (
         <div className={styles.home}>
-            <h2>{query ? `"${query}"의 검색 결과` : <><i className="far fa-clock"></i>Latest</>}</h2>
+            <div className={styles.header}>
+                <h2>{query ? `"${query}"의 검색 결과` : "Latest Posts"}</h2>
+                <i className="far fa-heart"></i>
+            </div>
             <div className={styles.posts}>
                 {posts?.length !== 0 ? posts?.map(post => <PublicPost key={post._id} post={post} />) : <p className={styles.message}>게시글이 없습니다.</p>}
             </div>
