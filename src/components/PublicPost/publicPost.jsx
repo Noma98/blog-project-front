@@ -13,15 +13,18 @@ const PublicPost = memo(({ post }) => {
         <>
             {post && <>
                 <div className={styles.post} onClick={handleViewPost}>
-                    <h3>{post.title}</h3>
+                    <div>
+                        {post.thumbnail && <img className={styles.thumbnail} src={post.thumbnail} alt="thumbnail" />}
+                        <h3>{post.title}</h3>
+                        {post.tags[0] !== "" && <div className={styles.tagContainer}>
+                            {post.tags.map(tag => <span className={styles.tag} key={tag.id}>{tag.name}</span>)}
+                        </div>}
+                        <p className={styles.description}>{post.description}</p>
+                    </div>
                     <div className={styles.meta}>
                         <img src={post.author.avatar || defaultImage} alt="avatar" />
                         <small>{`${post.author.name} · ${common.getFormattedDate(post.createdAt)}`}</small>
                     </div>
-                    <p className={styles.description}>{post.description}</p>
-                    {post.tags[0] !== "" && <div className={styles.tagContainer}>
-                        {post.tags.map(tag => <span className={styles.tag} key={tag.id}>{tag.name}</span>)}
-                    </div>}
                 </div>
             </>}
         </>
