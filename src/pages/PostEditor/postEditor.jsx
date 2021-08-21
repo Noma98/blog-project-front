@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState, memo } from 'react'
 import { useHistory, useParams, useLocation } from 'react-router-dom';
-import styles from './createAndEditPost.module.css';
+import styles from './postEditor.module.css';
 import Tooltip from 'react-tooltip-lite';
 import ImageUploader from '../../components/ImageUploader/imageUploader';
 import QuillEditor from '../../components/QuillEditor/quillEditor';
 
 let prevFolderId;
-const CreateAndEditPost = memo(({ api, user }) => {
+const PostEditor = memo(({ api, user }) => {
     const history = useHistory();
     const location = useLocation();
     const [title, setTitle] = useState("");
@@ -102,7 +102,7 @@ const CreateAndEditPost = memo(({ api, user }) => {
     }
 
     return (
-        <div className={styles.editPost}>
+        <div className={styles.postEditor}>
             <button className={styles.back} onClick={handleBack}>
                 <i className="fas fa-chevron-left"></i>
             </button>
@@ -132,4 +132,4 @@ const CreateAndEditPost = memo(({ api, user }) => {
         </div >
     )
 })
-export default CreateAndEditPost
+export default PostEditor

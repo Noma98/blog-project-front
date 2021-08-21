@@ -8,7 +8,7 @@ import Sidebar from './components/Sidebar/sidebar';
 import Header from './components/Header/header';
 import ViewPosts from './pages/ViewPosts/viewPosts';
 import PostDetail from './pages/PostDetail/postDetail';
-import CreateAndEditPost from './pages/CreateAndEditPost/createAndEditPost';
+import PostEditor from './pages/PostEditor/postEditor';
 import SocialLogin from './pages/SocialLogin/socialLogin';
 import PublicHome from './pages/PublicHome/publicHome';
 import ErrorPage from './pages/ErrorPage/errorPage';
@@ -116,14 +116,14 @@ function App({ api }) {
           <Route path="/:nickname/posts/create" exact>
             {
               isLoggedIn?.name === user?.name ?
-                <CreateAndEditPost api={api} user={user} />
+                <PostEditor api={api} user={user} />
                 : <ErrorPage statusCode="403" />
             }
           </Route>
           <Route path="/:nickname/posts/edit/:id([0-9a-f]{24})" exact>
             {
               isLoggedIn?.name === user?.name ?
-                <CreateAndEditPost api={api} user={user} />
+                <PostEditor api={api} user={user} />
                 : <ErrorPage statusCode="403" />
             }
 
