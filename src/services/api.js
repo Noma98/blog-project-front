@@ -11,6 +11,10 @@ const postAPI = axios.create({
     baseURL: process.env.REACT_APP_API_URL + "/api/posts",
     withCredentials: true
 })
+const commentAPI = axios.create({
+    baseURL: process.env.REACT_APP_API_URL + "/api/comments",
+    withCredentials: true
+})
 
 class Api {
     //-------------User------------------
@@ -177,6 +181,11 @@ class Api {
     }
     async uploadImage(data) {
         const response = await postAPI.post('image', data);
+        return response.data;
+    }
+    //----------------Comments----------------------
+    async createComment(data) {
+        const response = await commentAPI.post('create', data);
         return response.data;
     }
 }

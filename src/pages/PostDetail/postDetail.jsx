@@ -6,6 +6,7 @@ import Loading from '../../components/Loading/loading';
 import * as common from '../../common/common';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import Comments from '../../components/Comments/comments';
 
 const PostDetail = memo(({ api, user, isLoggedIn }) => {
     const [postInfo, setPostInfo] = useState(null);
@@ -72,6 +73,7 @@ const PostDetail = memo(({ api, user, isLoggedIn }) => {
                         readOnly={true}
                         className={styles.quillEditor}
                     />
+                    <Comments post={postInfo} api={api} getPostData={getPostData} />
                 </>}
             </>}
         </div >
