@@ -21,38 +21,44 @@
 }
 .comment{
     margin-top: 1em;
-    display: flex;
-    align-items: center;
     font-size: 0.85rem;
     padding: 0.2em 0.3em;
 }
-.comment *{
-    display: flex;
-    flex-direction: column;
-}
-.comments img{
+.comment img{
     width:2rem;
     height:2rem;
     border-radius: 0.2em;
 }
+.comment a{
+    display: flex;
+    align-items: center;
+}
+.comment a small{
+    margin-left: 0.7em;
+    font-size: 0.7rem;
+}
 .content{
     position: relative;
-    margin-left: 2em;
+    margin-left: 3em;
     border-radius: 0.5em;
-    padding: 0.3em 1em;
-    color: white;
-    background-color: var(--color-gray-3);
-    width: 90%;
+    padding: 0.6em 1em;
+    background-color: white;
+    color:var(--color-black);
+    min-height: 3rem;
+    box-shadow: var(--shadow-1);
 }
 .content p{
     color:inherit;
+    width: 90%;
 }
 .content small{
-    text-align: end;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
+    position: absolute;
+    bottom:0.6em;
+    right:1em;
 }
 .content::after{
-    border-top:15px solid var(--color-gray-3);
+    border-top:15px solid white;
     border-left: 15px solid transparent;
     border-right: 0px solid transparent;
     border-bottom: 0px solid transparent;
@@ -60,4 +66,11 @@
     position:absolute;
     top:10px;
     left:-15px;
+}
+.content button{
+    position: absolute;
+    top:0.6em;
+    right:1em;
+    background-color: transparent;
+    color:var(--color-gray-2);
 }

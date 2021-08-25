@@ -73,7 +73,7 @@ const PostDetail = memo(({ api, user, isLoggedIn }) => {
                         readOnly={true}
                         className={styles.quillEditor}
                     />
-                    <Comments post={postInfo} api={api} getPostData={getPostData} />
+                    <Comments post={postInfo} api={api} getPostData={getPostData} isLoggedIn={isLoggedIn} />
                 </>}
             </>}
         </div >

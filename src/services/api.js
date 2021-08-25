@@ -188,5 +188,9 @@ class Api {
         const response = await commentAPI.post('create', data);
         return response.data;
     }
+    async deleteComment(data) {
+        const response = await commentAPI.post('delete', data);
+        return response.data;
+    }
 }
 export default Api;
