@@ -4,6 +4,7 @@ import { TabletAndMobile } from '../../common/mediaQuery';
 import styles from './header.module.css';
 import Tooltip from 'react-tooltip-lite';
 import _ from 'lodash';
+import logo from '../../assets/images/logo-white.png';
 
 const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
     const history = useHistory();
@@ -41,7 +42,10 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
     }
     return (
         <header className={styles.header}>
-            <h3 onClick={handleLogo}>Nomalog</h3>
+            <div className={styles.logo} onClick={handleLogo}>
+                <img src={logo} alt="logo" />
+                <h3>Nomalog</h3>
+            </div>
             <div className={styles.flexRow}>
                 <input className={styles.search} onChange={delayedQueryCall} type="text" placeholder="Search Docs..." />
                 <nav className={styles.nav}>
