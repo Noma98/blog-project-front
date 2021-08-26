@@ -71,6 +71,7 @@ const PostDetail = memo(({ api, user, isLoggedIn }) => {
                         value={postInfo.htmlContent}
                         theme="bubble"
                         readOnly={true}
+                        modules={{ syntax: true }}
                         className={styles.quillEditor}
                     />
                     <Comments post={postInfo} api={api} getPostData={getPostData} isLoggedIn={isLoggedIn} />

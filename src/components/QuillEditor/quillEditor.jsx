@@ -31,10 +31,11 @@ const QuillEditor = memo(({ quillRef, api, htmlContent, setHtmlContent }) => {
     }, [api, quillRef]);
     const modules = useMemo(
         () => ({
+            syntax: true,
             toolbar: {
                 container: [
                     ["bold", "italic", "underline", "strike", "blockquote"],
-                    [{ size: ["small", false, "large", "huge"] }, { color: [] }],
+                    [{ size: [false, "large", "huge"] }, { color: [] }, { background: [] }],
                     [
                         { list: "ordered" },
                         { list: "bullet" },
@@ -42,12 +43,13 @@ const QuillEditor = memo(({ quillRef, api, htmlContent, setHtmlContent }) => {
                         { indent: "+1" },
                         { align: [] },
                     ],
-                    ["image", "video"],
+                    ["image", "video", "code-block"],
                 ],
                 handlers: {
                     image: imageHandler,
                 },
             },
+
         }), [imageHandler]);
     return (
         <>
