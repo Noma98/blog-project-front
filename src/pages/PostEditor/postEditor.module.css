@@ -28,15 +28,17 @@
     background-color: transparent !important;
     outline: none;
     padding: 0 !important;
-    font-size: 1.5rem !important;
+    font-size: 1.7rem !important;
     margin:0 !important;
+    font-weight: 1000;
+    font-family: 'NanumSquareRound', sans-serif !important;
 }
 .title input::placeholder{
     font-size: 1.5rem;
 }
 .folder{
     width: 100%;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     padding: 0.55em 1em;
     border:1px solid lightgray;
     outline: none;

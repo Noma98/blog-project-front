@@ -47,7 +47,7 @@ const Header = memo(({ api, onToggle, onFetchLoginData, user, isLoggedIn }) => {
                 <h3>Nomalog</h3>
             </div>
             <div className={styles.flexRow}>
-                <input className={styles.search} onChange={delayedQueryCall} type="text" placeholder="Search Docs..." />
+                <input className={styles.search} onChange={delayedQueryCall} type="text" placeholder="Search Posts..." />
                 <nav className={styles.nav}>
                     <ul className={`${styles.lists} ${visible && styles.visible}`}>
                         {

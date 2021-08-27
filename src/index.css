@@ -100,6 +100,13 @@ button,input[type="submit"]{
 button{
     padding:0;
 }
+blockquote{
+    border-left: 5px solid var(--color-blue) !important;
+    padding: 0 1.7em !important;
+    color: var(--color-blue) !important;
+    margin: 0 !important;
+    font-weight: bold;
+}
 #naverIdLogin{
     display: none;
 }
@@ -112,8 +119,33 @@ button{
 .react-tooltip-lite-arrow{
     color:var(--color-gray-4);
 }
+.ql-container{
+    font-size: 1rem !important;
+}
+.ql-container *{
+    font-family: 'Nanum Gothic', sans-serif !important;
+}
 .ql-editor{
-    min-height:20rem;
+    min-height:10rem;
+} 
+.ql-syntax{
+    background-color: var(--color-gray-4) !important;
+    padding:1em !important;
+    font-size: 1rem !important;
+    border-radius: 0.5em !important;
+    color: whitesmoke;
+}
+.ql-editor p{
+    font-size: 1rem !important;
+}
+.ql-size-huge{
+    font-size: 2rem !important;
+}
+.ql-size-large{
+    font-size: 1.7rem !important;
+}
+.ql-size-small{
+    font-size: 1rem !important;
 }
 ::placeholder{
     font-size: 0.8rem;
