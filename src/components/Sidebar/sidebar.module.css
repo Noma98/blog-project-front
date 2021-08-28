@@ -3,10 +3,9 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    height: 100%;
     font-weight: 600;
-    border-right: 1px solid rgb(211, 211, 211);
     scrollbar-width:none;
+    border-bottom: 1.3px solid var(--color-gray-15);
 }
 .sidebar li,.addBtn,.posts,.editForm{
     font-size: 0.9rem;
@@ -16,7 +15,7 @@
     background-color: transparent;
 }
 .posts{
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 1000 !important;
 }
 .sidebar::-webkit-scrollbar{

@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    margin: 1em;
+    border-radius: 1em;
+    background-color: rgb(250, 207, 127);
+    padding-right: 1em;
+}
+.flexColumn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.flexColumn p:first-child{
+    font-size: 1.3rem;
+}
+.flexColumn p:last-child{
+    font-weight: bold;
+}
+@media screen and (max-width:992px) {
+    .container{
+        display: none;
+    }
+}

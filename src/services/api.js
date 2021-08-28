@@ -192,5 +192,10 @@ class Api {
         const response = await commentAPI.post('delete', data);
         return response.data;
     }
+    //---------------Weather---------------------
+    async getWeather(lat, lon) {
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API}&units=metric`);
+        return response.data;
+    }
 }
 export default Api;

@@ -15,6 +15,7 @@ import ErrorPage from './pages/ErrorPage/errorPage';
 import Settings from './pages/Settings/settings';
 import PrivacyPolicy from './pages/PrivacyPolicy/privacyPolicy';
 import _ from 'lodash';
+import Weather from './components/Weather/weather';
 
 function App({ api }) {
   const path = useLocation().pathname;
@@ -82,6 +83,7 @@ function App({ api }) {
       {user && path.match(/^\/@/) &&
         <nav className={styles.nav}>
           <Sidebar api={api} onFetchUser={fetchUserData} isLoggedIn={isLoggedIn} user={user} toggle={toggle} onToggle={handleToggle} />
+          <Weather api={api} />
         </nav>
       }
       <section className={`${styles.content} ${path.match(/^\/@/) && styles.middle}`}>
