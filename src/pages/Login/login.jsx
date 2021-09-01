@@ -22,7 +22,7 @@ function Login({ api, onfetchLoginData }) {
             return;
         }
         await onfetchLoginData();
-        history.push("/");
+        history.push(`/@${response.payload.name}`);
     }
     const handleEmail = (e) => {
         setEmail(e.target.value);
