@@ -3,12 +3,13 @@
     margin: 1em;
     border-radius: 1em;
     background-color: rgb(250, 207, 127);
-    padding-right: 1em;
+    height: 6rem;
 }
 .flexColumn{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-right: 1em;
 }
 .flexColumn p:first-child{
     font-size: 1.3rem;
@@ -16,6 +17,12 @@
 .flexColumn p:last-child{
     font-weight: bold;
 }
+.flexColumn .msg{
+    font-size: 0.75rem !important;
+    padding-left: 1em;
+    font-weight: 300 !important;
+}
+
 @media screen and (max-width:992px) {
     .container{
         display: none;
