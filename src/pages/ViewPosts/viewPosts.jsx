@@ -84,7 +84,7 @@ const ViewPosts = memo(({ api, user, isLoggedIn }) => {
         setEditMode(!editMode);
     }
     return (
-        <div className={styles.postsContainer}>
+        <section className={styles.postsContainer}>
             {loading ? <Loading />
                 : <>
                     {
@@ -125,7 +125,7 @@ const ViewPosts = memo(({ api, user, isLoggedIn }) => {
                             </>
                     }
                 </>}
-        </div>
+        </section>
     )
 });
 

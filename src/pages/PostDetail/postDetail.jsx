@@ -44,7 +44,7 @@ const PostDetail = memo(({ api, user, isLoggedIn }) => {
     }
     //PublicHome에서 들어오면 user가 null이므로, obtional Chaining 처리
     return (
-        <div className={styles.postDetail}>
+        <section className={styles.postDetail}>
             {loading ? <Loading /> : <>
                 {postInfo && <>
                     <div className={styles.postingMeta}>
@@ -77,7 +77,7 @@ const PostDetail = memo(({ api, user, isLoggedIn }) => {
                     <Comments post={postInfo} api={api} getPostData={getPostData} isLoggedIn={isLoggedIn} />
                 </>}
             </>}
-        </div >
+        </section >
     )
 })
 

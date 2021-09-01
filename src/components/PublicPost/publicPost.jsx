@@ -12,7 +12,7 @@ const PublicPost = memo(({ post }) => {
     return (
         <>
             {post && <>
-                <div className={styles.post} onClick={handleViewPost}>
+                <article className={styles.post} onClick={handleViewPost}>
                     {post.thumbnail && <img className={styles.thumbnail} src={post.thumbnail} alt="thumbnail" />}
                     <div className={styles.content}>
                         <h3>{post.title}</h3>
@@ -25,7 +25,7 @@ const PublicPost = memo(({ post }) => {
                         <img src={post.author.avatar || defaultImage} alt="avatar" />
                         <small>{`${post.author.name} · ${common.getFormattedDate(post.createdAt)}`}</small>
                     </div>
-                </div>
+                </article>
             </>}
         </>
     )

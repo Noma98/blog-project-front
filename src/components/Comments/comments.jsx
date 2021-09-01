@@ -37,7 +37,7 @@ const Comments = memo(({ post, api, getPostData, isLoggedIn }) => {
         getPostData();
     }
     return (
-        <div className={styles.commentContainer}>
+        <article className={styles.commentContainer}>
             <h3>Comments</h3>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <input type="text" value={text} onChange={handleChange} placeholder="로그인 후 이용해주세요." readOnly={isLoggedIn ? false : true} />
@@ -58,7 +58,7 @@ const Comments = memo(({ post, api, getPostData, isLoggedIn }) => {
                     </div>
                 )}
             </div>
-        </div>
+        </article>
     )
 })
 

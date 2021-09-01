@@ -117,7 +117,7 @@ function SocialLogin({ api, onfetchLoginData }) {
     }
 
     return (
-        <>
+        <section className={styles.section}>
             {loading ? <Loading />
                 : <>
                     {error &&
@@ -137,7 +137,7 @@ function SocialLogin({ api, onfetchLoginData }) {
                         </div>
                     }
                 </>}
-        </>
+        </section>
     );
 }
 

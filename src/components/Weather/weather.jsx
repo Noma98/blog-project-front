@@ -30,6 +30,7 @@ const Weather = memo(({ api }) => {
     }, [api]);
 
     const getCoords = useCallback(() => {
+        console.log("위치 요청")
         navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError);
     }, []);
 

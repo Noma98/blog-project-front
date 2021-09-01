@@ -54,7 +54,7 @@ function SetPassword({ api, user, onFetchUser }) {
     }
 
     return (
-        <div className={styles.edit}>
+        <article className={styles.edit}>
             {user.socialOnly ? (
                 <small>소셜 로그인 회원은 비밀번호가 없습니다.</small>
             ) : (
@@ -75,7 +75,7 @@ function SetPassword({ api, user, onFetchUser }) {
                 </form>
             )}
             <button onClick={handleWithdraw} className={styles.withdraw}>회원 탈퇴</button>
-        </div >
+        </article >
 
     )
 }

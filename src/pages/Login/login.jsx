@@ -34,7 +34,7 @@ function Login({ api, onfetchLoginData }) {
         localStorage.removeItem("user");
     }, [])
     return (
-        <div className={styles.signInUp}>
+        <section className={styles.signInUp}>
             <h1>Sign in <span className={styles.logo}>noma's blog</span></h1>
             <small>아직 계정이 없으십니까? <Link to="/join" className={styles.join}>가입하러 가기</Link></small>
             <br />
@@ -56,8 +56,7 @@ function Login({ api, onfetchLoginData }) {
                 <Google api={api} onfetchLoginData={onfetchLoginData} />
                 <Naver />
             </div>
-
-        </div>
+        </section>
     )
 }
 export default withAuth(Login, false);

@@ -23,7 +23,7 @@ const Post = memo(({ post, api, onFetchPosts, user, editMode }) => {
         }
     }
     return (
-        <div className={`${styles.post} ${editMode && styles.editMode}`} onClick={handleViewPost}>
+        <article className={`${styles.post} ${editMode && styles.editMode}`} onClick={handleViewPost}>
             {post.thumbnail && <img src={post.thumbnail} alt="thumbnail" />}
             <div className={styles.content}>
                 <div className={styles.headerBox}>
@@ -38,7 +38,7 @@ const Post = memo(({ post, api, onFetchPosts, user, editMode }) => {
                 <p className={styles.description}>{post.description}</p>
             </div>
             {pathName !== "/" && editMode && <button className={styles.delete} onClick={handleDelete}><i className="fas fa-times"></i></button>}
-        </div>
+        </article>
     )
 });
 

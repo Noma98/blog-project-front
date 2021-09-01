@@ -59,7 +59,7 @@ function Join({ api }) {
     }, [social])
 
     return (
-        <div className={`${styles.signInUp} ${styles.tight}`}>
+        <section className={`${styles.signInUp} ${styles.tight}`}>
             <h1>{social ? "Social " : "Sign up "}<span className={styles.logo}>noma's blog</span></h1>
             {social ? <small>사용자 정보를 변경해주세요.</small> : <small>계정이 이미 있으십니까? <Link to="/login" className={styles.login}>로그인하러 가기</Link></small>
             }
@@ -82,7 +82,7 @@ function Join({ api }) {
                 </>}
                 <input className={styles.joinBtn} type="submit" value={social ? "Done" : "Join"} />
             </form>
-        </div >
+        </section >
     )
 }
 

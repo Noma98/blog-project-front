@@ -24,7 +24,7 @@ function SetBlog({ user, api, onFetchUser }) {
         alert("변경이 완료되었습니다.");
     }
     return (
-        <div className={styles.edit}>
+        <article className={styles.edit}>
             <form onSubmit={handleBlogSubmit} className={styles.editBlog}>
                 <h2>블로그 정보</h2>
                 {blogErr && <small>
@@ -37,7 +37,7 @@ function SetBlog({ user, api, onFetchUser }) {
                     <textarea value={introduction} onChange={handleIntroduction} />
                 </label>
             </form>
-        </div>
+        </article>
     )
 }
 

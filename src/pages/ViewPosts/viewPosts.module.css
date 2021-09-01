@@ -1,4 +1,5 @@
 .postsContainer{
+    position: relative;
     min-height: 85%;
 }
 .postsContainer h1{

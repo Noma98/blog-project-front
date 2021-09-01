@@ -22,18 +22,20 @@ function Home({ user, api, isLoggedIn }) {
         fetchData();
     }, [api, user]);
     return (
-        <div className={styles.home}>
+        <section className={styles.home}>
             {user &&
                 <>
-                    <h2>{user.blogInfo.name}</h2>
-                    <div className={styles.user}>
-                        <img className={styles.avatar} src={user.avatar || defaultImage} alt="user avatar" />
-                        <div className={styles.info}>
-                            <h3>{user.name}</h3>
-                            <p>{user.blogInfo.introduction}</p>
+                    <article>
+                        <h2>{user.blogInfo.name}</h2>
+                        <div className={styles.user}>
+                            <img className={styles.avatar} src={user.avatar || defaultImage} alt="user avatar" />
+                            <div className={styles.info}>
+                                <h3>{user.name}</h3>
+                                <p>{user.blogInfo.introduction}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.latest}>
+                    </article>
+                    <article className={styles.latest}>
                         <div className={styles.latestHeader}>
                             <h2>Latest Posts</h2>
                             {user._id === isLoggedIn?._id && <button onClick={handleCreate}><i className="fas fa-edit"></i></button>}
@@ -43,10 +45,10 @@ function Home({ user, api, isLoggedIn }) {
                         ) : (
                             <div className={styles.none}>게시글이 없습니다.</div>
                         )}
-                    </div>
+                    </article>
                 </>
             }
-        </div>
+        </section>
     )
 }
 

@@ -102,7 +102,7 @@ const PostEditor = memo(({ api, user }) => {
     }
 
     return (
-        <div className={styles.postEditor}>
+        <section className={styles.postEditor}>
             <button className={styles.back} onClick={handleBack}>
                 <i className="fas fa-chevron-left"></i>
             </button>
@@ -127,9 +127,9 @@ const PostEditor = memo(({ api, user }) => {
                 }
             </select>
             <QuillEditor quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api={api} />
-            <ImageUploader name="thumbnail" setImage={setImage} prevImg={prevThumbnail} label="포스팅 썸네일" />
+            <ImageUploader name="thumbnail" setImage={setImage} prevImg={prevThumbnail} label="썸네일" />
             <button className={styles.submit} onClick={handleSubmit}>Done</button>
-        </div >
+        </section >
     )
 })
 export default PostEditor
