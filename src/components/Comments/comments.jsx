@@ -28,8 +28,7 @@ const Comments = memo(({ post, api, getPostData, isLoggedIn }) => {
     const deleteComment = async (e) => {
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
         const response = await api.deleteComment({
-            commentId: e.target.
-                dataset.id, postId: post._id
+            commentId: e.target.dataset.id, postId: post._id
         });
         if (!response.success) {
             alert("댓글 삭제에 실패했습니다.")
