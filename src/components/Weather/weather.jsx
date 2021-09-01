@@ -5,18 +5,9 @@ import styles from './weather.module.css';
 const Weather = memo(({ api }) => {
     const [weather, setWeather] = useState();
 
-    const onGeoSuccess = async (position) => {
-        const coords = position.coords;
-        window.sessionStorage.setItem('coords', JSON.stringify({ lat: coords.latitude, lon: coords.longitude }));
-    }
-    const onGeoError = () => {
-        setWeather({ location: '🧚‍♀️: 위치를 찾을 수 없습니다. 날씨 제공을 원한다면, 추적에 허용하고 새로고침 해주세요.' });
-        window.sessionStorage.setItem('coords', JSON.stringify({ lat: undefined, lon: undefined }));
-    }
-    const getWeather = useCallback(async () => {
-        const coords = JSON.parse(window.sessionStorage.getItem('coords'));
-        if (coords?.lat !== undefined) {
-            const { lat, lon } = coords;
+    const getWeather = useCallback(() => {
+        const onGeoSuccess = async (position) => {
+            const { latitude: lat, longitude: lon } = position.coords;
             const res = await api.getWeather(lat, lon);
             const {
                 name: location,
@@ -27,26 +18,24 @@ const Weather = memo(({ api }) => {
             } = res;
             setWeather({ location, temp: temp.toFixed(1), icon: weather[0].icon });
         }
-    }, [api]);
-
-    const getCoords = useCallback(() => {
-        console.log("위치 요청")
+        const onGeoError = () => {
+            setWeather({ location: '🧚‍♀️: 위치를 찾을 수 없습니다. 날씨 제공을 원한다면, 추적에 허용하고 새로고침 해주세요.' });
+        }
         navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError);
-    }, []);
+    }, [api])
 
     useEffect(() => {
-        getCoords();
-        getWeather();
-    }, [getWeather, getCoords]);
+        !weather && getWeather();
+    }, [getWeather, weather])
 
     return (
         <div className={styles.container}>
             {weather ?
                 <>
-                    {weather.icon && <img src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`} alt="weather" />}
+                    {weather.icon && <img src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`} alt="weather" />}
                     <div className={styles.flexColumn}>
                         {weather.temp && <p>{`${weather.temp}℃`}</p>}
-                        <p className={!weather.temp && styles.msg}>{weather.location}</p>
+                        <p className={!weather.temp ? styles.msg : undefined}>{weather.location}</p>
                     </div>
                 </> : <Loading />
 
