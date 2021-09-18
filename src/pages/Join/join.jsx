@@ -15,6 +15,10 @@ function Join({ api }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!pwd.match(/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/)) {
+            setErr("비밀번호는 숫자, 영문, 특수문자를 포함한 8자 이상 16자 이하여야 합니다.");
+            return;
+        }
         if (pwd !== pwd2) {
             setErr("비밀번호를 확인해주세요.");
             return;
@@ -73,11 +77,14 @@ function Join({ api }) {
                     <input type="text" required value={name} onChange={handleName} maxLength="20" placeholder={social && `${social.name}은(는) 사용이 불가합니다.`} />
                 </label>
                 {!social && <>
-                    <label>비밀번호 (6자 이상)
-                        <input type="password" required value={pwd} minLength="6" onChange={handlePwd} />
+                    <label>비밀번호 (숫자, 영문, 특수문자 포함 8자 이상 16자 이하)
+                        <input type="password" required value={pwd} minLength="8"
+                            maxLength="16"
+                            onChange={handlePwd} />
                     </label>
                     <label>비밀번호 확인
-                        <input type="password" required value={pwd2} onChange={handlePwd2} />
+                        <input type="password"
+                            required value={pwd2} onChange={handlePwd2} />
                     </label>
                 </>}
                 <input className={styles.joinBtn} type="submit" value={social ? "Done" : "Join"} />
