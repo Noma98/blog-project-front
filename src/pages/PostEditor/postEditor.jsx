@@ -9,25 +9,24 @@ let prevFolderId;
 const PostEditor = memo(({ api, user }) => {
     const history = useHistory();
     const location = useLocation();
-    const [title, setTitle] = useState("");
-    const [tag, setTag] = useState("");
-    const [tagArray, setTagArray] = useState([]);
-    const [selectedFolder, setSelectedFolder] = useState("");
+    const [inputs, setInputs] = useState({
+        title: '',
+        tag: '',
+        selectedFolder: '',
+        tagArray: [],
+        prevThumbnail: '',
+    })
+    const { title, tag, selectedFolder, tagArray, prevThumbnail } = inputs;
     const [htmlContent, setHtmlContent] = useState("");
     const [image, setImage] = useState({}); //object일 때만 업데이트
-    const [prevThumbnail, setPrevThumbnail] = useState("");
+
     const { id: postId } = useParams();
     const quillRef = useRef();
 
-    const handleTitle = (e) => {
-        setTitle(e.target.value);
-    };
-    const handleFolder = (e) => {
-        setSelectedFolder(e.target.value);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setInputs({ ...inputs, [name]: value });
     }
-    const handleTag = (e) => {
-        setTag(e.target.value);
-    };
     const handleKeydown = (e) => {
         if (e.key === "," || e.key === "Enter") {
             e.preventDefault();
@@ -38,8 +37,11 @@ const PostEditor = memo(({ api, user }) => {
             if (tag === "") {
                 return;
             }
-            setTagArray(tagArray => [...tagArray, { id: Math.random().toString(36).substr(2, 8), name: tag }]);
-            setTag("");
+            setInputs({
+                ...inputs,
+                tag: '',
+                tagArray: [...tagArray, { id: Math.random().toString(36).substr(2, 8), name: tag }]
+            });
         }
         if (e.key === "Backspace" && tag === "") {
             e.preventDefault();
@@ -48,13 +50,12 @@ const PostEditor = memo(({ api, user }) => {
             }
             const updated = [...tagArray];
             const newTag = updated.pop();
-            setTagArray(updated);
-            setTag(newTag.name);
+            setInputs({ ...inputs, tagArray: updated, tag: newTag.name });
         }
     }
 
     const handleClickTag = (e) => {
-        setTagArray(tagArray => tagArray.filter(x => x.id !== e.target.id));
+        setInputs({ ...inputs, tagArray: tagArray.filter(x => x.id !== e.target.id) })
     }
     const handleSubmit = async () => {
         const description = quillRef.current.getEditor().getText();
@@ -81,18 +82,15 @@ const PostEditor = memo(({ api, user }) => {
     }
     useEffect(() => {
         if (!postId) {
-            setSelectedFolder(location.state || user.folders[0]._id)
+            setInputs({ ...inputs, selectedFolder: location.state || user.folders[0]._id })
             return;
         }
         const fetchData = async () => {
             const { title: prevTitle, htmlContent: prevHtml, tags: prevTags, folder, thumbnail } = await api.fetchPostDetail(postId);
             prevFolderId = folder;
-            setPrevThumbnail(thumbnail);
-            setImage(thumbnail);
-            setTitle(prevTitle);
+            setInputs({ ...inputs, prevThumbnail: thumbnail, title: prevTitle, tagArray: prevTags, selectedFolder: prevFolderId });
             setHtmlContent(prevHtml);
-            setTagArray(prevTags);
-            setSelectedFolder(prevFolderId);
+            setImage(thumbnail);
         };
         fetchData();
     }, [postId, user, api, location.state])
@@ -106,7 +104,7 @@ const PostEditor = memo(({ api, user }) => {
             <button className={styles.back} onClick={handleBack}>
                 <i className="fas fa-chevron-left"></i>
             </button>
-            <h2 className={styles.title}><input value={title} type="text" placeholder="제목 없음" onChange={handleTitle} /></h2>
+            <h2 className={styles.title}><input name="title" value={title} type="text" placeholder="제목 없음" onChange={handleChange} /></h2>
             <div className={styles.tagContainer}>
                 {tagArray && tagArray.map(tag =>
                     <div key={tag.id} id={tag.id} className={styles.tag} onClick={handleClickTag} >{tag.name}</div>
@@ -116,10 +114,10 @@ const PostEditor = memo(({ api, user }) => {
                         <span>쉼표 혹은 엔터를 입력하여 태그를 등록할 수 있습니다. <br />등록된 태그를 클릭하면 삭제됩니다.</span>
                     </>
                 )}>
-                    <input type="text" value={tag} onKeyDown={handleKeydown} onChange={handleTag} placeholder="태그를 입력하세요." autoFocus maxLength="20" />
+                    <input type="text" name="tag" value={tag} onKeyDown={handleKeydown} onChange={handleChange} placeholder="태그를 입력하세요." autoFocus maxLength="20" />
                 </Tooltip>
             </div >
-            <select className={styles.folder} value={selectedFolder} onChange={handleFolder} required >
+            <select name="selectedFolder" className={styles.folder} value={selectedFolder} onChange={handleChange} required >
                 {
                     user && user.folders.map(folder => {
                         return <option key={Math.random().toString(36).substr(2, 8)} value={folder._id}>{folder.name}</option>

@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import styles from "../settings.module.css";
 
 function SetBlog({ user, api, onFetchUser }) {
-    const [blogName, setBlogName] = useState(user.blogInfo.name);
-    const [introduction, setIntroduction] = useState(user.blogInfo.introduction);
+    const [inputs, setInputs] = useState({
+        blogName: user.blogInfo.name,
+        introduction: user.blogInfo.introduction,
+    })
+    const { blogName, introduction } = inputs;
     const [blogErr, setBlogErr] = useState(null);
-
-    const handleBlogName = (e) => {
-        setBlogName(e.target.value);
-    }
-    const handleIntroduction = (e) => {
-        setIntroduction(e.target.value);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setInputs({ ...inputs, [name]: value });
     }
     const handleBlogSubmit = async (e) => {
         e.preventDefault();
@@ -31,10 +31,10 @@ function SetBlog({ user, api, onFetchUser }) {
                     <i className="fas fa-exclamation-circle"></i> {blogErr}</small>}
                 <button className={styles.editBtn}>변경</button>
                 <label>블로그 이름
-                    <input type="text" required value={blogName} onChange={handleBlogName} maxLength="25" />
+                    <input name="blogName" type="text" required value={blogName} onChange={handleChange} maxLength="25" />
                 </label>
                 <label>블로그 소개글
-                    <textarea value={introduction} onChange={handleIntroduction} />
+                    <textarea name="introduction" value={introduction} onChange={handleChange} />
                 </label>
             </form>
         </article>

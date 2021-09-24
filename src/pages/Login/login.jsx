@@ -7,8 +7,11 @@ import Naver from '../../components/Naver/naver';
 import kakaoImage from '../../assets/images/kakao.png';
 
 function Login({ api, onfetchLoginData }) {
-    const [email, setEmail] = useState("");
-    const [pwd, setPwd] = useState("");
+    const [inputs, setInputs] = useState({
+        email: '',
+        pwd: '',
+    })
+    const { email, pwd } = inputs;
     const [err, setErr] = useState(null);
     const history = useHistory();
     const formRef = useRef();
@@ -24,11 +27,9 @@ function Login({ api, onfetchLoginData }) {
         await onfetchLoginData();
         history.push(`/@${response.payload.name}`);
     }
-    const handleEmail = (e) => {
-        setEmail(e.target.value);
-    }
-    const handlePwd = (e) => {
-        setPwd(e.target.value);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setInputs({ ...inputs, [name]: value });
     }
     useEffect(() => {
         localStorage.removeItem("user");
@@ -41,10 +42,10 @@ function Login({ api, onfetchLoginData }) {
             {err && <small className={styles.err}><i className="fas fa-exclamation-circle"></i> {err}</small>}
             <form onSubmit={handleSubmit} ref={formRef} className={styles.loginForm}>
                 <label>이메일 주소
-                    <input type="email" required value={email} onChange={handleEmail} />
+                    <input name="email" type="email" required value={email} onChange={handleChange} />
                 </label>
                 <label>비밀번호 (6자 이상)
-                    <input type="password" required value={pwd} minLength="6" onChange={handlePwd} />
+                    <input name="pwd" type="password" required value={pwd} minLength="6" onChange={handleChange} />
                 </label>
                 <input className={styles.loginBtn} type="submit" value="Login" />
             </form>

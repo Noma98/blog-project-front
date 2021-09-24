@@ -3,23 +3,18 @@ import { useHistory } from 'react-router-dom';
 import styles from "../settings.module.css";
 
 function SetPassword({ api, user, onFetchUser }) {
-
-    const [pwd, setPwd] = useState("");
-    const [newPwd, setNewPwd] = useState("");
-    const [newPwd2, setNewPwd2] = useState("");
-
+    const [inputs, setInputs] = useState({
+        pwd: '',
+        newPwd: '',
+        newPwd2: '',
+    })
+    const { pwd, newPwd, newPwd2 } = inputs;
     const [pwdErr, setPwdErr] = useState(null);
 
     const history = useHistory();
-
-    const handlePwd = (e) => {
-        setPwd(e.target.value);
-    }
-    const handleNewPwd = (e) => {
-        setNewPwd(e.target.value);
-    }
-    const handleNewPwd2 = (e) => {
-        setNewPwd2(e.target.value);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setInputs({ ...inputs, [name]: value });
     }
 
     const submitPwd = async (e) => {
@@ -64,13 +59,13 @@ function SetPassword({ api, user, onFetchUser }) {
                         <i className="fas fa-exclamation-circle"></i> {pwdErr}</small>}
                     <button className={styles.editBtn} >변경</button>
                     <label>현재 비밀번호
-                        <input type="password" value={pwd} minLength="6" onChange={handlePwd} required />
+                        <input name="pwd" type="password" value={pwd} minLength="6" onChange={handleChange} required />
                     </label>
                     <label>새 비밀번호 (6자 이상)
-                        <input type="password" value={newPwd} minLength="6" onChange={handleNewPwd} required />
+                        <input name="newPwd" type="password" value={newPwd} minLength="6" onChange={handleChange} required />
                     </label>
                     <label>새 비밀번호 확인
-                        <input type="password" value={newPwd2} onChange={handleNewPwd2} required />
+                        <input name="newPwd2" type="password" value={newPwd2} onChange={handleChange} required />
                     </label>
                 </form>
             )}

@@ -6,15 +6,29 @@ import withAuth from '../../hoc/withAuth';
 function Join({ api }) {
     const history = useHistory();
     const social = useLocation().state;
-    const [email, setEmail] = useState(social?.email || "");
-    const [name, setName] = useState("");
-    const [pwd, setPwd] = useState("");
-    const [pwd2, setPwd2] = useState("");
+    const [inputs, setInputs] = useState({
+        email: social?.email || '',
+        name: '',
+        pwd: '',
+        pwd2: '',
+    });
+    const { email, name, pwd, pwd2 } = inputs;
+    const handleChange = e => {
+        const { value, name } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        });
+    };
     const [err, setErr] = useState(null);
     const formRef = useRef();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (name.match(/\W/)) {
+            setErr("닉네임은 밑줄 문자를 포함한 영문, 숫자만 사용 가능합니다.")
+            return;
+        }
         if (!pwd.match(/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/)) {
             setErr("비밀번호는 숫자, 영문, 특수문자를 포함한 8자 이상 16자 이하여야 합니다.");
             return;
@@ -41,23 +55,6 @@ function Join({ api }) {
         alert("가입이 완료되었습니다.");
         history.push("/login");
     }
-
-    const handleEmail = (e) => {
-        setEmail(e.target.value);
-    }
-    const handleName = (e) => {
-        if (e.target.value.match(/\W/)) {
-            alert("밑줄 문자를 포함한 영문, 숫자만 사용 가능합니다.")
-            return;
-        }
-        setName(e.target.value);
-    }
-    const handlePwd = (e) => {
-        setPwd(e.target.value);
-    }
-    const handlePwd2 = (e) => {
-        setPwd2(e.target.value);
-    }
     useEffect(() => {
         social && setErr("소셜 계정으로부터 받아온 닉네임이 이미 사용 중이거나 조건에 맞지 않습니다.");
     }, [social])
@@ -71,20 +68,18 @@ function Join({ api }) {
             {err && <small className={styles.err}><i className="fas fa-exclamation-circle"></i> {err}</small>}
             <form onSubmit={social ? handleSocial : handleSubmit} ref={formRef} className={styles.joinForm}>
                 {!social && <label>이메일 주소
-                    <input type="email" required value={email} onChange={handleEmail} />
+                    <input name="email" type="email" required value={email} onChange={handleChange} />
                 </label>}
                 <label>닉네임 (영문/숫자/밑줄 문자(_)만 사용 가능)
-                    <input type="text" required value={name} onChange={handleName} maxLength="20" placeholder={social && `${social.name}은(는) 사용이 불가합니다.`} />
+                    <input name="name" type="text" required value={name} onChange={handleChange} maxLength="20" placeholder={social && `${social.name}은(는) 사용이 불가합니다.`} />
                 </label>
                 {!social && <>
                     <label>비밀번호 (숫자, 영문, 특수문자 포함 8자 이상 16자 이하)
-                        <input type="password" required value={pwd} minLength="8"
-                            maxLength="16"
-                            onChange={handlePwd} />
+                        <input name="pwd" type="password" required value={pwd} minLength="8" maxLength="16" onChange={handleChange} />
                     </label>
                     <label>비밀번호 확인
-                        <input type="password"
-                            required value={pwd2} onChange={handlePwd2} />
+                        <input name="pwd2" type="password"
+                            required value={pwd2} onChange={handleChange} />
                     </label>
                 </>}
                 <input className={styles.joinBtn} type="submit" value={social ? "Done" : "Join"} />
