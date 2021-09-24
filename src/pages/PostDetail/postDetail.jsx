@@ -7,6 +7,7 @@ import * as common from '../../common/common';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Comments from '../../components/Comments/comments';
+import defaultImage from '../../assets/images/default.PNG';
 
 const PostDetail = memo(({ api, user, isLoggedIn }) => {
     const [postInfo, setPostInfo] = useState(null);
@@ -54,7 +55,7 @@ const PostDetail = memo(({ api, user, isLoggedIn }) => {
                         <h2>{postInfo.title}</h2>
                         <div className={styles.metaAndBtns}>
                             <div className={styles.meta}>
-                                <Link to={`/@${user?.name}`}><img src={user?.avatar} alt="avatar" />{user?.name}</Link>
+                                <Link to={`/@${user?.name}`}><img src={user?.avatar || defaultImage} alt="avatar" />{user?.name}</Link>
                                 <span>{` · ${common.getFormattedDate(postInfo.createdAt)}`}</span>
                             </div>
                             {user?._id === isLoggedIn?._id &&
