@@ -1,22 +1,16 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
+import useInputs from '../../../hooks/useInputs';
 import styles from "../settings.module.css";
 
 function SetPassword({ api, user, onFetchUser }) {
-    const [inputs, setInputs] = useState({
+    const [{ pwd, newPwd, newPwd2 }, onChange, reset] = useInputs({
         pwd: '',
         newPwd: '',
         newPwd2: '',
     })
-    const { pwd, newPwd, newPwd2 } = inputs;
     const [pwdErr, setPwdErr] = useState(null);
-
     const history = useHistory();
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setInputs({ ...inputs, [name]: value });
-    }
-
     const submitPwd = async (e) => {
         e.preventDefault();
         setPwdErr(null);
@@ -29,6 +23,7 @@ function SetPassword({ api, user, onFetchUser }) {
             setPwdErr(data.message);
             return;
         }
+        reset();
         alert("변경이 완료되었습니다.");
         onFetchUser();
     }
@@ -53,19 +48,19 @@ function SetPassword({ api, user, onFetchUser }) {
             {user.socialOnly ? (
                 <small>소셜 로그인 회원은 비밀번호가 없습니다.</small>
             ) : (
-                <form className={styles.editPwd} onSubmit={submitPwd}>
+                <form className={styles.editPwd} onChange={onChange} onSubmit={submitPwd}>
                     <h2>비밀번호</h2>
                     {pwdErr && <small>
                         <i className="fas fa-exclamation-circle"></i> {pwdErr}</small>}
                     <button className={styles.editBtn} >변경</button>
                     <label>현재 비밀번호
-                        <input name="pwd" type="password" value={pwd} minLength="6" onChange={handleChange} required />
+                        <input name="pwd" type="password" value={pwd} minLength="6" required />
                     </label>
                     <label>새 비밀번호 (6자 이상)
-                        <input name="newPwd" type="password" value={newPwd} minLength="6" onChange={handleChange} required />
+                        <input name="newPwd" type="password" value={newPwd} minLength="6" required />
                     </label>
                     <label>새 비밀번호 확인
-                        <input name="newPwd2" type="password" value={newPwd2} onChange={handleChange} required />
+                        <input name="newPwd2" type="password" value={newPwd2} required />
                     </label>
                 </form>
             )}

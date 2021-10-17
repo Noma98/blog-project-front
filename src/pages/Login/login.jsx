@@ -1,20 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './signInUp.module.css';
 import { Link, useHistory } from 'react-router-dom';
 import withAuth from '../../hoc/withAuth';
 import Google from '../../components/Google/google';
 import Naver from '../../components/Naver/naver';
 import kakaoImage from '../../assets/images/kakao.png';
+import useInputs from '../../hooks/useInputs';
 
 function Login({ api, onfetchLoginData }) {
-    const [inputs, setInputs] = useState({
+    const [{ email, pwd }, onChange] = useInputs({
         email: '',
         pwd: '',
     })
-    const { email, pwd } = inputs;
     const [err, setErr] = useState(null);
     const history = useHistory();
-    const formRef = useRef();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,10 +26,6 @@ function Login({ api, onfetchLoginData }) {
         await onfetchLoginData();
         history.push(`/@${response.payload.name}`);
     }
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setInputs({ ...inputs, [name]: value });
-    }
     useEffect(() => {
         localStorage.removeItem("user");
     }, [])
@@ -40,12 +35,12 @@ function Login({ api, onfetchLoginData }) {
             <small>아직 계정이 없으십니까? <Link to="/join" className={styles.join}>가입하러 가기</Link></small>
             <br />
             {err && <small className={styles.err}><i className="fas fa-exclamation-circle"></i> {err}</small>}
-            <form onSubmit={handleSubmit} ref={formRef} className={styles.loginForm}>
+            <form onSubmit={handleSubmit} onChange={onChange} className={styles.loginForm}>
                 <label>이메일 주소
-                    <input name="email" type="email" required value={email} onChange={handleChange} />
+                    <input name="email" type="email" required value={email} />
                 </label>
                 <label>비밀번호 (6자 이상)
-                    <input name="pwd" type="password" required value={pwd} minLength="6" onChange={handleChange} />
+                    <input name="pwd" type="password" required value={pwd} minLength="6" />
                 </label>
                 <input className={styles.loginBtn} type="submit" value="Login" />
             </form>
